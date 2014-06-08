@@ -2,7 +2,10 @@
 
 <html lang="cn">
 <head>
-    <%include ../layout/bootstrap.ejs%>
+    <link rel="stylesheet" href="/assets/css/global-header-bundle-min-1313690595.css">
+    <link rel="stylesheet" href="/assets/css/global-header-responsive-bundle-min-733236120.css">
+    <link rel="stylesheet" href="/assets/css/core-responsive.css">
+    <link rel="stylesheet" href="/assets/css/userlogin-min-2366612448.css">
 </head>
 
 <body data-spy="scroll" data-target=".bs-docs-sidebar" data-twttr-rendered="true">
@@ -16,22 +19,66 @@
     <% } %>
 </div>
 
+<div id="content" class="site-content-wrap">
+    <div class="site-content cols-row cf" role="main">
+        <header id="page-header" class="cols-row-header cf page-header no-group">
 
-<center>
-    <h1>User Login With Existing Account:</h1>
-    <form action="/login" method="post">
-        <div>
-            email: <input type="text" name="username"/>
+
+            <h1 class="section-header-main ">		Sign in or select an option</h1>
+        </header>
+        <div class="box  col" id="content-box">
+
+            <article class="two-col-section cols-nested">
+
+                <div class="col">
+                    <button type="button" class="btn-sub-action btn-secondary remove-margin recommended-button" id="signin-facebook-button"><span class="btn-label">Sign in with Facebook</span></button>
+                    <label class="recommended">Not Available Yet</label>
+                    <ul class="secondary note nobullet">
+                        <li><span class="icon icon-auth" aria-hidden="true"></span><span class="alt">privacy</span>We keep it private</li>
+                        <li><span class="icon icon-shield" aria-hidden="true"></span><span class="alt">protection</span>Share only with permission</li>
+                        <li><span class="icon icon-timealt" aria-hidden="true"></span><span class="alt">time</span>Quick sign in- no passwords</li>
+                    </ul>
+                </div>
+                <div class=""col>
+                    <div id="signUpReporter"></div>
+                        <center>
+                          <h1>Or, Sign in with your email:</h1>
+                          <form action="/login" method="post">
+                              </fieldset>
+
+                              <fieldset>
+                                  <label class=" text input-box" id="create-email-id">
+                                      <span class="label">Email Address</span>
+                                      <input type="text" placeholder="" value='' name="username" id="username" />
+                                  </label>
+
+                                  <label class="text input-box" id="login-form-password-label2">
+                                      <span class="label">Password</span>
+                                      <input type="password" placeholder="" value="" name="password" id="password" />
+                                  </label>
+
+                              <ul class="nobullet secondary">
+                                  <p class="secondary">
+                                      <a class="link" href="/">
+                                          Forgot your password?
+                                      </a>
+                                  </p>
+                              </ul>
+                              <label class="check"><input type="checkbox" name="signin-loggedin" id="signin-loggedin"  /><span class="inline-label">Keep me signed in</span></label>
+
+                              <fieldset class="remove-margin">
+                                  <button type="submit" class="btn-action btn-primary" id="submitButton"><span class="btn-label">Sign In</span></button>
+                              </fieldset>
+
+
+                          </form>
+                        </center>
+                </div>
+                </article>
 
         </div>
-        <div>
-            password: <input type="password" name="password"/>
-        </div>
-        <div>
-            <input type="submit" value="Login"/>
-        </div>
-    </form>
-<P>Welcome to ChengDu Travel
-</center>
+    </div>
+    </div>
+
 </body>
 </html>

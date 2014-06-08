@@ -2,31 +2,90 @@
 
 <html lang="cn">
 <head>
-    <%include ../layout/bootstrap.ejs%>
+    <!--%include ../layout/bootstrap.ejs%-->
+    <link rel="stylesheet" href="/assets/css/global-header-bundle-min-1313690595.css">
+    <link rel="stylesheet" href="/assets/css/global-header-responsive-bundle-min-733236120.css">
+    <link rel="stylesheet" href="/assets/css/core-responsive.css">
+    <link rel="stylesheet" href="/assets/css/userlogin-min-2366612448.css">
+
 </head>
 
 <body data-spy="scroll" data-target=".bs-docs-sidebar" data-twttr-rendered="true">
-<div id="signUpReporter"></div>
-<center>
-    <h1>Create an account with your Email:</h1>
-        <div>
-            FirstName: <input type="text" id="firstName" class="span2"/>  LastName: <input type="text" id="lastName" class="span2"/>
-        </div>
-        <div>
-            Email Address: <input type="text" id="email" class="span3"/>
-        </div>
-        <div>
-            Password: <input type="password" id="password" class="span3"/>
-        </div>
-        <div>
-            Confirm Password: <input type="password" id="passwordConf" class="span3"/>
-        </div>
-        <div>
-            <input id="customerSignup" type="button" value="CreateAccount"/>
-        </div>
-    <P>Welcome to www.cd5757.com
-</center>
+<div id="content" class="site-content-wrap">
+    <div class="site-content cols-row cf" role="main">
+        <header id="page-header" class="cols-row-header cf page-header no-group">
 
+
+            <h1 class="section-header-main ">					Create an Account</h1>
+        </header>
+        <div class="box  col" id="content-box">
+
+<article class="two-col-section cols-nested">
+
+ <div class="col">
+     <button type="button" class="btn-sub-action btn-secondary remove-margin recommended-button" id="e3createaccont-facebook-button"><span class="btn-label">Sign Up with Facebook</span></button>
+     <label class="recommended">Not Available Yet</label>
+     <ul class="secondary note nobullet">
+         <li><span class="icon icon-auth" aria-hidden="true"></span><span class="alt">privacy</span>We keep it private</li>
+         <li><span class="icon icon-shield" aria-hidden="true"></span><span class="alt">protection</span>Share only with permission</li>
+         <li><span class="icon icon-timealt" aria-hidden="true"></span><span class="alt">time</span>Quick sign in- no passwords</li>
+     </ul>
+ </div>
+ <div class=""col>
+    <div id="signUpReporter"></div>
+    <center>
+    <h1>Create an account with your Email:</h1>
+    <form id="create-account-form"  name="create-account-form">
+      <fieldset>
+        <div class="cols-nested two-col-section">
+            <div class="col">
+                <label class="text input-box" id="create_account_first_name">
+                     <span class="label">First Name</span>
+                     <input type="text" id="firstName" name="create-account-firstname" />
+                </label>
+            </div>
+            <div class="col">
+                <label class="text input-box" id="create_account_last_name">
+                    <span class="label">Last Name</span>
+                    <input type="text" id="lastName" name="create-account-lastname" />
+                </label>
+            </div>
+        </div>
+
+        <label class="text input-box" id="create-email-id">
+            <span class="label">Email Address</span>
+            <input type="text" placeholder="" value='' name="create-account-emailId" id="email"  />
+        </label>
+        <label class="text input-box" id="create-password" data-error="Password must be at least 6 characters">
+            <span class="label">Password</span>
+            <input type="password" placeholder="" value="" name="create-account-password" id="password"  />
+        </label>
+        <label class="text input-box" id="confirm-password">
+            <span class="label">Confirm Password</span>
+            <input type="password" placeholder="" value="" name="create-account-confirm-password" id="passwordConf"  />
+        </label>
+
+
+        <fieldset class="remove-margin">
+              <ul class="nobullet">
+
+                  <p class="validation-msg error initiallyhidden remove-margin" id="term-and-conditions-id"><span class="icon icon-warn"></span>Please check that you agree to the Terms of Use and Privacy Policy.</p>
+                  <li>
+                      <label class="check remove-margin" id="create-account-policy-label"><input type="checkbox" name="create-account-policy" id="create-account-policy"  /><span class="inline-label">I have read and agree to the <a href='../p/info-other/legal.html' target='_blank'> Terms of Use</a> and the <a target='_blank' href='../daily/service/privacy.html' ref='NOFOLLOW'>Privacy Policy</a>.</span></label>
+                  </li>
+              </ul>
+
+        </fieldset>
+
+        <input id="customerSignup" class="ui-button-primary"  type="button" style="background-color: yellowgreen" value="Create Account"/>
+
+      </fieldset>
+    </form>
+    <P>Welcome to ChengDu Travel
+  </center>
+  </div>
+    </article>
+    </div>
 
 
 <script src="/assets/js/jquery-1.9.1.min.js"></script>
@@ -47,10 +106,9 @@
       * @returns {boolean}
       */
      function validateSignupForm() {
-         var reporter = new MessageReporter("validationReporter");
 
-         $('#firstName').css({border:"none"});
-         $('#lastName').css({border:"none"});
+         $('#firstName').css({border:"1px solid black"});
+         $('#lastName').css({border:"1px solid black"});
          $('#email').css({border:"none"});
          $('#password').css({border:"none"});
          $('#passwordConf').css({border:"none"});
@@ -70,7 +128,7 @@
              return false;
          }
          var email = $('#email').val();
-         if(validateEmail(email)) {
+         if(!validateEmail(email)) {
              $('#email').css({border:"2px solid red"});
              reporter.errorStatus("Email is required.");
              reporter.render();
@@ -96,6 +154,7 @@
      }
 
      $('#customerSignup').click(function(){
+         console.log("clicked!");
          reporter.clear();
 
          if(!validateSignupForm()) {
@@ -114,8 +173,9 @@
 
          $.post("/services/customer/accounts/new", {newAccountInfo : newAccountInfo}, function(data){
                if(data=="done") {
-                    console.log("successfully created a new account");
-                    //reporter.successStatus()
+                   console.log("successfully created a new account");
+                   reporter.successStatus("successfully created a new account");
+                   reporter.render();
                } else {
                    reporter.errorStatus(data);
                    reporter.render();
