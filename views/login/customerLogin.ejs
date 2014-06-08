@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="cn">
+<head>
+    <%include ../layout/bootstrap.ejs%>
+</head>
+
+<body data-spy="scroll" data-target=".bs-docs-sidebar" data-twttr-rendered="true">
+
+<div align="center" >
+    <% if (error) { %>
+    <div> <style="text-align:'center';color:'red';font-family:'arial';font-size:'small';font-style:'italic'"/><%= error %> </div>
+    <% } %>
+    <% if(success) {%>
+    <div> <style="text-align:'center';color:'green';font-family:'arial';font-size:'small';font-style:'italic'"/><%= success %></div>
+    <% } %>
+</div>
+
+
+<center>
+    <h1>User Login With Existing Account:</h1>
+    <form action="/login" method="post">
+        <div>
+            email: <input type="text" name="username"/>
+
+        </div>
+        <div>
+            password: <input type="password" name="password"/>
+        </div>
+        <div>
+            <input type="submit" value="Login"/>
+        </div>
+    </form>
+<P>Welcome to ChengDu Travel
+</center>
+</body>
+</html>

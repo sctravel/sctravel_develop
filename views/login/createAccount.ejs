@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html lang="cn">
+<head>
+    <%include ../layout/bootstrap.ejs%>
+</head>
+
+<body data-spy="scroll" data-target=".bs-docs-sidebar" data-twttr-rendered="true">
+<div id="signUpReporter"></div>
+<center>
+    <h1>Create an account with your Email:</h1>
+        <div>
+            FirstName: <input type="text" id="firstName" class="span2"/>  LastName: <input type="text" id="lastName" class="span2"/>
+        </div>
+        <div>
+            Email Address: <input type="text" id="email" class="span3"/>
+        </div>
+        <div>
+            Password: <input type="password" id="password" class="span3"/>
+        </div>
+        <div>
+            Confirm Password: <input type="password" id="passwordConf" class="span3"/>
+        </div>
+        <div>
+            <input id="customerSignup" type="button" value="CreateAccount"/>
+        </div>
+    <P>Welcome to www.cd5757.com
+</center>
+
+
+
+<script src="/assets/js/jquery-1.9.1.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/holder.js"></script>
+<script src="/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script src="/assets/js/docs.js"></script>
+<script src="/utils/messageReporter.js"></script>
+<script src="/utils/validation.js"></script>
+
+
+<script>
+     var reporter = new MessageReporter("signUpReporter");
+
+     /***
+      * Customize the validation process and warning style for the buyTicket form
+      * @xitu
+      * @returns {boolean}
+      */
+     function validateSignupForm() {
+         var reporter = new MessageReporter("validationReporter");
+
+         $('#firstName').css({border:"none"});
+         $('#lastName').css({border:"none"});
+         $('#email').css({border:"none"});
+         $('#password').css({border:"none"});
+         $('#passwordConf').css({border:"none"});
+
+         var firstName = $('#firstName').val();
+         if(isblank(firstName)) {
+             $('#firstName').css({border:"2px solid red"});
+             reporter.errorStatus("First name is required.");
+             reporter.render();
+             return false;
+         }
+         var lastName = $('#lastName').val();
+         if(isblank(lastName )) {
+             $('#lastName').css({border:"2px solid red"});
+             reporter.errorStatus("Last name is required.");
+             reporter.render();
+             return false;
+         }
+         var email = $('#email').val();
+         if(validateEmail(email)) {
+             $('#email').css({border:"2px solid red"});
+             reporter.errorStatus("Email is required.");
+             reporter.render();
+             return false;
+         }
+         var password = $('#password').val();
+         if(!password || password.length<8) {
+             $('#password_').css({border:"2px solid red"});
+             reporter.errorStatus("Password has minimum length of 8.");
+             reporter.render();
+             return false;
+         }
+         var passwordConf = $('#passwordConf').val();
+         if(!passwordConf || passwordConf!=password) {
+             $('#passwordConf').css({border:"2px solid red"});
+             reporter.errorStatus("Password doesn't match with password confirmation.");
+             reporter.render();
+             return false;
+         }
+
+
+         return true;
+     }
+
+     $('#customerSignup').click(function(){
+         reporter.clear();
+
+         if(!validateSignupForm()) {
+             return;
+         }
+
+         var newAccountInfo={};
+         newAccountInfo.firstName = $('#firstName').val();
+         newAccountInfo.lastName = $('#lastName').val();
+         newAccountInfo.email = $('#email').val();
+         newAccountInfo.username=$('#email').val();
+         newAccountInfo.password = $('#password').val();
+         newAccountInfo.passwordConf = $('#passwordConf').val();
+
+
+
+         $.post("/services/customer/accounts/new", {newAccountInfo : newAccountInfo}, function(data){
+               if(data=="done") {
+                    console.log("successfully created a new account");
+                    //reporter.successStatus()
+               } else {
+                   reporter.errorStatus(data);
+                   reporter.render();
+               }
+         })
+
+
+     })
+</script>
+</body>
+</html>

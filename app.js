@@ -10,6 +10,8 @@ var dateFormat = require('dateformat');
 
 
 var constants = require('./lib/common/constants');
+var userLogin = require('./lib/login/userLogin');
+var confirmPicGenerator = require('./lib/utilities/confirmPicGenerator');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
@@ -72,16 +74,105 @@ if ('development' == app.get('env')) {
 };
 
 
-//Home page
-app.get('/', function (req,res){
-    res.render('login/userLogin');
+
+
+app.get('/services/getConfirmPic',function(req,res){
+    var conf = confirmPicGenerator.generateConfirmPic();
+    req.session.confirmText = conf[0];
+    console.log("text is "+conf[0]);
+    res.end(conf[1]);
+})
+
+//********************************************************************
+// * CustomerLogin methods
+//********************************************************************/
+passport.use('local', new LocalStrategy(
+    function (username, password, done) {
+
+        userLogin.manualLogin(username,password, function(error,results){
+            console.dir(results);
+            if(error) {
+                return done(null, false, { message: 'Internal Error.' });
+            }
+            if(results.isAuthenticated == true ) {
+                console.dir(results);
+                return done(null, {customerId : results.customerId, randomKey: results.randomKey,
+                                       firstName: results.firstName, lastName: results.lastName} );
+            } else {
+                return done(null, false, { message: results.errorMessage });
+            }
+        });
+    }
+));
+
+passport.serializeUser(function (user, done) {//保存user对象
+    done(null, {username:user.username, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});//可以通过数据库方式操作
 });
 
+passport.deserializeUser(function (user, done) {//删除user对象
+    done(null, {username:user.username, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName} );//可以通过数据库方式操作
+});
+
+//Home page
+app.get('/', function (req,res){
+    res.render('index');
+});
+app.get('/login', function (req,res){
+    res.render('login/customerLogin',{error: req.flash('error'), success: req.flash('success'), message:req.flash('message') });
+});
+
+app.get('/signup', function (req,res){
+    res.render('login/createAccount');
+});
+
+//User Login Functionalities
+
+app.post('/services/customer/accounts/new', function(req,res) {
+    var newAccountInfo = req.body.newAccountInfo;
+
+    userLogin.addNewCustomerAccount(newAccountInfo, function(err,results){
+        if(err) {
+            console.error(err);
+            res.send(err);
+        } else {
+            console.info(results);
+            res.send(results);
+        }
+    });
+
+});
+
+//app.all('/users', isLoggedIn);
+app.get('/logout', isLoggedIn, function (req, res) {
+    console.log(req.user.customerId + " logged out.");
+    userLogin.logoutCustomerLoginHistory(req.user.customerId,req.user.randomKey, function(err, results){
+        console.info("");//write logout history success
+    })
+    req.flash('success','登出成功!');
+    req.logout();
+    res.redirect("/");
+});
+
+app.post('/login',
+    passport.authenticate('local',
+        { successRedirect: '/',
+            failureRedirect: '/login',
+            failureFlash: true })
+);
 
 
 http.createServer(app).listen(app.get('port'), function(){
                               console.log('Express server listening on port ' + app.get('port'));
                               });
 
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        console.dir(req.user);
+        return next();
+    }
+
+    res.redirect("/adminLogin");
+}
 
 
