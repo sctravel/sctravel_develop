@@ -9,8 +9,7 @@ var path = require('path');
 var dateFormat = require('dateformat');
 
 
-var tableNames = require('./node_modules/tableNames');
-var constants = require('./node_modules/constants')
+var constants = require('./lib/common/constants');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
@@ -75,7 +74,7 @@ if ('development' == app.get('env')) {
 
 //Home page
 app.get('/', function (req,res){
-    res.redirect('sctravel/index.html');
+    res.render('login/userLogin');
 });
 
 
