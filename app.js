@@ -117,12 +117,21 @@ passport.deserializeUser(function (user, done) {//删除user对象
 app.get('/', function (req,res){
     res.render('index');
 });
+app.get('/test', function (req,res){
+    res.render('test');
+});
 app.get('/login', function (req,res){
     res.render('login/customerLogin',{error: req.flash('error'), success: req.flash('success'), message:req.flash('message') });
 });
 
 app.get('/signup', function (req,res){
     res.render('login/createAccount');
+});
+app.get('/results', function (req,res){
+    res.render('searchPages/packageResults.ejs');
+});
+app.get('/hotel-search', function (req,res){
+    res.render('searchPages/vacationPackagesSearchPage');
 });
 
 //User Login Functionalities
