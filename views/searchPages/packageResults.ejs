@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="/assets/css/packageSearch/advanced_search_result.css">
     <link rel="stylesheet" href="/assets/css/packageSearch/2.css">
     <link rel="stylesheet" href="/assets/css/packageSearch/homepage-2012-1123-min.css">
+    <link type="text/css" rel="stylesheet" href="/assets/css/simplePagination.css"/>
+
+
     <!--link rel="stylesheet" type="text/css" href="extjs-3.0.0-src/resources/css/ext-all.css" />
     <script type="text/javascript" src="/extjs-4.0.0-src/bootstrap.js"></script>
     <script type="text/javascript" src="/extjs-3.0.0-src/adapter/ext/ext-base.js"></script>
@@ -246,6 +249,8 @@
 </div>
 <div id="themeContainer"></div>
 <div id="matrixContainer"></div>
+
+<div id="page"></div>
 <div class="chosen" id="search-panel">
 
 <section id="resultsContainer" class="segmented-list" >
@@ -297,8 +302,12 @@
             ></div>
 </aside>
 </div>
-</div>
+    <div id="botPage"></div>
 
+</div>
+</section>
+
+</div>
 </form>
 </div>
 <script>
@@ -400,21 +409,22 @@
 <script src="/assets/js/holder.js"></script>
 <script src="/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script src="/assets/js/docs.js"></script>
-<script>t
+<script type="text/javascript" src="/assets/js/jquery.simplePagination.js"></script>
+<script>
      var defaultHtml='<div class="proListCon">' +
             '<h2><a href="/" target="_self">{product_name}</a></h2>' +
             '<div class="left">' +
             '  <div class="pic">' +
             '    <div class="gift" style="padding-top:1px;">' +
             '</div> </div>' +
-            '<img src="/product/packages/{product_id}/images/searchImg.jpg" width=350px height=140px border="0" alt="aa" title=" aaa" /></div> &nbsp;'+
+            '<img src="/product/packages/{product_id}/images/searchImg.jpg" width=300px height=150px border="0" alt="aa" title=" aaa" /></div> &nbsp;'+
             '<ul class="mid">'+
             '<li><h4> &nbsp;&nbsp;游玩: </h4> <p><b>&nbsp;SLC235-2993&nbsp;</b></p></li>'+
             '<li><h4> &nbsp;&nbsp;注意事项: </h4><p>&nbsp;盐湖城&nbsp;</p> </li>'+
-            '<li><h4> &nbsp;&nbsp;行程特色: </h4><p>&nbsp;${description}&nbsp;</p></li>'+
+            '<li><h4> &nbsp;&nbsp;行程特色: </h4><p>&nbsp;af盐湖城盐湖城盐湖城盐湖城盐湖城af&nbsp;</p></li>'+
             '<li><h4> &nbsp;&nbsp;价格: </h4> <p><b>&nbsp;${list_price}&nbsp;</b></p> </li>'+
             '<li><a href="/" class="btn btnOrange btnAddCar" target="_self" >预订行程</a></li>'+
-            '</ul></div></br></br>';
+            '</ul><div class="right">afsfs</div></div></br></br>';
 
      //Generate test data
      var searchResults=[];
@@ -439,12 +449,56 @@
      package3.list_price=300;
      package3.our_price=250;
      searchResults.push(package3);
+     searchResults.push(package3);
+     searchResults.push(package3);
+     searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);
+     searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);
+     searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);
 
      $(function(){
-         for(var i=0;i<searchResults.length;++i) {
-             var html=defaultHtml.replace("{product_id}",searchResults[i].product_id).replace("{product_name}",searchResults[i].product_name)
-                     .replace("{list_price}",searchResults[i].list_price).replace("{description}",searchResults[i].description);
-             $('#search-panel').append(html);
+         $('#page').pagination({  //首先获取对应的ID，第二步已经定义了ID为page
+             items: searchResults.length,  //这里是项目的总数，假使有100个项目
+             itemsOnPage: 4,  //这里是每页显示多少个项目
+             onInit: changePage,
+             currentPage: 0,
+             onPageClick: function(){
+                 var page_index = $("#page").pagination('getCurrentPage') -1;
+                 $('#search-panel').empty();
+                 for(var i=page_index*4;i<(page_index+1)*4;++i) {
+                     var html=defaultHtml.replace("{product_id}",searchResults[i].product_id).replace("{product_name}",searchResults[i].product_name)
+                             .replace("{list_price}",searchResults[i].list_price);//.replace("{description}",searchResults[i].description);
+                     $('#search-panel').append(html);
+                 }
+                 $("#botPage").pagination('drawPage',$("#page").pagination('getCurrentPage'));
+             },
+             cssStyle: 'light-theme'  //这里就是css风格了，可设置light-theme,dark-theme,compact-theme,效果依次按文章开头的大图中展现
+         });
+         $('#botPage').pagination({  //首先获取对应的ID，第二步已经定义了ID为page
+             items: searchResults.length,  //这里是项目的总数，假使有100个项目
+             itemsOnPage: 4,  //这里是每页显示多少个项目
+             onInit: changePage,
+             currentPage: 0,
+             onPageClick: function(){
+                 var page_index = $("#page").pagination('getCurrentPage') -1;
+                 $('#search-panel').empty();
+                 for(var i=page_index*4;i<(page_index+1)*4;++i) {
+                     var html=defaultHtml.replace("{product_id}",searchResults[i].product_id).replace("{product_name}",searchResults[i].product_name)
+                             .replace("{list_price}",searchResults[i].list_price);//.replace("{description}",searchResults[i].description);
+                     $('#search-panel').append(html);
+                 }
+                 $("#page").pagination('drawPage',$("#botPage").pagination('getCurrentPage'));
+
+             },
+             cssStyle: 'light-theme'  //这里就是css风格了，可设置light-theme,dark-theme,compact-theme,效果依次按文章开头的大图中展现
+         });
+         function changePage() {
+             $('#search-panel').empty();
+
+             for(var i=0;i<4;++i) {
+                 var html=defaultHtml.replace("{product_id}",searchResults[i].product_id).replace("{product_name}",searchResults[i].product_name)
+                         .replace("{list_price}",searchResults[i].list_price);//.replace("{description}",searchResults[i].description);
+                $('#search-panel').append(html);
+            }
          }
      });
 
