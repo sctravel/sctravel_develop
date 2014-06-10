@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html lang="cn">
+<head>
+    <!--%include ../layout/bootstrap.ejs%-->
+    <link rel="stylesheet" href="/assets/css/global-header-bundle-min-1313690595.css">
+    <link rel="stylesheet" href="/assets/css/global-header-responsive-bundle-min-733236120.css">
+    <link rel="stylesheet" href="/assets/css/core-responsive.css">
+    <link rel="stylesheet" href="/assets/css/userlogin-min-2366612448.css">
+    <link rel="stylesheet" href="/assets/css/hotelSearch-min.css">
+    <link rel="stylesheet" href="/assets/css/templates-sortbarResponsive.js">
+    <link rel="stylesheet" href="/assets/css/views-sortbarResponsive.js">
+
+</head>
+
+<body data-spy="scroll" data-target=".bs-docs-sidebar" data-twttr-rendered="true">
+<!-- Navigation bar-->
+
+<form id="searchForm" action="/Package-Search" method="POST">
+    <div id="historyTabs" class="box hidden">
+        <div class="cols-row">
+            <div id="historyTabContainer"></div>
+        </div>
+    </div>
+    <div id="wizard"><!-- style="display:none" -->
+        <div class="subHeader box">
+            <nav id="wizardContainer" role="form" class="cols-row">
+            </nav>
+        </div>
+    </div>
+
+    <div id="mainContent" class="site-content-wrap" >
+        <div class="site-content cols-row cf" role="region">
+            <div id="errorContainer"></div>
+            <div id="airAttachContainer"></div>
+            <div id="pageTitleContainer"></div>
+            <div id="disambigContainer"></div>
+            <div id="filterOrientation">
+                <span id="orientationHotelNameContainer" class="filterOrientationContainer"></span>
+                <ul id="orientationDealsContainer" class="filterOrientationContainer"></ul>
+                <ul id="orientationRatingContainer" class="filterOrientationContainer"></ul>
+                <ul id="orientationPoiContainer" class="filterOrientationContainer"></ul>
+                <ul id="orientationNeighborhoodContainer" class="filterOrientationContainer"></ul>
+                <ul id="orientationAmenitiesContainer" class="filterOrientationContainer"></ul>
+                <ul id="orientationPriceContainer" class="filterOrientationContainer"></ul>
+                <ul id="orientationLodgingContainer" class="filterOrientationContainer"></ul>
+                <ul id="orientationAccessibilityContainer" class="filterOrientationContainer"></ul>
+            </div>
+
+            <aside id="acol" class="col hsrFilters" role="complementary">
+                <fieldset id="multiCurrencyContainer" style="display:none">
+                </fieldset>
+
+                <!-- A-Column Content Here... -->
+                <div id="googleMapContainer"></div>
+
+                <h3 class="filterHeader">Search by keywords</h3>
+                <div class="showFilterDisclaimer">
+                    <div class="uitk-tooltip theme-click show-arrow on fade mid right acoldis" id="myTooltipID">
+                        <div class="tooltip-inner"><p class="last">Find what you want faster, filter by price or neighborhood.
+                                <BR><a href='javascript:void(0);' class='gotIt' data-track-exit="HOT:SR:FilterPopUp">Got it.</a></p></div>
+                        <span class="tooltip-arrow"></span>
+                    </div>
+                </div>
+                <fieldset id="hotelNameContainer"></fieldset>
+
+                <h3 class="filterHeader">Filter hotels by</h3>
+                <fieldset id="dealFilterContainer" class="filterContainer rangeFilter"></fieldset>
+                <fieldset id="ratingContainer" class="filterContainer rangeFilter"></fieldset>
+                <fieldset id="priceFilterContainer" class="filterContainer rangeFilter"></fieldset>
+                <fieldset id="poiFilterContainer" class="filterContainer rangeFilter"></fieldset>
+                <fieldset id="neighborhoodContainer" class="filterContainer"></fieldset>
+                <fieldset id="lodgingTypecontainer" class="filterContainer"></fieldset>
+                <fieldset id="amenitiesContainer" class="filterContainer"></fieldset>
+                <fieldset id="accessibilitiesContainer" class="filterContainer"></fieldset>
+                <div id="familyHotelsContainer"></div>
+            </aside>
+
+        </div>
+     </div>
+</body>
+</html>
