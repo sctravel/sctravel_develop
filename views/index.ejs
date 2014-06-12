@@ -1,11 +1,672 @@
 <!DOCTYPE html>
 
-<html lang="cn">
+<html id="conditionizr" lang="cn"  style="">
 <head>
+    <style type="text/css">
 
+
+
+        * {
+            box-sizing: border-box;
+        }
+        *::-moz-selection {
+            background: none repeat scroll 0 0 #D4D4D4;
+            text-shadow: none;
+        }
+
+        .site-header-primary {
+            border-color: #FFCB00;
+            border-top: 0.294118em solid #FFCB00;
+            box-shadow: 0 0.0588235em #EBC326 inset;
+            padding-top: 0.764706em;
+            position: relative;
+        }
+        .site-header {
+            background: none repeat scroll 0 0 #FFFFFF;
+            height: auto;
+        }
+
+
+
+        .site-header .cols-row {
+            padding: 0 1.41176em;
+        }
+
+
+
+
+
+        .site-header-primary .logo {
+            display: block;
+            float: left;
+            margin: 0.176471em 0 0.294118em;
+            overflow: hidden;
+            padding: 0;
+
+        }
+        .site-header a {
+            display: block;
+            padding: 0.461538em 0.615385em;
+            text-decoration: none;
+        }
+        a:link, .link, a:visited {
+            color: #0065B8;
+            text-decoration: none;
+        }
+        a {
+            color: #0000EE;
+        }
+
+        .site-header-primary #header-logo.logo.us-pos {
+            height: 1.94118em;
+            width: 9.11765em;
+        }
+
+        .site-header-primary .site-navigation {
+            float: right;
+            font-size: 0.764706em;
+        }
+
+        .cf:before, .cf:after {
+            content: "";
+            display: table;
+        }
+        .cf:after {
+            clear: both;
+        }
+        .cf:before, .cf:after {
+            content: "";
+            display: table;
+        }
+        .site-header-primary .site-navigation .shop-nav {
+            float: right;
+        }
+        .site-header-primary .site-navigation .nav-group {
+            display: inline-block;
+        }
+        .site-header ul {
+            margin: 0;
+            padding: 0;
+        }
+        .cf {
+        }
+
+        ul, ol {
+            margin: 1.41176em 0 0;
+        }
+        ul {
+            list-style-type: disc;
+        }
+        ul, ol {
+            margin: 1.41176em 0;
+            padding: 0 0 0 1.41176em;
+        }
+
+        .site-header li {
+            float: left;
+            list-style-type: none;
+            padding-bottom: 0;
+            position: relative;
+        }
+        ul li, ol li {
+            padding: 0 0 0.705882em;
+        }
+
+        .site-header a {
+            display: block;
+            padding: 0.461538em 0.615385em;
+            text-decoration: none;
+        }
+        a:link, .link, a:visited {
+            color: #0065B8;
+            text-decoration: none;
+        }
+        .nav-tab {
+            border-radius: 0.133333em;
+        }
+        a {
+            color: #0000EE;
+        }
+
+        .site-header-secondary ul {
+            white-space: nowrap;
+            width: auto;
+        }
+        .site-header-secondary ul {
+            font-size: 0.882353em;
+            width: 68.2667em;
+        }
+
+        .site-header-secondary .selected-tab a {
+            background: none repeat scroll 0 0 #0065B8;
+            color: #FFFFFF;
+        }
+        .site-header-secondary a {
+            padding: 0.411765em 0.529412em;
+        }
+
+
+        .cols-row:after {
+            clear: both;
+        }
+        .cols-row:before, .cols-row:after {
+            content: "";
+            display: table;
+        }
+
+        body .cols-row {
+            margin: 0 auto;
+            max-width: 69.1765em;
+            padding-right: 1.41176em;
+            width: 100%;
+        }
+        .cols-row {
+            padding-right: 1.41176em;
+            position: relative;
+        }
+
+
+
+        ul li, ol li {
+            padding: 0 0 0.705882em;
+        }
+
+
+        .hero-banner-wrap {
+            background-color: #1F1F1F;
+            position: relative;
+        }
+        article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, datalist, meter {
+            display: block;
+        }
+
+
+
+        .hero-banner-wrap .hero-banner:before {
+            background-image: url("../images/hero-banner-secondary-vertical-gradient.png");
+            background-repeat: repeat-x;
+            background-size: 100% auto;
+            bottom: 0;
+            content: "";
+            display: block;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 100%;
+        }
+
+        .hero-banner-wrap .hero-banner, .hero-banner-wrap .hero-banner:before {
+            transition: padding 0.25s cubic-bezier(0.23, 1, 0.32, 1) 0s, background 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+        }
+
+        #home-page section.hero-banner-wrap .hero-banner {
+            padding-top: 0;
+        }
+
+        #WIZARD.hero-banner-wrap .hero-banner {
+            background-color: #6592B8;
+            position: relative;
+        }
+
+        .hero-banner-wrap .hero-banner {
+            padding-top: 6%;
+        }
+
+        .hero-banner-wrap .hero-banner {
+            background-position: 50% 0;
+            background-repeat: no-repeat;
+            background-size: 100% auto;
+            margin: 0 auto;
+            padding-top: 15%;
+            position: relative;
+            width: 100%;
+        }
+        .theme-inverse-pills .tabs a.on, .no-touch .theme-inverse-pills .tabs a.on:hover, .theme-inverse-pills .tabs a.on:active, .theme-inverse-pills .tabs a.on:focus, .theme-inverse-pills .tabs a.on.vtest-focus {
+            background: none repeat scroll 0 0 #0065B8;
+        }
+        .theme-inverse-pills .tabs a.on {
+            background: none repeat scroll 0 0 #0065B8;
+            color: #FFFFFF;
+        }
+        .theme-inverse-pills .tabs a {
+            padding-left: 0.941176em;
+            padding-right: 0.941176em;
+        }
+        .theme-inverse-pills .tabs a {
+            color: #FFFFFF;
+        }
+        .theme-inverse-pills .link, .theme-inverse-pills a {
+            color: #57B3FF;
+        }
+        .tabs a {
+            border-radius: 0.266667em;
+            display: block;
+            font-size: 0.882353em;
+            font-weight: bold;
+            padding: 0.4em;
+        }
+        a:link, .link, a:visited {
+            color: #0065B8;
+            text-decoration: none;
+        }
+
+
+
+
+
+        .hero-banner-wrap .hero-banner, .hero-banner-wrap .hero-banner:before {
+            transition: padding 0.25s cubic-bezier(0.23, 1, 0.32, 1) 0s, background 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+        }
+
+        fieldset.pkg-tab-radio-btns label span {
+            font-size: 13px;
+        }
+        fieldset.pkg-tab-radio-btns label {
+            margin-bottom: -6px;
+            padding-left: 36px;
+        }
+        fieldset.pkg-tab-radio-btns label:last-child {
+            margin-bottom: 0px;
+        }
+
+        #home-page section.hero-banner-wrap .hero-banner .hero-banner-gradient {
+            background: none repeat scroll 0 center rgba(0, 0, 0, 0);
+        }
+
+
+        body {
+            color: #6B6B6B;
+        }
+        html {
+            font-size: 106.25%;
+            line-height: 1.45;
+        }
+        html, button, input, select, textarea {
+            color: #1F1F1F;
+        }
+        html {
+            font-family: "Helvetica Neue",Arial,"Lucida Grande",sans-serif;
+            font-size: 106.25%;
+        }
+
+
+    </style>
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
 </head>
 
-<body data-spy="scroll" data-target=".bs-docs-sidebar" data-twttr-rendered="true">
-<h1>Welcome to www.cd5757.com</h1>
+<body id="home-page" class="wrap cf l-singlecol">
+    <div role="banner">
+        <div class="site-header site-header-primary us-pos" role="navigation">
+            <div class="cols-row">
+
+                <a id="header-logo" class="logo us-pos" href="http://www.expedia.com/ " target="_top" data-tid="header-logo">成都旅游网</a>
+
+                <div id="globalSiteNavigation" class="site-navigation cf">
+
+                    <ul class="shop-nav nav-group cf">
+                        <li id="utility-menu">
+                                <a id="header-account-menu" class="nav-tab" href="#utility-menu">Login</a>
+                        </li>
+
+                        <li id="utility-menu">
+                            <a id="header-account-menu" class="nav-tab" href="#utility-menu">Logout</a>
+                        </li>
+
+                    </ul>
+
+
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div class="site-header site-header-secondary" role="navigation">
+            <div class="cols-row">
+                        <ul class="utility-nav nav-group cf">
+
+                            <li id="all-in-home-header-link" class="selected-tab ">
+                                <a id="primary-header-home" href="//127.0.0.1:3000/" target="_top"> Home </a>
+                            </li>
+
+                            <li id="all-in-package-header-link">
+                                <a  href="Vacation-Packages.html" target="_top" id="primary-header-package"> Vacation Packages </a>
+                            </li>
+
+                            <li id="all-in-hotel-header-link">
+                                <a href="#" target="_top" id="primary-header-hotel"> Hotels </a>
+                            </li>
+
+                            <li id="all-in-flight-header-link">
+                                <a href="Flights.html" target="_top" id="primary-header-flight"> Flights </a>
+                            </li>
+
+                            <li id="all-in-tickets-header-link">
+                                <a href="Tickets.html" target="_top" id="primary-header-tickets"> Tickets</a>
+                            </li>
+
+                            <li id="all-in-flight-header-link">
+                                <a href="Souvenir.html" target="_top" id="primary-header-souvenir"> Souvenir </a>
+                            </li>
+
+
+
+                        </ul>
+            </div>
+        </div>
+        <link rel="stylesheet" href="/assets/css/hero-tab.css">
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+        <script>
+            $(function() {
+                $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+                $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+
+                $("#oneway").click(function(){
+                    $("#flight-returning-label").css("visibility","hidden");
+
+                });
+
+                $("#roundtrip").click(function(){
+                    $("#flight-returning-label").css("visibility","visible");
+
+                $("#datepickerCheckin").datepicker();
+
+                $( "#datepickerCheckout").datepicker();
+
+                });
+            });
+        </script>
+        <style>
+            .ui-tabs-vertical { width: 55em; }
+            .ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
+            .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
+            .ui-tabs-vertical .ui-tabs-nav li a { display:block; }
+            .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
+            .ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: right; width: 40em;}
+            .forms .tab-pane .flight-type-select, .forms .tab-pane .radio-set {
+                margin-bottom: 0;
+                margin-left: 0;
+            }
+            fieldset {
+                margin-bottom: 1.41176em;
+            }
+            fieldset {
+                border: 0 none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .forms .tab-pane .flight-type-select .check, .forms .tab-pane .radio-set .check {
+                margin-right: 1.41176em;
+            }
+            .col {
+                float: left;
+                padding-left: 1.41176em;
+                position: relative;
+            }
+            .check {
+                display: inline-block;
+                width: auto;
+            }
+            label {
+                color: #3D3D3D;
+                display: block;
+                margin-top: 0.705882em;
+                position: relative;
+            }
+            label {
+                cursor: pointer;
+            }
+
+            .theme-inverse-pills .forms .tab-pane .label, .theme-inverse-pills .forms .tab-pane .inline-label, .theme-inverse-pills .forms .tab-pane .package-car-message {
+                color: #C7C7C7;
+            }
+            .forms .tab-pane .label, .forms .tab-pane .inline-label {
+                font-weight: bold;
+            }
+            legend, .label, .inline-label, .field-description {
+                color: #6B6B6B;
+                display: block;
+                font-size: 0.764706em;
+                font-weight: bold;
+                line-height: 1.4;
+                margin-bottom: 0.461538em;
+            }
+            label span {
+                display: block;
+            }
+            .forms .tab-pane .flight-type-select, .forms .tab-pane .radio-set {
+                margin-bottom: 0;
+                margin-left: 0;
+            }
+
+
+        </style>
+
+
+
+        <section id="WIZARD" class="hero-banner-wrap background ab4292">
+            <div class="hero-banner background">
+                <div class="hero-banner-gradient">
+                    <div  id="new-homepage-search-wizard" class="search-wrapper">
+                        <div  id="tabs" class="cols-row search theme-inverse-pills">
+                            <ul >
+                                <li >
+                                    <a class="on" href="#fight-tab">Flights</a>
+                                </li>
+
+                                <li>
+                                    <a  id="tab-hotel-tab"  href="#hotel-tab" >
+
+                                        <span class="tab-label">Hotels</span>
+                                    </a>
+                                </li>
+
+                                <li >
+                                    <a  href="#package-tab" >
+
+                                        <span class="tab-label">
+                                            <span class="desktop-only">Package Deals</span>
+
+                                        </span>
+                                    </a>
+
+                                </li>
+
+                            </ul>
+
+                         <div class="col forms">
+                                  <div id="fight-tab">
+                                      <section data-tid="wizard-flights" id="tab-flight" class="tab-pane on">
+                                          <div class="" id="flight-tab">
+                                              <div id="flight">
+                                                  <fieldset class="flight-type-select">
+
+                                                      <label class="col check">
+                                                          <input id="roundtrip" type="radio" value="roundtrip" name="flight-type" checked="checked">
+                                                          <span class="inline-label">Roundtrip</span>
+                                                      </label>
+
+                                                      <label class="col check">
+                                                          <input type="radio"  id="oneway" value="oneway" name="flight-type">
+                                                          <span class="inline-label">One way</span>
+                                                      </label>
+
+                                                  </fieldset>
+                                                  <fieldset role="application" class="cols-nested origin-destination typeahead-container">
+                                                      <label data-tid="flight-origin-label" id="flight-origin-label" class="text icon-before col ">
+                                                          <span class="label">Flying from</span>
+                                                          <input type="text" aria-expanded="false" spellcheck="false" autocomplete="off" aria-autocomplete="list" data-autoselect="touch" data-wizard-type="origin" data-template="/static/default/default/handlebars/typeahead/default.htm.handlebars" data-version="v1" data-mask="95" data-selectioncallback="typeaheadFlightOriginCallback" data-forceicon="flights" data-ta-key="flight_origin" data-lob="FLIGHTS" data-provide="typeahead" data-js-theme="typeahead" value="" placeholder="City or airport" data-tid="flight-origin" id="flight-origin"> <span class="icon icon-location">
+
+                                                          </span>
+                                                      </label>
+                                                      <label data-tid="flight-destination-label" id="flight-destination-label" class="text icon-before col ">
+                                                          <span class="label">Flying to</span>
+                                                          <input type="text" aria-expanded="false" spellcheck="false" autocomplete="off" aria-autocomplete="list" data-autoselect="touch" data-wizard-type="destination" data-template="/static/default/default/handlebars/typeahead/default.htm.handlebars" data-version="v1" data-mask="95" data-selectioncallback="typeaheadFlightDestinationCallback" data-forceicon="flights" data-ta-key="flight_dest" data-lob="FLIGHTS" data-provide="typeahead" data-js-theme="typeahead" value="" placeholder="City or airport" data-tid="flight-destination" id="flight-destination">
+                                                          <span class="icon icon-location"></span>
+                                                      </label>
+                                                  </fieldset>
+                                                  <fieldset class="cols-nested flight-date-fieldset total-children-0">
+                                                      <label data-tid="flight-departing-label" id="flight-departing-label" class="text calendar icon-before col ">
+                                                          <span class="label">Departing</span>
+                                                          <input type="text" data-wizard-type="departing" value="" data-control="calendar" data-end-date="#flight-returning" data-min-booking-length="0" data-last-valid-date="05/04/2015" data-max-booking-length="330" placeholder="mm/dd/yyyy" data-tid="flight-departing" id="flight-departing">
+                                                          <span class="icon icon-calendar"></span>
+                                                      </label>
+                                                      <label id="flight-returning-label" class="text calendar icon-before col ">
+                                                          <span class="label">Returning</span>
+                                                          <input type="text" data-wizard-type="returning" value="" data-control="calendar" data-start-date="#flight-departing" placeholder="mm/dd/yyyy" data-tid="flight-returning" id="flight-returning">
+                                                          <span class="icon icon-calendar"></span>
+                                                      </label>
+                                                  </fieldset>
+                                                  <div class="progressive-display flight-passenger-container ab3292-fix shown">
+
+                                                      <fieldset class="cols-nested">
+                                                          <div data-wizard-type="passengers" data-wizard-owner="flight" id="flight-passengers">
+                                                              <label data-tid="flight-adults-label" id="flight-adults-label" class="select col icon icon-toggle180">
+                                                                  <span class="label">Adults (18+)</span>
+                                                                  <select data-select-value="-1" data-wizard-type="#rooms.0.adults" data-wizard-owner="flight" class="number-of-travellers" data-tid="flight-adults" id="flight-adults" name="select">
+                                                                      <option selected="selected" value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option> <option value="5">5</option> <option value="6">6</option>
+                                                                  </select>
+                                                              </label>
+                                                              <label data-tid="flight-children-label" id="flight-children-label" class="select col icon icon-toggle180">
+                                                                  <span class="label">Children (0-17)</span>
+                                                                  <select data-select-value="0" data-redraw="true" data-wizard-type="#rooms.0.#children.count" data-wizard-owner="flight" data-children-fieldset="flight" class="children-select number-of-travellers" data-tid="flight-children" id="flight-children" name="select"> <option value="0">0</option> <option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option> <option value="5">5</option> <option value="6">6</option>
+                                                                  </select>
+                                                              </label>
+                                                          </div>
+                                                      </fieldset>
+
+                                                  </div>
+                                              </div>
+
+                                              <fieldset class="cols"><label class="col search-btn-col"><button data-tid="search-button" id="search-button" class="btn-action btn-primary" type="submit"><span class="btn-label">Search</span></button></label></fieldset>
+
+                                          </div>
+                                      </section>
+
+
+
+
+
+
+                                   </div>
+                                  <div id="hotel-tab">
+                                      <div  class="col forms">
+
+                                          <div  class="progressive wz-r1 wz-r1a-1 wz-r1c0">
+                                              <section data-tid="wizard-hotels" id="tab-hotel" class="tab-pane on">
+                                                  <div class="" id="hotel">
+                                                      <div id="hotel" class="total-rooms-1">
+                                                          <fieldset class="cols-nested destination-only">
+                                                              <label  id="hotel-destination-label" class="text icon-before col">
+                                                                  <span class="label">Going to</span>
+                                                                  <input type="text" aria-expanded="false" spellcheck="false" autocomplete="off" aria-autocomplete="list"   value=""  id="hotel-destination">
+                                                                  <span class="icon icon-location"></span>
+                                                              </label>
+                                                          </fieldset>
+                                                          <fieldset class="cols-nested">
+                                                              <label  id="hotel-checkin-label" class="text calendar icon-before col">
+                                                                  <span  class="label">Check in</span>
+                                                                  <input id="datepickerCheckin"  type="text" class="check-in-out">
+                                                                  <span class="icon icon-calendar"></span>
+                                                              </label>
+                                                              <label id="hotel-checkout-label" class="text calendar icon-before col">
+                                                                  <span class="label">Check out</span>
+                                                                  <input id="datepickerCheckout" type="text" class="check-in-out">
+                                                                  <span class="icon icon-calendar"></span>
+                                                              </label>
+                                                              <label id="hotel-rooms-label" class="select col icon icon-toggle180">
+                                                                  <span class="label">Rooms</span>
+                                                                  <select id="hotel-rooms" name="select"> <option selected="selected" value="1">1</option> <option value="2">2</option> <option value="3">3</option>  <option value="4">4</option> <option value="5">5</option> <option value="6">6</option> <option value="7">7</option> <option value="8">8</option> <option value="9">9+</option>
+                                                                  </select>
+                                                              </label>
+                                                          </fieldset>
+
+                                                          <div class="progressive-display shown">
+                                                              <div  id="hotel-rooms" class="rooms-container total-rooms-1 total-room-1-children-0">
+                                                                  <div  id="hotel-1" class="cols-row hotel-room room-count-1 total-children-0">
+
+                                                                      <fieldset class="cols-nested col occupants-select">
+                                                                          <label id="hotel-1-adults-label" class="select col icon icon-toggle180">
+                                                                              <span class="label">Adults (18+)</span>
+                                                                              <select class="number-of-travellers"  id="hotel-1-adults" name="select"> <option value="1">1</option> <option selected="selected" value="2">2</option> <option value="3">3</option> <option value="4">4</option> <option value="5">5</option> <option value="6">6</option>  <option value="7">7</option> <option value="8">8</option> <option value="9">9</option> <option value="10">10</option> <option value="11">11</option> <option value="12">12</option> <option value="13">13</option> <option value="14">14</option>
+                                                                              </select>
+                                                                          </label>
+                                                                          <label did="hotel-1-children-label" class="select col icon icon-toggle180">
+                                                                              <span class="label">Children (0-17)</span>
+                                                                              <select  id="hotel-1-children" class="children-select number-of-travellers" name="select"> <option value="0">0</option> <option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option> <option value="5">5</option> <option value="6">6</option>
+                                                                              </select>
+                                                                          </label>
+                                                                      </fieldset>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+
+                                                  </div>
+                                              </section>
+                                          </div>
+                                          <fieldset class="cols">
+                                              <label class="col search-btn-col">
+                                                  <button id="search-button" class="btn-action btn-primary" type="submit">
+                                                      <span class="btn-label">Search</span>
+                                                  </button>
+                                              </label>
+                                           </fieldset>
+                                      </div>
+                                  </div>
+                                  <div id="package-tab">
+                                      <section data-tid="wizard-flights" id="tab-flight" class="tab-pane on">
+                                          <div class="" id="package-tab">
+                                              <div id="package">
+
+                                                      <fieldset class="cols-nested destination-only">
+                                                          <label  id="hotel-destination-label" class="text icon-before col">
+                                                              <span class="label">Search By Keywords</span>
+                                                              <input type="text"   value=""  id="search-keywords" style="width: 500px">
+                                                              <span class="icon icon-location"></span>
+                                                          </label>
+                                                      </fieldset>
+                                                  <fieldset class="cols"><label class="col search-btn-col"><button data-tid="search-button" id="search-button" class="btn-action btn-primary" type="submit"><span class="btn-label">Search</span></button></label></fieldset>
+
+
+
+
+
+                                              </div>
+                                          </div>
+                                      </section>
+
+
+
+
+
+                                  </div>
+                         </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+
+        </section>
+
+    </div>
+
+
 </body>
 </html>
