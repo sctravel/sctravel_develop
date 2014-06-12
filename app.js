@@ -130,6 +130,11 @@ app.get('/signup', function (req,res){
 app.get('/results', function (req,res){
     res.render('searchPages/packageResults.ejs');
 });
+
+app.get('/checkout', function (req,res){
+    res.render('checkoutPages/checkoutResults.ejs');
+});
+
 app.get('/hotel-search', function (req,res){
     res.render('searchPages/vacationPackagesSearchPage');
 });
