@@ -352,10 +352,10 @@
 <script>
     var defaultHtml =
     '<div class="hotelWrapper" style="width:150%">'+
-            '<article class="segment hotel avgPerNight memberFencingEligible" id="hotel2">'+
+            '<article class="segment hotel avgPerNight memberFencingEligible" >'+
             '<a class="target edsHotel" target="1103256" href="/" data-track="HOT:SR:HotelModule">'+
-            '<div class="thumbnailContainer" style="width:250px; height: 150px;" >'+
-            '<div class="thumbnail" data-image="/product/packages/5/images/searchImg.jpg"   style="width:250px; height: 150px;background-image: url(/product/packages/1/images/searchImg.jpg);background-size:300px 150px;background-repeat:no-repeat;">'+
+            '<div class="thumbnailContainer" style="width:300px; height: 150px;" >'+
+            '<div class="thumbnail"    style="width:300px; height: 150px;background-image: url(/product/packages/{product_id}/images/searchImg.jpg);background-size:300px 150px;background-repeat:no-repeat;">'+ <!--data-image="/product/packages/{product_id}/images/searchImg.jpg"-->
             '<div class="media-loader">'+
             '<span class="loader loader-dark loader-static" title="Loading...">'+
             '</span>'+
@@ -366,25 +366,23 @@
             '<li class="priceColContainer">'+
             '<ul class="priceCol">'+
             '<li class="couponText">'+
-            '<span class="rewardsAvailable">Rewards discount available</span>'+
-    '<span class="rewardsDoublePoints">Rewards double points</span>'+
     '</li>'+
-    '<li class="superlative">Very good!</li>'+
+    '<li class="superlative">{good_status}</li>'+
     '<li class="urgencyWrapper"></li>'+
-    '<li class="price"><span class="dynamic strikePrice" data-control="tooltip" data-trigger="hover" data-content-id="dynamicTooltip" data-arrow="true" data-fade="out" data-width="240">$174</span>   <span class="actualPrice fakeLink">$64</span> </li>'+
-    '<li class="avgPerNight priceType">avg/night</li>'+
+    '<li class="price"><span class="dynamic strikePrice" data-control="tooltip" data-trigger="hover" data-content-id="dynamicTooltip" data-arrow="true" data-fade="out" data-width="240">${list_price}</span>   <span class="actualPrice fakeLink">${our_price}</span> </li>'+
+    '<li class="avgPerNight priceType">avg/person</li>'+
     '<li class="astrix"></li>'+
     '</ul>'+
     '</li>'+
     '<li class="drrWrapper"></li>'+
-    '<li class="hotelName fakeLink"><span class="hotelName"><strong>Knights Inn Carmel Hill</strong></span></li>'+
+    '<li class="hotelName fakeLink"><span class="hotelName"><strong>{product_name}</strong></span></li>'+
     '<li class="wpHotelType taapUsergroup"> • <span class="wpText">ESR</span> </li>'+
-    '<li class="starRating"><strong><strong class="star-rating rating-secondary rating"><span class="visuallyhidden">2.0 out of 5 stars</span><span class="icon icon-stars2-0 stars-yellow value-title" title="2.0" aria-hidden="true"></span></strong> </strong></li>'+
-    '<li class="starRatingText"><strong>2.0 stars</strong></li> '+
+    '<li class="starRating"><strong><strong class="star-rating rating-secondary rating"><span class="visuallyhidden">{stars} out of 5 stars</span><span class="icon icon-stars2-0 stars-yellow value-title" title="2.0" aria-hidden="true"></span></strong> </strong></li>'+
+    '<li class="starRatingText"><strong>{stars} stars</strong></li> '+
     '<li class="neighborhood"> <span class="city">Monterey</span> <span class="area">(Monterey)</span>'+
     '<div data-content-id="view-map_1103256" class="toggle-trigger togglemap" data-track="HOT:SR:MapInListing" data-control="toggle" data-expand-text="<span class=&quot;icon icon-location iconmapblue&quot;></span> Map" data-collapse-text="<span class=&quot;icon icon-location iconmapblue&quot;></span> Map">'+
             '<span class="icon icon-location iconmapblue"></span></div></li>'+
-    '<li class="guestRatingText"> <strong>4.0 out of 5</strong>'+
+    '<li class="guestRatingText"> <strong>{rating} out of 5</strong>'+
     '<span class="reviewCount fakeLink">(1298 reviews)</span> </li>'+
     '<li class="phoneEsr"> <span class="phone">1-866-272-4856</span>'+
     '<span class="esr">CD5757 Rate</span>'+
@@ -441,7 +439,19 @@
      searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);
      */
 
+    function replaceHtml(searchResult){
+        return defaultHtml.replace("{product_id}",searchResult.parent_product_id)
+                .replace("{product_name}",searchResult.parent_product_name)
+                .replace("{product_name}",searchResult.parent_product_name)
+                .replace("{list_price}",searchResult.max_price)
+                .replace("{our_price}",searchResult.min_price)
+                .replace("{description}",searchResult.description)
+                .replace("{rating}",searchResult.rating)
+                .replace("{stars}",searchResult.product_class)
+                .replace("{good_status}","Very Good!")
+                ;
 
+    }
 
      function displayNoResults(){
          $('#resultsContainer').empty();
@@ -458,7 +468,7 @@
          //$('#page').empty();
          $('#botPage').empty();
 
-         var itemsOnPage = 10;
+         var itemsOnPage = 3;
          var resultConainer = $('#resultsContainer');
 
          /*$('#page').pagination({  //首先获取对应的ID，第二步已经定义了ID为page
@@ -488,9 +498,7 @@
                  var page_index = $("#botPage").pagination('getCurrentPage') -1;
                  resultConainer.empty();
                  for(var i=page_index*itemsOnPage;i<(page_index+1)*itemsOnPage;++i) {
-                     var html=defaultHtml.replace("{product_id}",searchResults[i].parent_product_id).replace("{product_name}",searchResults[i].parent_product_name)
-                             .replace("{min_price}",searchResults[i].list_price).replace("{description}",searchResults[i].description);
-                     resultConainer.append(html);
+                     resultConainer.append(replaceHtml(searchResults[i]));
                  }
                  //$("#page").pagination('drawPage',$("#botPage").pagination('getCurrentPage'));
 
@@ -500,13 +508,11 @@
          function initPage() {
              resultConainer.empty();
              for(var i=0;i<itemsOnPage && i< searchResults.length;++i) {
-                 var html=defaultHtml.replace("{product_id}",searchResults[i].parent_product_id).replace("{product_name}",searchResults[i].parent_product_name)
-                         .replace("{product_name}",searchResults[i].parent_product_name)
-                         .replace("{min_price}",searchResults[i].list_price).replace("{description}",searchResults[i].description);
-                 resultConainer.append(html);
+                 resultConainer.append(replaceHtml(searchResults[i]));
              }
          }
      }
+
 
      function searchPackagesByKeywords(){
          var keywords=$('#search-package-keywords').val();

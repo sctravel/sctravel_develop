@@ -128,7 +128,7 @@ app.get('/login', function (req,res){
 app.get('/signup', function (req,res){
     res.render('login/createAccount');
 });
-app.get('/results', function (req,res){
+app.get('/package-search-results', function (req,res){
     var keywords;
 
     if(req.body.keywords) {

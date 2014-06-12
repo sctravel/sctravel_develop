@@ -634,7 +634,7 @@
                                                               <span class="icon icon-location"></span>
                                                           </label>
                                                       </fieldset>
-                                                  <fieldset class="cols"><label class="col search-btn-col"><button data-tid="search-button" id="search-button" class="btn-action btn-primary" type="submit"><span class="btn-label">Search</span></button></label></fieldset>
+                                                  <fieldset class="cols"><label class="col search-btn-col"><button data-tid="search-button" id="package-search-button" class="btn-action btn-primary" type="submit"><span class="btn-label">Search</span></button></label></fieldset>
 
 
 
@@ -667,6 +667,15 @@
 
     </div>
 
+<script>
+
+    $('#package-search-button').click(function() {
+        var keywords=$('#search-keywords').val();
+        console.log("Searching for packages with keywords-"+keywords);
+        window.location.href="/package-search-results?keywords="+keywords;
+
+    });
+</script>
 
 </body>
 </html>
