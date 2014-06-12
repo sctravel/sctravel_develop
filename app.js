@@ -11,6 +11,7 @@ var dateFormat = require('dateformat');
 
 var constants = require('./lib/common/constants');
 var userLogin = require('./lib/login/userLogin');
+var clientQueryDB = require('./lib/dbOperation/clientQueryDB');
 var confirmPicGenerator = require('./lib/utilities/confirmPicGenerator');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -128,11 +129,34 @@ app.get('/signup', function (req,res){
     res.render('login/createAccount');
 });
 app.get('/results', function (req,res){
-    res.render('searchPages/packageResults.ejs');
+    var keywords;
+
+    if(req.body.keywords) {
+        keywords = req.body.keywords
+    } else if(req.session.searchPackageKeywords) {
+        keywords= req.session.searchPackageKeywords;
+    } else {
+        keywords="chengdu";
+    }
+
+    res.render('searchPages/packageResults.ejs',{keywords: keywords+""});
 });
-app.get('/hotel-search', function (req,res){
+app.get('/package-search', function (req,res){
     res.render('searchPages/vacationPackagesSearchPage');
 });
+app.post('/package-search',function(req,res){
+    var keywords = req.body.keywords;
+    req.session.searchPackageKeywords = keywords;
+    clientQueryDB.searchVacationPackagesByKeyWords(keywords,function(err,results){
+        if(err) {
+            res.send("error");
+            return;
+        }
+        console.log("!!!!!!!!!!!!!!!!");
+        res.send(results);
+        //res.render('searchPages/vacationPackagesSearchPage',{keywords: keywords,packageSearchResults:results});
+    })
+})
 
 //User Login Functionalities
 

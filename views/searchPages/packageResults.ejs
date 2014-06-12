@@ -149,19 +149,6 @@
 <!-- Navigation bar-->
 
 
-<div id="pageInterstitial">
-    <div class="logo">
-        <div class="imgLogoLarge" style="background-image: url(/static/ui_toolkit/v2-0/images/exp-logo.svg)"></div>
-        <img src="/static/ui_toolkit/v2-0/images/exp-logo.png" class="imgLogoLarge fallback" />
-        <hr />
-    </div>
-    <div class="msg">
-        Hurry! Prices and inventory are limited
-    </div>
-    <div class="imgLoading">
-        <span class="loader loader-light loader-animated loading pageInterstitialLoader" title="Loading..."></span>        </div>
-    <img src="/static/default/default/images/hotResult/interstitial/run.jpg" class="imgPriming" />
-</div>
 <div id="modalInterstitial" style="display:none">
     <div class="updating">Updating your results</div>
         <span class="modalInterstitialWrapper">
@@ -173,7 +160,7 @@
 
 <div role="banner">
 
-<form id="searchForm" action="/Hotel-Search" method="POST">
+<form id="searchForm">
 <div id="historyTabs" class="box hidden">
     <div class="cols-row">
         <div id="historyTabContainer"></div>
@@ -183,16 +170,33 @@
 
 <div id="wizard">
     <div class="subHeader box">
-        <nav id="wizardContainer" role="form" class="cols-row">
-        </nav>
+
+        <label id="search-package" style="padding-left:3%; padding-right: 3%;">
+            <span>Search Packages by Keywords</span>
+            <input type="text" placeholder="" value="<%= keywords %>" name="keywords" id="search-package-keywords" class="span3" />
+
+            <input type="button" class="btn-sub-action btn-secondary btn-label span3" id="search-package-button" value="Search Vacation Packages" tabindex="4">
+            </input>
+        </label>
+
+        <!--nav id="wizardContainer" role="form" class="cols-row"><div> <div id="wizardSummarySection" class="row"> <div id="wizardSummary"> <span id="wizardSummaryDestination"><span class="icon icon-hotels" aria-hidden="true"></span> Seattle (and vicinity), Washington, United States of America</span>  <span class="nowrap">• <span id="wizardSummaryStartDate">Wed, Jun 18</span> - <span id="wizardSummaryEndDate">Thu, Jun 19</span></span>  <span id="wizardSummaryRoomCount" class="nowrap">•  1 room </span> </div> <a id="wizardToggleSwitch" href="javascript:void(0);" data-content-id="wizardToggle" class="wizardToggleSwitch toggle-trigger open" data-control="toggle" data-expand-text="Change search<span class=&quot;icon icon-expand&quot; aria-hidden=&quot;true&quot;></span>" data-collapse-text="Cancel search<span class=&quot;icon icon-expand&quot; aria-hidden=&quot;true&quot;></span>">Cancel search<span class="icon icon-expand" aria-hidden="true"></span></a> </div> <div id="wizardToggle" class="toggle-pane fade open" aria-expanded="true" style="visibility: visible; opacity: 1;"> <div id="wizardErrorMsg" class="row errorMsgs"> <p id="wizardDatelessMsg" class="validation-msg error "> <span class="icon icon-warn"></span> Enter your travel dates below </p> <p id="wizardRequiredError" class="validation-msg error"> <span class="icon icon-warn"></span> Please complete the highlighted fields below. </p> <p id="wizardMissingChildError" class="validation-msg error"> <span class="icon icon-warn"></span> Please provide ages of the children below. </p> <p id="wizardDateFormatError" class="validation-msg error"> <span class="icon icon-warn"></span> Your dates seem to be a bit off. Please enter your travel dates like this: mm/dd/yy. </p> <p id="wizardDateSequenceError" class="validation-msg error"> <span class="icon icon-warn"></span> Please re-check your calendar and select a check-in date before your check-out date. </p> <p id="wizardDateRangeError" class="validation-msg error"> <span class="icon icon-warn"></span> Your length of stay cannot be longer than 28 nights. </p> <p id="wizardPriorDateError" class="validation-msg error"> <span class="icon icon-warn"></span> Please re-check your dates and let's try again. We can't book a day in the past. </p> </div> <fieldset class="expandedWizard"> <label class="update submitSearchWizard">  </label> <div class="date"> <label class="text icon-before"> <span class="label">Check-out</span> <input id="inpEndDate" name="endDate" class="dateText " type="text" placeholder="mm/dd/yy" value="06/19/2014" data-autoselect="all" data-control="calendar" data-start-date="#inpStartDate" data-tooltip-id="wizardEndDateCalendar" data-dateformat="#wizardDateFormatError" data-otherrequired="#wizardRequiredError,#inpStartDate" data-datesequence="#wizardDateSequenceError,#inpStartDate" data-daterange="#wizardDateRangeError,#inpStartDate" tabindex="3"> <a class="icon icon-calendar"></a> </label> </div> <div class="date"> <label class="text icon-before"> <span class="label">Check-in</span> <input id="inpStartDate" name="startDate" class="dateText " type="text" placeholder="mm/dd/yy" value="06/18/2014" data-autoselect="all" data-control="calendar" data-end-date="#inpEndDate" data-default-booking-length="1" data-min-booking-length="1" data-last-valid-date="10/22/2015" data-max-booking-length="28" data-tooltip-id="wizardStartDateCalendar" data-dateformat="#wizardDateFormatError" data-otherrequired="#wizardRequiredError,#inpEndDate" data-priortodate="#wizardPriorDateError" tabindex="2"> <a class="icon icon-calendar"></a> </label> </div> <label class="location text icon-before"> <span class="label">Hotels near</span> <input id="inpSearchNear" name="destination" class="text" type="text" placeholder="Hotels near" value="Seattle (and vicinity), Washington, United States of America" autocomplete="off" data-autoselect="all" data-provide="typeahead" data-locale="en_US" data-closetext="Close" data-rules="required" data-template="#uitk-ta-default" data-js-theme="typeahead" data-lob="HOTELS" data-tooltip-id="wizardDestinationTypeahead" data-required="#wizardRequiredError" data-mask="1631" tabindex="1"> <a class="icon icon-location"></a> </label> </fieldset> <span class="wizardTravellerSummary"> <span id="wizardTravellerSummaryRoom">1 room</span>, <span id="wizardTravellerSummaryAdults"> 2 adults </span>  </span> <a href="javascript:void(0)" data-content-id="roomsToggle" class="wizardOptionsLink toggle-trigger" data-control="toggle" data-expand-text="Show Options<span class=&quot;icon icon-expand&quot; aria-hidden=&quot;true&quot;></span>" data-collapse-text="Hide Options<span class=&quot;icon icon-expand&quot; aria-hidden=&quot;true&quot;></span>"> Show Options<span class="icon icon-expand" aria-hidden="true"></span> </a> <div id="roomsToggle" class="toggle-pane">  <fieldset class="wizardTravellerAges" data-room-index="0" data-room-number="1"> <hr> <header> <span class="roomTitle">Room 1</span> <a href="javascript:void(0);" class="wizardRemoveRoomLink hidden" data-track="HOT.SR.Wizard.RemoveRoom"> <span class="icon icon-close" aria-hidden="true"></span> Remove Room </a> </header> <div class="counts"> <label class="select icon icon-toggle180  adultCount  "> <span class="label">Adults</span> <select name="adults">  <option value="1">1</option>  <option value="2" selected="">2</option>  <option value="3">3</option>  <option value="4">4</option>  <option value="5">5</option>  <option value="6">6</option>  <option value="7">7</option>  <option value="8">8</option>  <option value="9">9</option>  <option value="10">10</option>  <option value="11">11</option>  <option value="12">12</option>  <option value="13">13</option>  <option value="14">14</option>  </select> </label> <label class="select icon icon-toggle180   childCount "> <span class="label">Children</span> <select name="">  <option value="0" selected="">0</option>  <option value="1">1</option>  <option value="2">2</option>  <option value="3">3</option>  <option value="4">4</option>  <option value="5">5</option>  <option value="6">6</option>  </select> </label> <div class="childMessage hidden"> <p class="label">Ages of children</p> <p class="message">Discounts may apply</p> </div> </div> <div class="childAges">  <label class="select icon icon-toggle180 hidden   childAge"> <span class="label">Child 1</span> <select name="children" disabled="disabled" data-required="#wizardMissingChildError">  <option value="">--</option>  <option value="1_0">&lt;1</option>  <option value="1_1">1</option>  <option value="1_2">2</option>  <option value="1_3">3</option>  <option value="1_4">4</option>  <option value="1_5">5</option>  <option value="1_6">6</option>  <option value="1_7">7</option>  <option value="1_8">8</option>  <option value="1_9">9</option>  <option value="1_10">10</option>  <option value="1_11">11</option>  <option value="1_12">12</option>  <option value="1_13">13</option>  <option value="1_14">14</option>  <option value="1_15">15</option>  <option value="1_16">16</option>  <option value="1_17">17</option>  </select> </label>  <label class="select icon icon-toggle180 hidden   childAge"> <span class="label">Child 2</span> <select name="children" disabled="disabled" data-required="#wizardMissingChildError">  <option value="">--</option>  <option value="1_0">&lt;1</option>  <option value="1_1">1</option>  <option value="1_2">2</option>  <option value="1_3">3</option>  <option value="1_4">4</option>  <option value="1_5">5</option>  <option value="1_6">6</option>  <option value="1_7">7</option>  <option value="1_8">8</option>  <option value="1_9">9</option>  <option value="1_10">10</option>  <option value="1_11">11</option>  <option value="1_12">12</option>  <option value="1_13">13</option>  <option value="1_14">14</option>  <option value="1_15">15</option>  <option value="1_16">16</option>  <option value="1_17">17</option>  </select> </label>  <label class="select icon icon-toggle180 hidden   childAge"> <span class="label">Child 3</span> <select name="children" disabled="disabled" data-required="#wizardMissingChildError">  <option value="">--</option>  <option value="1_0">&lt;1</option>  <option value="1_1">1</option>  <option value="1_2">2</option>  <option value="1_3">3</option>  <option value="1_4">4</option>  <option value="1_5">5</option>  <option value="1_6">6</option>  <option value="1_7">7</option>  <option value="1_8">8</option>  <option value="1_9">9</option>  <option value="1_10">10</option>  <option value="1_11">11</option>  <option value="1_12">12</option>  <option value="1_13">13</option>  <option value="1_14">14</option>  <option value="1_15">15</option>  <option value="1_16">16</option>  <option value="1_17">17</option>  </select> </label>  <label class="select icon icon-toggle180 hidden   childAge"> <span class="label">Child 4</span> <select name="children" disabled="disabled" data-required="#wizardMissingChildError">  <option value="">--</option>  <option value="1_0">&lt;1</option>  <option value="1_1">1</option>  <option value="1_2">2</option>  <option value="1_3">3</option>  <option value="1_4">4</option>  <option value="1_5">5</option>  <option value="1_6">6</option>  <option value="1_7">7</option>  <option value="1_8">8</option>  <option value="1_9">9</option>  <option value="1_10">10</option>  <option value="1_11">11</option>  <option value="1_12">12</option>  <option value="1_13">13</option>  <option value="1_14">14</option>  <option value="1_15">15</option>  <option value="1_16">16</option>  <option value="1_17">17</option>  </select> </label>  <label class="select icon icon-toggle180 hidden   childAge"> <span class="label">Child 5</span> <select name="children" disabled="disabled" data-required="#wizardMissingChildError">  <option value="">--</option>  <option value="1_0">&lt;1</option>  <option value="1_1">1</option>  <option value="1_2">2</option>  <option value="1_3">3</option>  <option value="1_4">4</option>  <option value="1_5">5</option>  <option value="1_6">6</option>  <option value="1_7">7</option>  <option value="1_8">8</option>  <option value="1_9">9</option>  <option value="1_10">10</option>  <option value="1_11">11</option>  <option value="1_12">12</option>  <option value="1_13">13</option>  <option value="1_14">14</option>  <option value="1_15">15</option>  <option value="1_16">16</option>  <option value="1_17">17</option>  </select> </label>  <label class="select icon icon-toggle180 hidden   childAge"> <span class="label">Child 6</span> <select name="children" disabled="disabled" data-required="#wizardMissingChildError">  <option value="">--</option>  <option value="1_0">&lt;1</option>  <option value="1_1">1</option>  <option value="1_2">2</option>  <option value="1_3">3</option>  <option value="1_4">4</option>  <option value="1_5">5</option>  <option value="1_6">6</option>  <option value="1_7">7</option>  <option value="1_8">8</option>  <option value="1_9">9</option>  <option value="1_10">10</option>  <option value="1_11">11</option>  <option value="1_12">12</option>  <option value="1_13">13</option>  <option value="1_14">14</option>  <option value="1_15">15</option>  <option value="1_16">16</option>  <option value="1_17">17</option>  </select> </label>  </div> </fieldset>  <div id="wizardAddRoom"> <hr> <a id="wizardAddRoomLink" href="javascript:void(0);" data-track="HOT.SR.Wizard.AddRoom"> <span class="icon icon-add" aria-hidden="true"></span>Add Room </a> </div> </div> </div> <div class="hidden">  <input type="hidden" name="chain" value="" class="hotelGroup"> <input type="hidden" id="regionId" name="regionId" value="178307">  </div> </div></nav-->
     </div>
 </div>
 
 <div id="mainContent" class="site-content-wrap" >
 <div id="errorContainer"></div>
 <div id="airAttachContainer"></div>
-<div id="pageTitleContainer"></div>
-<div id="disambigContainer"></div>
+    <div id="pageTitleContainer" style="padding-left:3%; padding-right: 3%;">
+        <header id="hotelResultTitle" class="cols-row-header cf page-header no-group">
+            <h1 class="section-header-main " id="hotelResultTitleHeader"> </h1>
+            <div class="section-header-content"> Book online or call 800-391-3613
+                <span class="viewMap">
+                    <a class="viewMapText mapLink" href="javascript:void(0);" data-track="HOT.SR.Module.MapOpen.Link">View map<span class="icon icon-location" aria-hidden="true"></span></a>
+                </span>
+            </div>
+        </header>
+    </div>
+    <div id="disambigContainer"></div>
 <div id="filterOrientation">
     <span id="orientationHotelNameContainer" class="filterOrientationContainer"></span>
     <ul id="orientationDealsContainer" class="filterOrientationContainer"></ul>
@@ -204,15 +208,13 @@
     <ul id="orientationLodgingContainer" class="filterOrientationContainer"></ul>
     <ul id="orientationAccessibilityContainer" class="filterOrientationContainer"></ul>
 </div>
-
-<aside id="acol" class="col hsrFilters" role="complementary">
+<aside id="acol" class="col hsrFilters" role="complementary" style="padding-left: 5%;padding-right:2%" >
     <fieldset id="multiCurrencyContainer" style="display:none">
     </fieldset>
 
     <!-- A-Column Content Here... -->
     <div id="googleMapContainer"></div>
 
-    <h3 class="filterHeader">Search by hotel name</h3>
     <div class="showFilterDisclaimer">
         <div class="uitk-tooltip theme-click show-arrow on fade mid right acoldis" id="myTooltipID">
             <div class="tooltip-inner"><p class="last">Find what you want faster, filter by price or neighborhood.
@@ -222,7 +224,7 @@
     </div>
     <fieldset id="hotelNameContainer"></fieldset>
 
-    <h3 class="filterHeader">Filter hotels by</h3>
+    <h3 class="filterHeader">Filter Vacation Packages by</h3>
     <fieldset id="dealFilterContainer" class="filterContainer rangeFilter"></fieldset>
     <fieldset id="ratingContainer" class="filterContainer rangeFilter"></fieldset>
     <fieldset id="priceFilterContainer" class="filterContainer rangeFilter"></fieldset>
@@ -234,176 +236,113 @@
     <div id="familyHotelsContainer"></div>
 </aside>
 
-<section id="bcol" class="col" role="main">
+<section id="bcol" class="col" role="main" style="padding-left: 2%;padding-right:10%">
 <div class="bColumn">
-<div id="cityContainer"></div><div id="sortContainer"></div>
-<nav id="horizontalFilterContainer" class="toggle-pane fade cf" aria-expanded="false">
-</nav>
-<div id="compressionContainer" ></div>
-<div class="showFilterDisclaimerSmall">
-    <div class="uitk-tooltip theme-click show-arrow on fade bottom left bcoldis" id="myTooltipID2">
-        <div class="tooltip-inner"><p class="last">Find what you want faster, filter by price or neighborhood.
-                <BR><a href='javascript:void(0);' class='gotIt' data-track-exit="HOT:SR:FilterPopUp">Got it.</a></p></div>
-        <span class="tooltip-arrow"></span>
+    <div id="cityContainer"></div>
+    <div id="sortContainer"></div>
+    <nav id="horizontalFilterContainer" class="toggle-pane fade cf" aria-expanded="false">
+    </nav>
+    <div id="compressionContainer" ></div>
+    <div class="showFilterDisclaimerSmall">
+        <div class="uitk-tooltip theme-click show-arrow on fade bottom left bcoldis" id="myTooltipID2">
+            <div class="tooltip-inner"><p class="last">Find what you want faster, filter by price or neighborhood.
+                <BR><a href='javascript:void(0);' class='gotIt' data-track-exit="HOT:SR:FilterPopUp">Got it.</a></p>
+            </div>
+            <span class="tooltip-arrow"></span>
+        </div>
     </div>
-</div>
 <div id="themeContainer"></div>
 <div id="matrixContainer"></div>
-
-<div id="page"></div>
-<div class="chosen" id="search-panel">
-
-<section id="resultsContainer" class="segmented-list" >
-   <div class="site-content cols-row cf" role="region">
-
-
-
-<div class="chosen" id="_s_search_form_panel">
-    <form action="?" method="post" name="_s_search_form" id="_s_search_form">
-        <p>共<b id="_s_search_form_num">198</b>个行程：</p>
-    </form>
-    <div id="SortToolBar" class="option _s_search_option_other">
-        <select mod='st' onchange="jQuery_Change_Sort(this)" class="_s_search_ajax">
-            <option value="http://www.usitrip.com/advanced_search_result.php?&vc=0&w=%BB%C6%CA%AF">---默认排序---</option>
-            <option value='http://www.usitrip.com/advanced_search_result.php?&vc=0&st=d_a&w=%BB%C6%CA%AF' val='d_a' >按持续时间升序</option><option value='http://www.usitrip.com/advanced_search_result.php?&vc=0&st=d_d&w=%BB%C6%CA%AF' val='d_d' >按持续时间降序</option><option value='http://www.usitrip.com/advanced_search_result.php?&vc=0&st=p_a&w=%BB%C6%CA%AF' val='p_a' >按价格升序</option><option value='http://www.usitrip.com/advanced_search_result.php?&vc=0&st=p_d&w=%BB%C6%CA%AF' val='p_d' >按价格降序</option><option value='http://www.usitrip.com/advanced_search_result.php?&vc=0&st=o_a&w=%BB%C6%CA%AF' val='o_a' >按热销升序</option><option value='http://www.usitrip.com/advanced_search_result.php?&vc=0&st=o_d&w=%BB%C6%CA%AF' val='o_d' >按热销降序</option>            </select>
-        <div class="orderby ">
-            <a href="http://www.usitrip.com/advanced_search_result.php?&vc=0&st=d_a&w=%BB%C6%CA%AF" val="d_a" mod="st" class="_s_search_ajax">持续时间</a>
-        </div>
-        <div class="orderby ">
-            <a href="http://www.usitrip.com/advanced_search_result.php?&vc=0&st=p_a&w=%BB%C6%CA%AF" val="p_a" mod="st" class="_s_search_ajax">价格</a>
+    <div class="chosen" id="_s_search_form_panel">
+        <div id="SortToolBar" class="option _s_search_option_other">
+            <select mod='st' onchange="jQuery_Change_Sort(this)" class="_s_search_ajax">
+                <option value="http://www.usitrip.com/advanced_search_result.php?&vc=0&w=%BB%C6%CA%AF">---默认排序---</option>
+                <option value='http://www.usitrip.com/advanced_search_result.php?&vc=0&st=d_a&w=%BB%C6%CA%AF' val='d_a' >按持续时间升序</option><option value='http://www.usitrip.com/advanced_search_result.php?&vc=0&st=d_d&w=%BB%C6%CA%AF' val='d_d' >按持续时间降序</option><option value='http://www.usitrip.com/advanced_search_result.php?&vc=0&st=p_a&w=%BB%C6%CA%AF' val='p_a' >按价格升序</option><option value='http://www.usitrip.com/advanced_search_result.php?&vc=0&st=p_d&w=%BB%C6%CA%AF' val='p_d' >按价格降序</option><option value='http://www.usitrip.com/advanced_search_result.php?&vc=0&st=o_a&w=%BB%C6%CA%AF' val='o_a' >按热销升序</option><option value='http://www.usitrip.com/advanced_search_result.php?&vc=0&st=o_d&w=%BB%C6%CA%AF' val='o_d' >按热销降序</option>            </select>
         </div>
     </div>
+    <div id="page" ></div>
 
+    <section id="resultsContainer" class="segmented-list AB5180 SS6240 SS5839">
 
-</div>
+        <!--div class="hotelWrapper" style="width:150%">
+            <article class="segment hotel avgPerNight memberFencingEligible" id="hotel2">
+                <a class="target edsHotel" target="1103256" href="/" data-track="HOT:SR:HotelModule">
+                    <div class="thumbnailContainer" style="width:250px; height: 150px;" >
+                        <div class="thumbnail" data-image="/product/packages/5/images/searchImg.jpg"   style="width:250px; height: 150px;background-image: url(/product/packages/1/images/searchImg.jpg);background-size:300px 150px;background-repeat:no-repeat;">
+                            <div class="media-loader">
+                            <span class="loader loader-dark loader-static" title="Loading...">
 
+                            </span>
+                            </div>
+                            <div class="noImg">
 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="details avgPerNight showMile">
+                        <ul class="infoCol">
+                            <li class="priceColContainer">
+                                <ul class="priceCol">
+                                    <li class="couponText">
+                                        <span class="rewardsAvailable">Rewards discount available</span>
+                                        <span class="rewardsDoublePoints">Rewards double points</span>
+                                    </li>
+                                    <li class="superlative">Very good!</li>
+                                    <li class="urgencyWrapper">
+                                    </li>
+                                    <li class="price">
+                                        <span class="dynamic strikePrice" data-control="tooltip" data-trigger="hover" data-content-id="dynamicTooltip" data-arrow="true" data-fade="out" data-width="240">$174</span>   <span class="actualPrice fakeLink">$64</span> </li>
+                                    <li class="avgPerNight priceType">avg/night</li>
+                                    <li class="astrix"></li>
+                                </ul>
+                            </li>
+                            <li class="drrWrapper">
+                            </li>
+                            <li class="hotelName fakeLink">
+                                <span class="hotelName"><strong>Knights Inn Carmel Hill</strong></span>
+                            </li>
+                            <li class="wpHotelType taapUsergroup"> • <span class="wpText">ESR</span> </li>
+                            <li class="starRating"><strong><strong class="star-rating rating-secondary rating">
+                                        <span class="visuallyhidden">2.0 out of 5 stars</span>
+                                        <span class="icon icon-stars2-0 stars-yellow value-title" title="2.0" aria-hidden="true"></span>
+                                    </strong> </strong></li>
+                            <li class="starRatingText"><strong>2.0 stars</strong></li>    <li class="neighborhood">
+                                <span class="city">Monterey</span> <span class="area">(Monterey)</span>
+                                <div data-content-id="view-map_1103256" class="toggle-trigger togglemap" data-track="HOT:SR:MapInListing" data-control="toggle" data-expand-text="<span class=&quot;icon icon-location iconmapblue&quot;></span> Map" data-collapse-text="<span class=&quot;icon icon-location iconmapblue&quot;></span> Map">
+                                    <span class="icon icon-location iconmapblue"></span></div>
+                            </li>
+                            <li class="guestRatingText"> <strong>4.0 out of 5</strong>
+                                <span class="reviewCount fakeLink">(1298 reviews)</span> </li>
 
+                            <li class="phoneEsr"> <span class="phone">1-866-272-4856</span>
+                                <span class="esr">CD5757 Rate</span>
+                            </li> <li class="bookingVelocity_1103256 bookingVelocity"></li>
+                            <li class="lastBooked hotelContent">    Bought in the last 18 hours    </li>
+                        </ul>
+                    </div>
+                    <div id="spid" class="hidden automationTag">24</div>
+                </a>
 
-</div>
-</section>
-<aside id="ccol" class="ad-container">
-    <div id="RIGHT1"
-         name="ad"
-         class="ad"
-         style="overflow:hidden;height:600px;width:160px;margin-left:auto;margin-right:auto;"
-         data-ad-type="display"
-            ></div>
-    <div id="adsense-D-column" class="ad adsense_D_column" name="adsense" >
-        <div>
+            </article>
+        </div-->
 
-        </div>
-    </div>
-    <div id="RIGHT2"
-         name="ad"
-         class="ad"
-         style="overflow:hidden;height:600px;width:160px;margin-left:auto;margin-right:auto;"
-         data-ad-type="display"
-            ></div>
-</aside>
-</div>
+    </section>
+
     <div id="botPage"></div>
 
 </div>
 </section>
+<section id="ccol" class="col" role="main" width="30%">
+</section>
 
 </div>
+
+
+
 </form>
 </div>
 <script>
 </script>
-<!--script type="text/javascript">
-    /*!
-     * Ext JS Library 3.0.0
-     * Copyright(c) 2006-2009 Ext JS, LLC
-     * licensing@extjs.com
-     * http://www.extjs.com/license
-
-    * @class Ext.DataView
-    * @extends Ext.AbstractDataView
-    * @xtype dataview
-    */
-    Ext.onReady(function(){
-        var ds = new Ext.data.Store({
-            proxy: new Ext.data.ScriptTagProxy({
-                url: 'http://extjs.com/forum/topics-remote.php'
-            }),
-            reader: new Ext.data.JsonReader({
-                root: 'topics',
-                totalProperty: 'totalCount',
-                id: 'post_id'
-            }, [
-                {name: 'postId', mapping: 'post_id'},
-                {name: 'title', mapping: 'topic_title'},
-                {name: 'topicId', mapping: 'topic_id'},
-                {name: 'author', mapping: 'author'},
-                {name: 'lastPost', mapping: 'post_time', type: 'date', dateFormat: 'timestamp'},
-                {name: 'excerpt', mapping: 'post_text'}
-            ]),
-
-            baseParams: {limit:20, forumId: 4}
-        });
-        /*
-        Ext.define('Product', {
-            extend: 'Ext.data.Model',
-            fields: [
-                {name: 'product_id', type: 'string'},
-                {name: 'product_name',  type: 'string'},
-                {name: 'description',       type: 'string'},
-                {name: 'our_price',  type: 'double'}
-            ]
-        });*/
-
-
-
-        // Custom rendering Template for the View
-        var resultTpl = new Ext.XTemplate(
-                '<tpl for=".">',
-                 '<p>{excerpt}</p>',
-                '<div class="proListCon">',
-                '<h2><a href="http://www.usitrip.com/huangshigongyuan-yanhucheng-datidun-4d-lvyou.html" target="_self">[美西<i>黄石</i>公园，盐湖城 4日经典游] 美西国家公园之旅|限量团</a></h2>',
-                '<div class="left">',
-                '  <div class="pic">',
-                '    <div class="gift" style="padding-top:1px;">',
-                '</div> </div>',
-                '<img src="/product/packages/1/images/searchImg.jpg" border="0" alt="aa" title=" aaa" /></div> &nbsp;',
-                '<ul class="mid">',
-                '<li><h4> &nbsp;&nbsp;游玩: </h4> <p><b>&nbsp;SLC235-2993&nbsp;</b></p></li>',
-                '<li><h4> &nbsp;&nbsp;注意事项: </h4><p>&nbsp;盐湖城&nbsp;</p> </li>',
-                '<li><h4> &nbsp;&nbsp;行程特色: </h4><p>&nbsp;保证独家入住豪华黄石湖木屋，在湖边观赏黄石湖日出日落，并精心安排黄石湖畔餐厅晚餐，落地大窗户旁赏落日余晖遍布黄石湖面，更可浪漫烛...&nbsp;</p></li>',
-                '<li><h4> &nbsp;&nbsp;价格: </h4> <p><b>&nbsp;$314.00&nbsp;</b></p> </li>',
-                '<li><a href="/" class="btn btnOrange btnAddCar" target="_self" >预订行程</a></li>',
-                '</ul></div></br></br>',
-                '</tpl>'
-        );
-
-        var panel = new Ext.Panel({
-            applyTo: 'search-panel',
-            //title:'Forum Search',
-            //height:800,
-            autoScroll:true,
-
-            items: new Ext.DataView({
-                tpl: resultTpl,
-                store: ds,
-                autoHeight:true,
-                multiSelect: true,
-                overClass:'x-view-over',
-                itemSelector: 'div.search-item'
-            }),
-
-            bbar: new Ext.PagingToolbar({
-                store: ds,
-                pageSize: 5,
-                displayInfo: true,
-                displayMsg: 'Topics {0} - {1} of {2}',
-                emptyMsg: "No topics to display"
-            })
-        });
-
-        ds.load({params:{start:0, limit: 5, forumId: 4}});
-    });
-</script-->
 <script src="/assets/js/jquery-1.9.1.min.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/holder.js"></script>
@@ -411,96 +350,188 @@
 <script src="/assets/js/docs.js"></script>
 <script type="text/javascript" src="/assets/js/jquery.simplePagination.js"></script>
 <script>
-     var defaultHtml='<div class="proListCon">' +
-            '<h2><a href="/" target="_self">{product_name}</a></h2>' +
+    var defaultHtml =
+    '<div class="hotelWrapper" style="width:150%">'+
+            '<article class="segment hotel avgPerNight memberFencingEligible" id="hotel2">'+
+            '<a class="target edsHotel" target="1103256" href="/" data-track="HOT:SR:HotelModule">'+
+            '<div class="thumbnailContainer" style="width:250px; height: 150px;" >'+
+            '<div class="thumbnail" data-image="/product/packages/5/images/searchImg.jpg"   style="width:250px; height: 150px;background-image: url(/product/packages/1/images/searchImg.jpg);background-size:300px 150px;background-repeat:no-repeat;">'+
+            '<div class="media-loader">'+
+            '<span class="loader loader-dark loader-static" title="Loading...">'+
+            '</span>'+
+    '</div>'+
+    '<div class="noImg"> </div></div></div>'+
+    '<div class="details avgPerNight showMile">'+
+            '<ul class="infoCol">'+
+            '<li class="priceColContainer">'+
+            '<ul class="priceCol">'+
+            '<li class="couponText">'+
+            '<span class="rewardsAvailable">Rewards discount available</span>'+
+    '<span class="rewardsDoublePoints">Rewards double points</span>'+
+    '</li>'+
+    '<li class="superlative">Very good!</li>'+
+    '<li class="urgencyWrapper"></li>'+
+    '<li class="price"><span class="dynamic strikePrice" data-control="tooltip" data-trigger="hover" data-content-id="dynamicTooltip" data-arrow="true" data-fade="out" data-width="240">$174</span>   <span class="actualPrice fakeLink">$64</span> </li>'+
+    '<li class="avgPerNight priceType">avg/night</li>'+
+    '<li class="astrix"></li>'+
+    '</ul>'+
+    '</li>'+
+    '<li class="drrWrapper"></li>'+
+    '<li class="hotelName fakeLink"><span class="hotelName"><strong>Knights Inn Carmel Hill</strong></span></li>'+
+    '<li class="wpHotelType taapUsergroup"> • <span class="wpText">ESR</span> </li>'+
+    '<li class="starRating"><strong><strong class="star-rating rating-secondary rating"><span class="visuallyhidden">2.0 out of 5 stars</span><span class="icon icon-stars2-0 stars-yellow value-title" title="2.0" aria-hidden="true"></span></strong> </strong></li>'+
+    '<li class="starRatingText"><strong>2.0 stars</strong></li> '+
+    '<li class="neighborhood"> <span class="city">Monterey</span> <span class="area">(Monterey)</span>'+
+    '<div data-content-id="view-map_1103256" class="toggle-trigger togglemap" data-track="HOT:SR:MapInListing" data-control="toggle" data-expand-text="<span class=&quot;icon icon-location iconmapblue&quot;></span> Map" data-collapse-text="<span class=&quot;icon icon-location iconmapblue&quot;></span> Map">'+
+            '<span class="icon icon-location iconmapblue"></span></div></li>'+
+    '<li class="guestRatingText"> <strong>4.0 out of 5</strong>'+
+    '<span class="reviewCount fakeLink">(1298 reviews)</span> </li>'+
+    '<li class="phoneEsr"> <span class="phone">1-866-272-4856</span>'+
+    '<span class="esr">CD5757 Rate</span>'+
+    '</li> <li class="bookingVelocity_1103256 bookingVelocity"></li>'+
+    '<li class="lastBooked hotelContent">    Bought in the last 18 hours    </li></ul> </div>'+
+    '<div id="spid" class="hidden automationTag">24</div></a>'+
+    '</article>'+
+    '</div>'
+
+    var defaultHtml2='<div class="proListCon"  style="width:700px;height=auto ;border:2px solid red">' +
             '<div class="left">' +
             '  <div class="pic">' +
             '    <div class="gift" style="padding-top:1px;">' +
             '</div> </div>' +
-            '<img src="/product/packages/{product_id}/images/searchImg.jpg" width=300px height=150px border="0" alt="aa" title=" aaa" /></div> &nbsp;'+
-            '<ul class="mid">'+
-            '<li><h4> &nbsp;&nbsp;游玩: </h4> <p><b>&nbsp;SLC235-2993&nbsp;</b></p></li>'+
-            '<li><h4> &nbsp;&nbsp;注意事项: </h4><p>&nbsp;盐湖城&nbsp;</p> </li>'+
-            '<li><h4> &nbsp;&nbsp;行程特色: </h4><p>&nbsp;af盐湖城盐湖城盐湖城盐湖城盐湖城af&nbsp;</p></li>'+
-            '<li><h4> &nbsp;&nbsp;价格: </h4> <p><b>&nbsp;${list_price}&nbsp;</b></p> </li>'+
-            '<li><a href="/" class="btn btnOrange btnAddCar" target="_self" >预订行程</a></li>'+
-            '</ul><div class="right">afsfs</div></div></br></br>';
-
+            '<img src="/product/packages/{product_id}/images/searchImg.jpg"  width="100%" height= auto" title="{product_name}" /></div>'+
+            '<ul class="mid" style="padding-left:30px"> </br>'+
+            '<li style="padding-left:10px"><h1> &nbsp;&nbsp; <a href="/" target="_self" >{product_name} &nbsp;</a></h1></li>'+
+            '<li style="padding-left:30px"><h4> &nbsp;&nbsp;注意事项: </h4><p>注意事项&nbsp;</p> </li>'+
+            '<li style="padding-left:30px"><h4> &nbsp;&nbsp;行程特色: </h4><p>{description}&nbsp;</p></li>'+
+            '<li style="padding-left:30px"><h4> &nbsp;&nbsp;价格: </h4> <p>${list_price}&nbsp;</p> </li>'+
+            '<li style="padding-left:30px"><a href="/" class="btn btnOrange btnAddCar" target="_self" >预订行程</a></li>'+
+            '</ul><div class="right"></div></div>';
+     //var noResultsHtml = '<div> <h1>Sorry, no result with keyword-\"{keyword}\" is found.</h1></div>'
      //Generate test data
-     var searchResults=[];
+    /* var searchResults=[];
      var package1 = {};
-     package1.product_id=1;
-     package1.product_name="九寨黄金三日游";
+     package1.parent_product_id=1;
+     package1.parent_product_name="九寨黄金三日游";
      package1.description="黄金级别四川九寨三日游，全程4星级食宿，无商业促销互动，请放心游玩";
      package1.list_price=500;
-     package1.our_price=400;
+     package1.min_price=400;
      searchResults.push(package1);
      var package2={};
-     package2.product_id=2;
-     package2.product_name="钻石峨眉乐山二日游";
+     package2.parent_product_id=2;
+     package2.parent_product_name="钻石峨眉乐山二日游";
      package2.description="钻石级别四川峨眉乐山二日游，全程5星级食宿，无商业促销互动，请放心游玩";
      package2.list_price=400;
-     package2.our_price=300;
+     package2.min_price=300;
      searchResults.push(package2);
      var package3={};
-     package3.product_id=3;
-     package3.product_name="黄金青城山都江堰二日游";
+     package3.parent_product_id=3;
+     package3.parent_product_name="黄金青城山都江堰二日游";
      package3.description="黄金级别青城山都江堰二日游，全程4星级食宿，无商业促销互动，请放心游玩";
      package3.list_price=300;
-     package3.our_price=250;
+     package3.min_price=250;
      searchResults.push(package3);
      searchResults.push(package3);
      searchResults.push(package3);
      searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);
      searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);
      searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);
+     searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);
+     searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);
+     searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);
+     */
 
-     $(function(){
-         $('#page').pagination({  //首先获取对应的ID，第二步已经定义了ID为page
+
+
+     function displayNoResults(){
+         $('#resultsContainer').empty();
+         $('#botPage').empty();
+         document.getElementById('hotelResultTitleHeader').innerHTML="Sorry, no result found with keyword - \""+$('#search-package-keywords').val()+"\"";//add keyword
+
+     }
+
+
+     function initResultPage(searchResults){
+         console.dir(searchResults);
+         document.getElementById('hotelResultTitleHeader').innerHTML=searchResults.length+" vacation packages found with keywords - "+$('#search-package-keywords').val();//add keyword
+
+         //$('#page').empty();
+         $('#botPage').empty();
+
+         var itemsOnPage = 10;
+         var resultConainer = $('#resultsContainer');
+
+         /*$('#page').pagination({  //首先获取对应的ID，第二步已经定义了ID为page
              items: searchResults.length,  //这里是项目的总数，假使有100个项目
-             itemsOnPage: 4,  //这里是每页显示多少个项目
-             onInit: changePage,
+             itemsOnPage: itemsOnPage,  //这里是每页显示多少个项目
+             onInit: initPage,
              currentPage: 0,
              onPageClick: function(){
                  var page_index = $("#page").pagination('getCurrentPage') -1;
-                 $('#search-panel').empty();
-                 for(var i=page_index*4;i<(page_index+1)*4;++i) {
-                     var html=defaultHtml.replace("{product_id}",searchResults[i].product_id).replace("{product_name}",searchResults[i].product_name)
-                             .replace("{list_price}",searchResults[i].list_price);//.replace("{description}",searchResults[i].description);
-                     $('#search-panel').append(html);
+                 resultConainer.empty();
+                 for(var i=page_index*itemsOnPage;i<(page_index+1)*itemsOnPage ;++i) {
+                     var html=defaultHtml.replace("{product_id}",searchResults[i].parent_product_id).replace("{product_name}",searchResults[i].parent_product_name)
+                             .replace("{min_price}",searchResults[i].list_price).replace("{description}",searchResults[i].description);
+                     resultConainer.append(html);
                  }
                  $("#botPage").pagination('drawPage',$("#page").pagination('getCurrentPage'));
              },
              cssStyle: 'light-theme'  //这里就是css风格了，可设置light-theme,dark-theme,compact-theme,效果依次按文章开头的大图中展现
-         });
+         });*/
+
          $('#botPage').pagination({  //首先获取对应的ID，第二步已经定义了ID为page
              items: searchResults.length,  //这里是项目的总数，假使有100个项目
-             itemsOnPage: 4,  //这里是每页显示多少个项目
-             onInit: changePage,
+             itemsOnPage: itemsOnPage,  //这里是每页显示多少个项目
+             onInit: initPage,
              currentPage: 0,
              onPageClick: function(){
-                 var page_index = $("#page").pagination('getCurrentPage') -1;
-                 $('#search-panel').empty();
-                 for(var i=page_index*4;i<(page_index+1)*4;++i) {
-                     var html=defaultHtml.replace("{product_id}",searchResults[i].product_id).replace("{product_name}",searchResults[i].product_name)
-                             .replace("{list_price}",searchResults[i].list_price);//.replace("{description}",searchResults[i].description);
-                     $('#search-panel').append(html);
+                 var page_index = $("#botPage").pagination('getCurrentPage') -1;
+                 resultConainer.empty();
+                 for(var i=page_index*itemsOnPage;i<(page_index+1)*itemsOnPage;++i) {
+                     var html=defaultHtml.replace("{product_id}",searchResults[i].parent_product_id).replace("{product_name}",searchResults[i].parent_product_name)
+                             .replace("{min_price}",searchResults[i].list_price).replace("{description}",searchResults[i].description);
+                     resultConainer.append(html);
                  }
-                 $("#page").pagination('drawPage',$("#botPage").pagination('getCurrentPage'));
+                 //$("#page").pagination('drawPage',$("#botPage").pagination('getCurrentPage'));
 
              },
              cssStyle: 'light-theme'  //这里就是css风格了，可设置light-theme,dark-theme,compact-theme,效果依次按文章开头的大图中展现
          });
-         function changePage() {
-             $('#search-panel').empty();
-
-             for(var i=0;i<4;++i) {
-                 var html=defaultHtml.replace("{product_id}",searchResults[i].product_id).replace("{product_name}",searchResults[i].product_name)
-                         .replace("{list_price}",searchResults[i].list_price);//.replace("{description}",searchResults[i].description);
-                $('#search-panel').append(html);
-            }
+         function initPage() {
+             resultConainer.empty();
+             for(var i=0;i<itemsOnPage && i< searchResults.length;++i) {
+                 var html=defaultHtml.replace("{product_id}",searchResults[i].parent_product_id).replace("{product_name}",searchResults[i].parent_product_name)
+                         .replace("{product_name}",searchResults[i].parent_product_name)
+                         .replace("{min_price}",searchResults[i].list_price).replace("{description}",searchResults[i].description);
+                 resultConainer.append(html);
+             }
          }
-     });
+     }
+
+     function searchPackagesByKeywords(){
+         var keywords=$('#search-package-keywords').val();
+         console.log("search-package-button clicked");
+         $.post('/package-search',{keywords:keywords},function(data){
+             if(!data || data=="error") {
+                 alert("error returned");
+                 return;
+             }
+             console.dir(data);
+             //searchResults = data;
+             if(data.length>0)
+                 initResultPage(data);
+             else
+                 displayNoResults();
+         })
+     }
+
+     $('#search-package-button').click(searchPackagesByKeywords )
+
+
+     $(function(){
+         searchPackagesByKeywords( )
+         //initResultPage(searchResults);
+     })
 
 </script>
 
