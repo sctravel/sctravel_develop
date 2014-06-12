@@ -141,9 +141,15 @@ app.get('/results', function (req,res){
 
     res.render('searchPages/packageResults.ejs',{keywords: keywords+""});
 });
+
+app.get('/checkout', function (req,res){
+    res.render('checkoutPages/checkoutResults.ejs');
+});
+
 app.get('/package-search', function (req,res){
     res.render('searchPages/vacationPackagesSearchPage');
 });
+
 app.post('/package-search',function(req,res){
     var keywords = req.body.keywords;
     req.session.searchPackageKeywords = keywords;
@@ -152,14 +158,12 @@ app.post('/package-search',function(req,res){
             res.send("error");
             return;
         }
-        console.log("!!!!!!!!!!!!!!!!");
         res.send(results);
         //res.render('searchPages/vacationPackagesSearchPage',{keywords: keywords,packageSearchResults:results});
     })
 })
 
 //User Login Functionalities
-
 app.post('/services/customer/accounts/new', function(req,res) {
     var newAccountInfo = req.body.newAccountInfo;
 
@@ -205,7 +209,7 @@ function isLoggedIn(req, res, next) {
         return next();
     }
 
-    res.redirect("/adminLogin");
+    res.redirect("/login");
 }
 
 

@@ -1,0 +1,7 @@
+.buy_ready{background:#586474;border:none}.buy_ready:hover{background:#586474;border:none}.timing_box{background:url("http://img1.tuniucdn.com/img/20140514/sale/detail/timing_bg.png");height:90px;position:fixed;z-index:9999;bottom:0px;left:0px;width:100%}.timing_box
+.cont{width:340px;margin:0
+auto;height:65px;background:url("http://img1.tuniucdn.com/img/20140514/sale/detail/icon_timing.png") no-repeat 0px 15px;padding-left:150px;padding-top:25px;position:relative}.timing_box .cont
+.time{width:301px;height:43px;background:url("http://img1.tuniucdn.com/img/20140514/sale/detail/time_bg.png") no-repeat}.timing_box .cont .time
+span{float:left;display:block;width:31px;height:43px;font-size:42px;line-height:43px;color:#FFF;text-align:center;font-family:Arial}.timing_box .cont
+ul{position:absolute;left:150px;top:25px}.timing_box .cont ul
+li{float:left;width:31px;height:43px;background:url("http://img1.tuniucdn.com/img/20140514/sale/detail/hengxian.png") no-repeat center}
