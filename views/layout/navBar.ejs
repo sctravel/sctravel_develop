@@ -1,0 +1,153 @@
+<div class="site-header site-header-primary us-pos" role="navigation">
+    <div class="cols-row">
+
+        <a id="header-logo" class="logo us-pos" href="/ " target="_top" data-tid="header-logo">成都旅游网</a>
+        <div id="globalSiteNavigation" class="site-navigation cf">
+            <b>Welcome to ChengDu Travel!</b>
+            <% if (typeof customerId != 'undefined' && customerId !=null) { %>
+                <div> <style="text-align:'center';color:'red';font-family:'arial';font-size:'small';font-style:'italic'"/>Hello!<%= firstName+lastName %></div>
+                <a id="logout" class="nav-tab" href="/logout">Logout</a>
+            <% }  else { %>
+            <ul class="shop-nav nav-group cf">
+                <li id="utility-menu1">
+                    <a id="login" class="nav-tab" href="/login">Login</a>
+                </li>
+
+                <li id="utility-menu2">
+                    <a id="signup" class="nav-tab" href="/signup">Signup</a>
+                </li>
+
+            </ul>
+            <% } %>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+<div class="site-header site-header-secondary" role="navigation">
+    <div class="cols-row">
+        <ul class="utility-nav nav-group cf">
+
+            <li id="all-in-home-header-link" class="selected-tab ">
+                <a id="primary-header-home" href="//127.0.0.1:3000/" target="_top"> Home </a>
+            </li>
+
+            <li id="all-in-package-header-link">
+                <a  href="Vacation-Packages.html" target="_top" id="primary-header-package"> Vacation Packages </a>
+            </li>
+
+            <li id="all-in-hotel-header-link">
+                <a href="#" target="_top" id="primary-header-hotel"> Hotels </a>
+            </li>
+
+            <li id="all-in-flight-header-link">
+                <a href="Flights.html" target="_top" id="primary-header-flight"> Flights </a>
+            </li>
+
+            <li id="all-in-tickets-header-link">
+                <a href="Tickets.html" target="_top" id="primary-header-tickets"> Tickets</a>
+            </li>
+
+            <li id="all-in-flight-header-link">
+                <a href="Souvenir.html" target="_top" id="primary-header-souvenir"> Souvenir </a>
+            </li>
+
+
+
+        </ul>
+    </div>
+</div>
+
+
+<script>
+    $(function() {
+        $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+        $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+
+        $("#oneway").click(function(){
+            $("#flight-returning-label").css("visibility","hidden");
+
+        });
+
+        $("#roundtrip").click(function(){
+            $("#flight-returning-label").css("visibility","visible");
+
+            $("#datepickerCheckin").datepicker();
+
+            $( "#datepickerCheckout").datepicker();
+
+        });
+    });
+</script>
+<style>
+    .ui-tabs-vertical { width: 55em; }
+    .ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
+    .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
+    .ui-tabs-vertical .ui-tabs-nav li a { display:block; }
+    .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
+    .ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: right; width: 40em;}
+    .forms .tab-pane .flight-type-select, .forms .tab-pane .radio-set {
+        margin-bottom: 0;
+        margin-left: 0;
+    }
+    fieldset {
+        margin-bottom: 1.41176em;
+    }
+    fieldset {
+        border: 0 none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .forms .tab-pane .flight-type-select .check, .forms .tab-pane .radio-set .check {
+        margin-right: 1.41176em;
+    }
+    .col {
+        float: left;
+        padding-left: 1.41176em;
+        position: relative;
+    }
+    .check {
+        display: inline-block;
+        width: auto;
+    }
+    label {
+        color: #3D3D3D;
+        display: block;
+        margin-top: 0.705882em;
+        position: relative;
+    }
+    label {
+        cursor: pointer;
+    }
+
+    .theme-inverse-pills .forms .tab-pane .label, .theme-inverse-pills .forms .tab-pane .inline-label, .theme-inverse-pills .forms .tab-pane .package-car-message {
+        color: #C7C7C7;
+    }
+    .forms .tab-pane .label, .forms .tab-pane .inline-label {
+        font-weight: bold;
+    }
+    legend, .label, .inline-label, .field-description {
+        color: #6B6B6B;
+        display: block;
+        font-size: 0.764706em;
+        font-weight: bold;
+        line-height: 1.4;
+        margin-bottom: 0.461538em;
+    }
+    label span {
+        display: block;
+    }
+    .forms .tab-pane .flight-type-select, .forms .tab-pane .radio-set {
+        margin-bottom: 0;
+        margin-left: 0;
+    }
+
+
+</style>
+<link rel="stylesheet" href="/assets/css/hero-tab.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
