@@ -207,6 +207,7 @@
 
         #WIZARD.hero-banner-wrap .hero-banner {
             background-color: #6592B8;
+            background-image: url("/assets/img/background.jpg");
             position: relative;
         }
 
@@ -290,7 +291,12 @@
             font-family: "Helvetica Neue",Arial,"Lucida Grande",sans-serif;
             font-size: 106.25%;
         }
+        #ui-datepicker-div{
 
+            background-color: #FFFFFF;
+            border: 1px solid #11F9F1;
+
+        }
 
     </style>
     <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
@@ -376,11 +382,18 @@
                 $("#roundtrip").click(function(){
                     $("#flight-returning-label").css("visibility","visible");
 
+
+
+                });
                 $("#datepickerCheckin").datepicker();
 
                 $( "#datepickerCheckout").datepicker();
 
-                });
+                $("#datepickerFlightDepart").datepicker();
+
+                $( "#datepickerFlightReturn").datepicker();
+
+
             });
         </script>
         <style>
@@ -446,17 +459,37 @@
                 margin-bottom: 0;
                 margin-left: 0;
             }
+            .cols-row:before, .cols-row:after {
+                content: "";
+                display: table;
+            }
+            .cols-row:after {
+                clear: both;
+            }
+            .cols-row:before, .cols-row:after {
+                content: "";
+                display: table;
+            }
+            .cols-row.search {
+                padding-top: 1.41176em;
+            }
+            .cols-row.search {
+                border-radius: 0.352941em;
+                box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.5);
+            }
+
 
 
         </style>
 
 
 
-        <section id="WIZARD" class="hero-banner-wrap background ab4292">
-            <div class="hero-banner background">
+        <section id="WIZARD" class="hero-banner-wrap hero-banner background ab4292">
+            <div class="hero-banner background" style="min-height: 500px">
                 <div class="hero-banner-gradient">
-                    <div  id="new-homepage-search-wizard" class="search-wrapper">
-                        <div  id="tabs" class="cols-row search theme-inverse-pills">
+                    <div  id="new-homepage-search-wizard" class="search-wrapper" style="padding-top:50px">
+
+                        <div  id="tabs" class="cols-row search theme-inverse-pills" style="min-height: 300px; ">
                             <ul >
                                 <li >
                                     <a class="on" href="#fight-tab">Flights</a>
@@ -516,12 +549,12 @@
                                                   <fieldset class="cols-nested flight-date-fieldset total-children-0">
                                                       <label data-tid="flight-departing-label" id="flight-departing-label" class="text calendar icon-before col ">
                                                           <span class="label">Departing</span>
-                                                          <input type="text" data-wizard-type="departing" value="" data-control="calendar" data-end-date="#flight-returning" data-min-booking-length="0" data-last-valid-date="05/04/2015" data-max-booking-length="330" placeholder="mm/dd/yyyy" data-tid="flight-departing" id="flight-departing">
+                                                          <input type="text"  value="" data-control="calendar"  placeholder="mm/dd/yyyy"  id="datepickerFlightDepart">
                                                           <span class="icon icon-calendar"></span>
                                                       </label>
                                                       <label id="flight-returning-label" class="text calendar icon-before col ">
                                                           <span class="label">Returning</span>
-                                                          <input type="text" data-wizard-type="returning" value="" data-control="calendar" data-start-date="#flight-departing" placeholder="mm/dd/yyyy" data-tid="flight-returning" id="flight-returning">
+                                                          <input type="text" data-wizard-type="returning" value=""  placeholder="mm/dd/yyyy"  id="datepickerFlightReturn">
                                                           <span class="icon icon-calendar"></span>
                                                       </label>
                                                   </fieldset>
@@ -574,12 +607,12 @@
                                                           <fieldset class="cols-nested">
                                                               <label  id="hotel-checkin-label" class="text calendar icon-before col">
                                                                   <span  class="label">Check in</span>
-                                                                  <input id="datepickerCheckin"  type="text" class="check-in-out">
+                                                                  <input id="datepickerCheckin"   placeholder="mm/dd/yyyy" type="text" class="check-in-out">
                                                                   <span class="icon icon-calendar"></span>
                                                               </label>
                                                               <label id="hotel-checkout-label" class="text calendar icon-before col">
                                                                   <span class="label">Check out</span>
-                                                                  <input id="datepickerCheckout" type="text" class="check-in-out">
+                                                                  <input id="datepickerCheckout"  placeholder="mm/dd/yyyy" type="text" class="check-in-out">
                                                                   <span class="icon icon-calendar"></span>
                                                               </label>
                                                               <label id="hotel-rooms-label" class="select col icon icon-toggle180">
