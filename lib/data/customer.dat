@@ -1,0 +1,2 @@
+'username','password','first_name','middle_name','last_name','phone','email','address','city','state','country','post_code','is_active'
+test,test,Joe,K,White, 425-287-1010, sctravel@gmail.com, 1 main street, Seattle,WA,'USA','98004','Y'
