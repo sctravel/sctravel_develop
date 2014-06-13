@@ -10072,6 +10072,11 @@ if ((top != self) && (typeof(top.commonspot)!== 'undefined') && (typeof(top.comm
                         beauty, and an outstanding outdoor laboratory and classroom.</p>
                 </div>
                 <div id='myCalendarContainer'></div>
+                <div id='childResult'></div>
+
+
+
+
 
 
 
@@ -10525,8 +10530,73 @@ if ((top != self) && (typeof(top.commonspot)!== 'undefined') && (typeof(top.comm
 
 <script>
 
+     var childResults=[];
+     var package1 = {};
+     package1.parent_product_id=1;
+     package1.parent_product_name="九寨黄金三日游";
+     package1.description="黄金级别四川九寨三日游，全程4星级食宿，无商业促销互动，请放心游玩";
+     package1.list_price=500;
+     searchResults.push(package1);
+     var package2={};
+     package2.parent_product_id=2;
+     package2.parent_product_name="钻石峨眉乐山二日游";
+     package2.description="钻石级别四川峨眉乐山二日游，全程5星级食宿，无商业促销互动，请放心游玩";
+     package2.list_price=400;
+     searchResults.push(package2);
+
+
+     var defaultHtml =
+             '<div class="hotelWrapper" style="width:150%">'+
+             '<article class="segment hotel avgPerNight memberFencingEligible" id="hotel2">'+
+             '<a class="target edsHotel" target="1103256" href="/" data-track="HOT:SR:HotelModule">'+
+             '<div class="thumbnailContainer" style="width:250px; height: 150px;" >'+
+             '<div class="thumbnail" data-image="/product/packages/5/images/searchImg.jpg"   style="width:250px; height: 150px;background-image: url(/product/packages/1/images/searchImg.jpg);background-size:300px 150px;background-repeat:no-repeat;">'+
+             '<div class="media-loader">'+
+             '<span class="loader loader-dark loader-static" title="Loading...">'+
+             '</span>'+
+             '</div>'+
+             '<div class="noImg"> </div></div></div>'+
+             '<div class="details avgPerNight showMile">'+
+             '<ul class="infoCol">'+
+             '<li class="priceColContainer">'+
+             '<ul class="priceCol">'+
+             '<li class="couponText">'+
+             '<span class="rewardsAvailable">Rewards discount available</span>'+
+             '<span class="rewardsDoublePoints">Rewards double points</span>'+
+             '</li>'+
+             '<li class="superlative">Very good!</li>'+
+             '<li class="urgencyWrapper"></li>'+
+             '<li class="price"><span class="dynamic strikePrice" data-control="tooltip" data-trigger="hover" data-content-id="dynamicTooltip" data-arrow="true" data-fade="out" data-width="240">$174</span>   <span class="actualPrice fakeLink">$64</span> </li>'+
+             '<li class="avgPerNight priceType">avg/night</li>'+
+             '<li class="astrix"></li>'+
+             '</ul>'+
+             '</li>'+
+             '<li class="drrWrapper"></li>'+
+             '<li class="hotelName fakeLink"><span class="hotelName"><strong>Knights Inn Carmel Hill</strong></span></li>'+
+             '<li class="wpHotelType taapUsergroup"> • <span class="wpText">ESR</span> </li>'+
+             '<li class="starRating"><strong><strong class="star-rating rating-secondary rating"><span class="visuallyhidden">2.0 out of 5 stars</span><span class="icon icon-stars2-0 stars-yellow value-title" title="2.0" aria-hidden="true"></span></strong> </strong></li>'+
+             '<li class="starRatingText"><strong>2.0 stars</strong></li> '+
+             '<li class="neighborhood"> <span class="city">Monterey</span> <span class="area">(Monterey)</span>'+
+             '<div data-content-id="view-map_1103256" class="toggle-trigger togglemap" data-track="HOT:SR:MapInListing" data-control="toggle" data-expand-text="<span class=&quot;icon icon-location iconmapblue&quot;></span> Map" data-collapse-text="<span class=&quot;icon icon-location iconmapblue&quot;></span> Map">'+
+             '<span class="icon icon-location iconmapblue"></span></div></li>'+
+             '<li class="guestRatingText"> <strong>4.0 out of 5</strong>'+
+             '<span class="reviewCount fakeLink">(1298 reviews)</span> </li>'+
+             '<li class="phoneEsr"> <span class="phone">1-866-272-4856</span>'+
+             '<span class="esr">CD5757 Rate</span>'+
+             '</li> <li class="bookingVelocity_1103256 bookingVelocity"></li>'+
+             '<li class="lastBooked hotelContent">    Bought in the last 18 hours    </li></ul> </div>'+
+             '<div id="spid" class="hidden automationTag">24</div></a>'+
+             '</article>'+
+             '</div>';
+
     var myCalendar = new JEC('myCalendarContainer');
     myCalendar.showCalendar();
+
+
+
+    var passedValue = "<%= parentId %>";
+
+    alert(passedValue);
 
 
     var myCal = new JEC('myCalendarContainer', {

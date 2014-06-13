@@ -142,9 +142,26 @@ app.get('/results', function (req,res){
     res.render('searchPages/packageResults.ejs',{keywords: keywords+""});
 });
 
-app.get('/checkout', function (req,res){
-    res.render('checkoutPages/checkoutResults.ejs');
+
+app.get('/checkout',function (req,res){
+
+    console.dir(req);
+
+    res.render('checkoutPages/checkoutResults.ejs',{parentId : req.query.parentId } );
+
+
 });
+
+
+
+app.get('/checkout/:parentId',function (req,res){
+
+
+    res.render('checkoutPages/checkoutResults.ejs',{parentId : req.params.parentId } );
+});
+
+
+
 
 app.get('/package-search', function (req,res){
     res.render('searchPages/vacationPackagesSearchPage');
