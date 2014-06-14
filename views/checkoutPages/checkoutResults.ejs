@@ -3,10 +3,23 @@
 <!--[if IE 7 ]>    <html class="no-js ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]>    <html class="no-js ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
-<html class="js" lang="en"><!--<![endif]--><!-- Content Copyright National Park Service --><!-- JavaScript & DHTML Code Copyright &copy; 1998-2013, PaperThin, Inc. All Rights Reserved. --><head> <title>Crater Lake National Park (U.S. National Park Service)</title> <meta name="Description" id="Description" content="">
+<html class="js" lang="en"><!--<![endif]--><!-- Content Copyright National Park Service --><!-- JavaScript & DHTML Code Copyright &copy; 1998-2013, PaperThin, Inc. All Rights Reserved. -->
+<head> <title>Crater Lake National Park (U.S. National Park Service)</title>
+<meta name="Description" id="Description" content="">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="Keywords" id="Keywords" content="Crater Lake National Park, National Park Service, Park Information">
 <meta name="Generator" id="Generator" content="">
+
+
+<link rel="stylesheet" href="/assets/css/global-header-bundle-min-1313690595.css">
+<link rel="stylesheet" href="/assets/css/global-header-responsive-bundle-min-733236120.css">
+<link rel="stylesheet" href="/assets/css/core-responsive.css">
+<link rel="stylesheet" href="/assets/css/userlogin-min-2366612448.css">
+<link rel="stylesheet" href="/assets/css/hotelSearch-min.css">
+<link rel="stylesheet" href="/assets/css/packageSearch/advanced_search_result.css">
+<link rel="stylesheet" href="/assets/css/packageSearch/2.css">
+<link rel="stylesheet" href="/assets/css/packageSearch/homepage-2012-1123-min.css">
+<link type="text/css" rel="stylesheet" href="/assets/css/simplePagination.css"/>
 
 <link rel="stylesheet" href="staticBooking_files/style.css" type="text/css">
 <link rel="stylesheet" href="staticBooking_files/print.css" type="text/css">
@@ -10072,7 +10085,12 @@ if ((top != self) && (typeof(top.commonspot)!== 'undefined') && (typeof(top.comm
                         beauty, and an outstanding outdoor laboratory and classroom.</p>
                 </div>
                 <div id='myCalendarContainer'></div>
-                <div id='childResult'></div>
+                <div id='childrenResult'>
+
+                    <section id="resultsContainer" class="segmented-list AB5180 SS6240 SS5839">
+
+                    </section>
+                </div>
 
 
 
@@ -10530,74 +10548,73 @@ if ((top != self) && (typeof(top.commonspot)!== 'undefined') && (typeof(top.comm
 
 <script>
 
-     var childResults=[];
-     var package1 = {};
-     package1.parent_product_id=1;
-     package1.parent_product_name="九寨黄金三日游";
-     package1.description="黄金级别四川九寨三日游，全程4星级食宿，无商业促销互动，请放心游玩";
-     package1.list_price=500;
-     searchResults.push(package1);
-     var package2={};
-     package2.parent_product_id=2;
-     package2.parent_product_name="钻石峨眉乐山二日游";
-     package2.description="钻石级别四川峨眉乐山二日游，全程5星级食宿，无商业促销互动，请放心游玩";
-     package2.list_price=400;
-     searchResults.push(package2);
+
+    var searchResults=[];
+    var childResults=[];
+    var package1 = {};
+    package1.parent_product_id=1;
+    package1.parent_product_name="九寨黄金三日游";
+    package1.description="黄金级别四川九寨三日游，全程4星级食宿，无商业促销互动，请放心游玩";
+    package1.list_price=500;
+    searchResults.push(package1);
+    var package2={};
+    package2.parent_product_id=2;
+    package2.parent_product_name="钻石峨眉乐山二日游";
+    package2.description="钻石级别四川峨眉乐山二日游，全程5星级食宿，无商业促销互动，请放心游玩";
+    package2.list_price=400;
+    searchResults.push(package2);
 
 
-     var defaultHtml =
-             '<div class="hotelWrapper" style="width:150%">'+
-             '<article class="segment hotel avgPerNight memberFencingEligible" id="hotel2">'+
-             '<a class="target edsHotel" target="1103256" href="/" data-track="HOT:SR:HotelModule">'+
-             '<div class="thumbnailContainer" style="width:250px; height: 150px;" >'+
-             '<div class="thumbnail" data-image="/product/packages/5/images/searchImg.jpg"   style="width:250px; height: 150px;background-image: url(/product/packages/1/images/searchImg.jpg);background-size:300px 150px;background-repeat:no-repeat;">'+
-             '<div class="media-loader">'+
-             '<span class="loader loader-dark loader-static" title="Loading...">'+
-             '</span>'+
-             '</div>'+
-             '<div class="noImg"> </div></div></div>'+
-             '<div class="details avgPerNight showMile">'+
-             '<ul class="infoCol">'+
-             '<li class="priceColContainer">'+
-             '<ul class="priceCol">'+
-             '<li class="couponText">'+
-             '<span class="rewardsAvailable">Rewards discount available</span>'+
-             '<span class="rewardsDoublePoints">Rewards double points</span>'+
-             '</li>'+
-             '<li class="superlative">Very good!</li>'+
-             '<li class="urgencyWrapper"></li>'+
-             '<li class="price"><span class="dynamic strikePrice" data-control="tooltip" data-trigger="hover" data-content-id="dynamicTooltip" data-arrow="true" data-fade="out" data-width="240">$174</span>   <span class="actualPrice fakeLink">$64</span> </li>'+
-             '<li class="avgPerNight priceType">avg/night</li>'+
-             '<li class="astrix"></li>'+
-             '</ul>'+
-             '</li>'+
-             '<li class="drrWrapper"></li>'+
-             '<li class="hotelName fakeLink"><span class="hotelName"><strong>Knights Inn Carmel Hill</strong></span></li>'+
-             '<li class="wpHotelType taapUsergroup"> • <span class="wpText">ESR</span> </li>'+
-             '<li class="starRating"><strong><strong class="star-rating rating-secondary rating"><span class="visuallyhidden">2.0 out of 5 stars</span><span class="icon icon-stars2-0 stars-yellow value-title" title="2.0" aria-hidden="true"></span></strong> </strong></li>'+
-             '<li class="starRatingText"><strong>2.0 stars</strong></li> '+
-             '<li class="neighborhood"> <span class="city">Monterey</span> <span class="area">(Monterey)</span>'+
-             '<div data-content-id="view-map_1103256" class="toggle-trigger togglemap" data-track="HOT:SR:MapInListing" data-control="toggle" data-expand-text="<span class=&quot;icon icon-location iconmapblue&quot;></span> Map" data-collapse-text="<span class=&quot;icon icon-location iconmapblue&quot;></span> Map">'+
-             '<span class="icon icon-location iconmapblue"></span></div></li>'+
-             '<li class="guestRatingText"> <strong>4.0 out of 5</strong>'+
-             '<span class="reviewCount fakeLink">(1298 reviews)</span> </li>'+
-             '<li class="phoneEsr"> <span class="phone">1-866-272-4856</span>'+
-             '<span class="esr">CD5757 Rate</span>'+
-             '</li> <li class="bookingVelocity_1103256 bookingVelocity"></li>'+
-             '<li class="lastBooked hotelContent">    Bought in the last 18 hours    </li></ul> </div>'+
-             '<div id="spid" class="hidden automationTag">24</div></a>'+
-             '</article>'+
-             '</div>';
+
+    var defaultHtml =
+            '<div class="hotelWrapper" style="width:150%">'+
+            '<article class="segment hotel avgPerNight memberFencingEligible" id="hotel2">'+
+            '<a class="target edsHotel" target="1103256" href="/" data-track="HOT:SR:HotelModule">'+
+            '<div class="thumbnailContainer" style="width:250px; height: 150px;" >'+
+            '<div class="thumbnail" data-image="/product/packages/5/images/searchImg.jpg"   style="width:250px; height: 150px;background-image: url(/product/packages/1/images/searchImg.jpg);background-size:300px 150px;background-repeat:no-repeat;">'+
+            '<div class="media-loader">'+
+            '<span class="loader loader-dark loader-static" title="Loading...">'+
+            '</span>'+
+            '</div>'+
+            '<div class="noImg"> </div></div></div>'+
+            '<div class="details avgPerNight showMile">'+
+            '<ul class="infoCol">'+
+            '<li class="priceColContainer">'+
+            '<ul class="priceCol">'+
+            '<li class="couponText">'+
+            '<span class="rewardsAvailable">Rewards discount available</span>'+
+            '<span class="rewardsDoublePoints">Rewards double points</span>'+
+            '</li>'+
+            '<li class="superlative">Very good!</li>'+
+            '<li class="urgencyWrapper"></li>'+
+            '<li class="price"><span class="dynamic strikePrice" data-control="tooltip" data-trigger="hover" data-content-id="dynamicTooltip" data-arrow="true" data-fade="out" data-width="240">$174</span>   <span class="actualPrice fakeLink">$64</span> </li>'+
+            '<li class="avgPerNight priceType">night</li>'+
+            '<li class="astrix"></li>'+
+            '</ul>'+
+            '</li>'+
+            '<li class="drrWrapper"></li>'+
+            '<li class="hotelName fakeLink"><span class="hotelName"><strong>Cheng du hotel</strong></span></li>'+
+            '<li class="wpHotelType taapUsergroup"> • <span class="wpText">ESR</span> </li>'+
+            '<li class="starRating"><strong><strong class="star-rating rating-secondary rating"><span class="visuallyhidden">2.0 out of 5 stars</span><span class="icon icon-stars2-0 stars-yellow value-title" title="2.0" aria-hidden="true"></span></strong> </strong></li>'+
+            '<li class="starRatingText"><strong>2.0 stars</strong></li> '+
+            '<li class="neighborhood"> <span class="city">Monterey</span> <span class="area">(Monterey)</span>'+
+            '<div data-content-id="view-map_1103256" class="toggle-trigger togglemap" data-track="HOT:SR:MapInListing" data-control="toggle" data-expand-text="<span class=&quot;icon icon-location iconmapblue&quot;></span> Map" data-collapse-text="<span class=&quot;icon icon-location iconmapblue&quot;></span> Map">'+
+            '<span class="icon icon-location iconmapblue"></span></div></li>'+
+            '<li class="guestRatingText"> <strong>4.0 out of 5</strong>'+
+            '<span class="reviewCount fakeLink">(1298 reviews)</span> </li>'+
+            '<li class="phoneEsr"> <span class="phone">1-866-272-4856</span>'+
+            '<span class="esr">CD5757 Rate</span>'+
+            '</li> <li class="bookingVelocity_1103256 bookingVelocity"></li>'+
+            '<li class="lastBooked hotelContent">    Bought in the last 18 hours    </li></ul> </div>'+
+            '<div id="spid" class="hidden automationTag">24</div></a>'+
+            '</article>'+
+            '</div>';
+
+    document.getElementById("resultsContainer").innerHTML = defaultHtml;
 
     var myCalendar = new JEC('myCalendarContainer');
     myCalendar.showCalendar();
-
-
-
     var passedValue = "<%= parentId %>";
-
-    alert(passedValue);
-
 
     var myCal = new JEC('myCalendarContainer', {
         tableClass: 'styledCalendar',
