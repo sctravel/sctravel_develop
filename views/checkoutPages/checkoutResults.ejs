@@ -10095,24 +10095,6 @@ if ((top != self) && (typeof(top.commonspot)!== 'undefined') && (typeof(top.comm
 
 
 
-
-
-
-
-
-                <div class="select_date mb_10">
-                    <div class="s_date">
-                        <p class="s_con" id="s_con3" title="请选择出发日期">请选择出发日期</p>
-                    </div>
-                 
-                    </ul>
-                </div>
-
-
-
-
-
-
             </div><!-- END .two-third-col -->
             <div class="one-third-col">
                 <a name="hpQuickLinks" id="hpQuickLinks"></a><a name="CP_JUMP_481833" id="CP_JUMP_481833"></a><div id="cs_control_481833" class="cs_control CS_Element_Custom">
@@ -10422,7 +10404,7 @@ if ((top != self) && (typeof(top.commonspot)!== 'undefined') && (typeof(top.comm
 
 <script type="text/javascript" src="staticBooking_files/foresee-trigger.js"></script>
 
-<script type="text/javascript">FSR.CPPS.set('npsParkCode','crla')</script>
+
 
 <script type="text/javascript">
     //<![CDATA[
@@ -10546,25 +10528,11 @@ if ((top != self) && (typeof(top.commonspot)!== 'undefined') && (typeof(top.comm
 
 <script src="http://ilsen.zxq.net/calendar/js/calendar-2.4.js"></script>
 
+
+
 <script>
 
-
-    var searchResults=[];
-    var childResults=[];
-    var package1 = {};
-    package1.parent_product_id=1;
-    package1.parent_product_name="九寨黄金三日游";
-    package1.description="黄金级别四川九寨三日游，全程4星级食宿，无商业促销互动，请放心游玩";
-    package1.list_price=500;
-    searchResults.push(package1);
-    var package2={};
-    package2.parent_product_id=2;
-    package2.parent_product_name="钻石峨眉乐山二日游";
-    package2.description="钻石级别四川峨眉乐山二日游，全程5星级食宿，无商业促销互动，请放心游玩";
-    package2.list_price=400;
-    searchResults.push(package2);
-
-
+function initResultPage(){
 
     var defaultHtml =
             '<div class="hotelWrapper" style="width:150%">'+
@@ -10593,8 +10561,9 @@ if ((top != self) && (typeof(top.commonspot)!== 'undefined') && (typeof(top.comm
             '</ul>'+
             '</li>'+
             '<li class="drrWrapper"></li>'+
-            '<li class="hotelName fakeLink"><span class="hotelName"><strong>Cheng du hotel</strong></span></li>'+
-            '<li class="wpHotelType taapUsergroup"> • <span class="wpText">ESR</span> </li>'+
+            '<li class="hotelName fakeLink"><span class="hotelName"><strong>{parent_product_name}</strong></span></li>'+
+            '<li class="wpHotelType taapUsergroup"> {parent_product_id}<span class="wpText">ESR</span> </li>'+
+            '<li  class="phoneEsr"> <span>{description}</span></li>'+
             '<li class="starRating"><strong><strong class="star-rating rating-secondary rating"><span class="visuallyhidden">2.0 out of 5 stars</span><span class="icon icon-stars2-0 stars-yellow value-title" title="2.0" aria-hidden="true"></span></strong> </strong></li>'+
             '<li class="starRatingText"><strong>2.0 stars</strong></li> '+
             '<li class="neighborhood"> <span class="city">Monterey</span> <span class="area">(Monterey)</span>'+
@@ -10607,10 +10576,65 @@ if ((top != self) && (typeof(top.commonspot)!== 'undefined') && (typeof(top.comm
             '</li> <li class="bookingVelocity_1103256 bookingVelocity"></li>'+
             '<li class="lastBooked hotelContent">    Bought in the last 18 hours    </li></ul> </div>'+
             '<div id="spid" class="hidden automationTag">24</div></a>'+
+
             '</article>'+
             '</div>';
 
-    document.getElementById("resultsContainer").innerHTML = defaultHtml;
+    var defaultHtml2='<div class="proListCon"  style="width:700px;height=auto ;border:2px solid red">' +
+            '<div class="left">' +
+            '  <div class="pic">' +
+            '    <div class="gift" style="padding-top:1px;">' +
+            '</div> </div>' +
+            '<img src="/product/packages/{product_id}/images/searchImg.jpg"  width="100%" height= auto" title="{product_name}" /></div>'+
+            '<ul class="mid" style="padding-left:30px"> </br>'+
+            '<li style="padding-left:10px"><h1> &nbsp;&nbsp; <a href="/" target="_self" >{parent_product_name} &nbsp;</a></h1></li>'+
+            '<li style="padding-left:30px"><h4> &nbsp;&nbsp;注意事项: </h4><p>注意事项&nbsp;</p> </li>'+
+            '<li style="padding-left:30px"><h4> &nbsp;&nbsp;行程特色: </h4><p>{description}&nbsp;</p></li>'+
+            '<li style="padding-left:30px"><h4> &nbsp;&nbsp;价格: </h4> <p>${list_price}&nbsp;</p> </li>'+
+            '<li style="padding-left:30px"><a href="/" class="btn btnOrange btnAddCar" target="_self" >预订行程</a></li>'+
+            '</ul><div class="right"></div></div>';
+
+
+     console.warn("init result()");
+    var resultConainer = jQuery('#resultsContainer');
+    var result=[];
+    var searchResults=[];
+    var childResults=[];
+    var package1 = {};
+    package1.parent_product_id=1;
+    package1.parent_product_name="九寨黄金三日游";
+    package1.product_name="九寨黄金三日游双人间套餐";
+    package1.description="黄金级别四川九寨三日，双人间 全程4星级食宿，无商业促销互动，请放心游玩";
+    package1.list_price=500;
+    searchResults.push(package1);
+    var package2={};
+    package2.parent_product_id=2;
+    package2.parent_product_name="九寨黄金三日游";
+    package1.product_name="九寨黄金三日游单人间套餐";
+    package2.description="黄金级别四川九寨三日游，单人间全程5星级食宿，无商业促销互动，请放心游玩";
+    package2.list_price=400;
+    searchResults.push(package2);
+
+
+    for(var i=0;i<searchResults.length ;++i) {
+        var html = defaultHtml.replace("{parent_product_id}", searchResults[i].parent_product_id).replace("{parent_product_name}", searchResults[i].parent_product_name)
+                .replace("{list_price}", searchResults[i].list_price).replace("{description}", searchResults[i].description);
+
+        resultConainer.append(html);
+    }
+
+
+    //alert("print html results now:"+result);
+    //document.getElementById("resultsContainer").innerHTML = result;
+}
+
+
+</script>
+
+<script>
+
+    //alert("init initResultPage()");
+    initResultPage();
 
     var myCalendar = new JEC('myCalendarContainer');
     myCalendar.showCalendar();
