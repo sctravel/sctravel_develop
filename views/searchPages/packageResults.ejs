@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/assets/css/packageSearch/homepage-2012-1123-min.css">
     <link type="text/css" rel="stylesheet" href="/assets/css/simplePagination.css"/>
 
-
+    <%include ../layout/header.ejs%>
     <!--link rel="stylesheet" type="text/css" href="extjs-3.0.0-src/resources/css/ext-all.css" />
     <script type="text/javascript" src="/extjs-4.0.0-src/bootstrap.js"></script>
     <script type="text/javascript" src="/extjs-3.0.0-src/adapter/ext/ext-base.js"></script>
@@ -167,6 +167,9 @@
     </div>
 </div>
 
+    <% if (!keywords) { %>
+        <%= keywords="chengdu" %>
+    <% } %>
 
 <div id="wizard">
     <div class="subHeader box">
@@ -352,10 +355,10 @@
 <script>
     var defaultHtml =
     '<div class="hotelWrapper" style="width:150%">'+
-            '<article class="segment hotel avgPerNight memberFencingEligible" id="hotel2">'+
+            '<article class="segment hotel avgPerNight memberFencingEligible" >'+
             '<a class="target edsHotel" target="1103256" href="/" data-track="HOT:SR:HotelModule">'+
-            '<div class="thumbnailContainer" style="width:250px; height: 150px;" >'+
-            '<div class="thumbnail" data-image="/product/packages/5/images/searchImg.jpg"   style="width:250px; height: 150px;background-image: url(/product/packages/1/images/searchImg.jpg);background-size:300px 150px;background-repeat:no-repeat;">'+
+            '<div class="thumbnailContainer" style="width:300px; height: 150px;" >'+
+            '<div class="thumbnail"    style="width:300px; height: 150px;background-image: url(/product/packages/{product_id}/images/searchImg.jpg);background-size:300px 150px;background-repeat:no-repeat;">'+ <!--data-image="/product/packages/{product_id}/images/searchImg.jpg"-->
             '<div class="media-loader">'+
             '<span class="loader loader-dark loader-static" title="Loading...">'+
             '</span>'+
@@ -366,25 +369,23 @@
             '<li class="priceColContainer">'+
             '<ul class="priceCol">'+
             '<li class="couponText">'+
-            '<span class="rewardsAvailable">Rewards discount available</span>'+
-    '<span class="rewardsDoublePoints">Rewards double points</span>'+
     '</li>'+
-    '<li class="superlative">Very good!</li>'+
+    '<li class="superlative">{good_status}</li>'+
     '<li class="urgencyWrapper"></li>'+
-    '<li class="price"><span class="dynamic strikePrice" data-control="tooltip" data-trigger="hover" data-content-id="dynamicTooltip" data-arrow="true" data-fade="out" data-width="240">$174</span>   <span class="actualPrice fakeLink">$64</span> </li>'+
-    '<li class="avgPerNight priceType">avg/night</li>'+
+    '<li class="price"><span class="dynamic strikePrice" data-control="tooltip" data-trigger="hover" data-content-id="dynamicTooltip" data-arrow="true" data-fade="out" data-width="240">${list_price}</span>   <span class="actualPrice fakeLink">${our_price}</span> </li>'+
+    '<li class="avgPerNight priceType">avg/person</li>'+
     '<li class="astrix"></li>'+
     '</ul>'+
     '</li>'+
     '<li class="drrWrapper"></li>'+
-    '<li class="hotelName fakeLink"><span class="hotelName"><strong>Knights Inn Carmel Hill</strong></span></li>'+
+    '<li class="hotelName fakeLink"><span class="hotelName"><strong>{product_name}</strong></span></li>'+
     '<li class="wpHotelType taapUsergroup"> • <span class="wpText">ESR</span> </li>'+
-    '<li class="starRating"><strong><strong class="star-rating rating-secondary rating"><span class="visuallyhidden">2.0 out of 5 stars</span><span class="icon icon-stars2-0 stars-yellow value-title" title="2.0" aria-hidden="true"></span></strong> </strong></li>'+
-    '<li class="starRatingText"><strong>2.0 stars</strong></li> '+
+    '<li class="starRating"><strong><strong class="star-rating rating-secondary rating"><span class="visuallyhidden">{stars} out of 5 stars</span><span class="icon icon-stars2-0 stars-yellow value-title" title="2.0" aria-hidden="true"></span></strong> </strong></li>'+
+    '<li class="starRatingText"><strong>{stars} stars</strong></li> '+
     '<li class="neighborhood"> <span class="city">Monterey</span> <span class="area">(Monterey)</span>'+
     '<div data-content-id="view-map_1103256" class="toggle-trigger togglemap" data-track="HOT:SR:MapInListing" data-control="toggle" data-expand-text="<span class=&quot;icon icon-location iconmapblue&quot;></span> Map" data-collapse-text="<span class=&quot;icon icon-location iconmapblue&quot;></span> Map">'+
             '<span class="icon icon-location iconmapblue"></span></div></li>'+
-    '<li class="guestRatingText"> <strong>4.0 out of 5</strong>'+
+    '<li class="guestRatingText"> <strong>{rating} out of 5</strong>'+
     '<span class="reviewCount fakeLink">(1298 reviews)</span> </li>'+
     '<li class="phoneEsr"> <span class="phone">1-866-272-4856</span>'+
     '<span class="esr">CD5757 Rate</span>'+
@@ -407,41 +408,21 @@
             '<li style="padding-left:30px"><h4> &nbsp;&nbsp;价格: </h4> <p>${list_price}&nbsp;</p> </li>'+
             '<li style="padding-left:30px"><a href="/" class="btn btnOrange btnAddCar" target="_self" >预订行程</a></li>'+
             '</ul><div class="right"></div></div>';
-     //var noResultsHtml = '<div> <h1>Sorry, no result with keyword-\"{keyword}\" is found.</h1></div>'
-     //Generate test data
-    /* var searchResults=[];
-     var package1 = {};
-     package1.parent_product_id=1;
-     package1.parent_product_name="九寨黄金三日游";
-     package1.description="黄金级别四川九寨三日游，全程4星级食宿，无商业促销互动，请放心游玩";
-     package1.list_price=500;
-     package1.min_price=400;
-     searchResults.push(package1);
-     var package2={};
-     package2.parent_product_id=2;
-     package2.parent_product_name="钻石峨眉乐山二日游";
-     package2.description="钻石级别四川峨眉乐山二日游，全程5星级食宿，无商业促销互动，请放心游玩";
-     package2.list_price=400;
-     package2.min_price=300;
-     searchResults.push(package2);
-     var package3={};
-     package3.parent_product_id=3;
-     package3.parent_product_name="黄金青城山都江堰二日游";
-     package3.description="黄金级别青城山都江堰二日游，全程4星级食宿，无商业促销互动，请放心游玩";
-     package3.list_price=300;
-     package3.min_price=250;
-     searchResults.push(package3);
-     searchResults.push(package3);
-     searchResults.push(package3);
-     searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);
-     searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);
-     searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);
-     searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);
-     searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);
-     searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);searchResults.push(package3);
-     */
 
 
+    function replaceHtml(searchResult){
+        return defaultHtml.replace("{product_id}",searchResult.parent_product_id)
+                .replace("{product_name}",searchResult.parent_product_name)
+                .replace("{product_name}",searchResult.parent_product_name)
+                .replace("{list_price}",searchResult.max_price)
+                .replace("{our_price}",searchResult.min_price)
+                .replace("{description}",searchResult.description)
+                .replace("{rating}",searchResult.rating)
+                .replace("{stars}",searchResult.product_class)
+                .replace("{good_status}","Very Good!")
+                ;
+
+    }
 
      function displayNoResults(){
          $('#resultsContainer').empty();
@@ -458,7 +439,7 @@
          //$('#page').empty();
          $('#botPage').empty();
 
-         var itemsOnPage = 10;
+         var itemsOnPage = 3;
          var resultConainer = $('#resultsContainer');
 
          /*$('#page').pagination({  //首先获取对应的ID，第二步已经定义了ID为page
@@ -488,9 +469,7 @@
                  var page_index = $("#botPage").pagination('getCurrentPage') -1;
                  resultConainer.empty();
                  for(var i=page_index*itemsOnPage;i<(page_index+1)*itemsOnPage;++i) {
-                     var html=defaultHtml.replace("{product_id}",searchResults[i].parent_product_id).replace("{product_name}",searchResults[i].parent_product_name)
-                             .replace("{min_price}",searchResults[i].list_price).replace("{description}",searchResults[i].description);
-                     resultConainer.append(html);
+                     resultConainer.append(replaceHtml(searchResults[i]));
                  }
                  //$("#page").pagination('drawPage',$("#botPage").pagination('getCurrentPage'));
 
@@ -500,13 +479,11 @@
          function initPage() {
              resultConainer.empty();
              for(var i=0;i<itemsOnPage && i< searchResults.length;++i) {
-                 var html=defaultHtml.replace("{product_id}",searchResults[i].parent_product_id).replace("{product_name}",searchResults[i].parent_product_name)
-                         .replace("{product_name}",searchResults[i].parent_product_name)
-                         .replace("{min_price}",searchResults[i].list_price).replace("{description}",searchResults[i].description);
-                 resultConainer.append(html);
+                 resultConainer.append(replaceHtml(searchResults[i]));
              }
          }
      }
+
 
      function searchPackagesByKeywords(){
          var keywords=$('#search-package-keywords').val();
@@ -538,146 +515,3 @@
 </body>
 </html>
 
-<!--div class="proList" id="_s_search_ResultPanel">
-    <div class="proListTop after__s_search_load" id="proListTop">
-        <div class="page _s_search_option_other page1">
-            <span><b>1</b><a href='http://www.usitrip.com/advanced_search_result.php?&vc=0&w=%BB%C6%CA%AF&pp=2' class='_s_search_ajax type1' mod='pp' val='2'>2</a><a href='http://www.usitrip.com/advanced_search_result.php?&vc=0&w=%BB%C6%CA%AF&pp=3' class='_s_search_ajax type1' mod='pp' val='3'>3</a><a href='http://www.usitrip.com/advanced_search_result.php?&vc=0&w=%BB%C6%CA%AF&pp=4' class='_s_search_ajax type1' mod='pp' val='4'>4</a><a href='http://www.usitrip.com/advanced_search_result.php?&vc=0&w=%BB%C6%CA%AF&pp=5' class='_s_search_ajax type1' mod='pp' val='5'>5</a><a href='http://www.usitrip.com/advanced_search_result.php?&vc=0&w=%BB%C6%CA%AF&pp=6' class='_s_search_ajax type1' mod='pp' val='6'>6</a><a href='http://www.usitrip.com/advanced_search_result.php?&vc=0&w=%BB%C6%CA%AF&pp=7' class='_s_search_ajax type1' mod='pp' val='7'>7</a></span><a href='http://www.usitrip.com/advanced_search_result.php?&vc=0&w=%BB%C6%CA%AF&pp=2' class='go next _s_search_ajax next1' mod='pp' val='2'>下一页</a><a href='http://www.usitrip.com/advanced_search_result.php?&vc=0&w=%BB%C6%CA%AF&pp=20' class='go last _s_search_ajax last1' mod='pp' val='20'>末页</a>          </div>
-        <div class="option _s_search_option_other" style="display:none">
-            <select mod='st' onchange="jQuery_Change_Sort(this)" class="_s_search_ajax">
-                <option value="http://www.usitrip.com/advanced_search_result.php?&vc=0&w=%BB%C6%CA%AF">---默认排序---</option>
-                <option value='http://www.usitrip.com/advanced_search_result.php?&vc=0&st=d_a&w=%BB%C6%CA%AF' val='d_a' >按持续时间升序</option><option value='http://www.usitrip.com/advanced_search_result.php?&vc=0&st=d_d&w=%BB%C6%CA%AF' val='d_d' >按持续时间降序</option><option value='http://www.usitrip.com/advanced_search_result.php?&vc=0&st=p_a&w=%BB%C6%CA%AF' val='p_a' >按价格升序</option><option value='http://www.usitrip.com/advanced_search_result.php?&vc=0&st=p_d&w=%BB%C6%CA%AF' val='p_d' >按价格降序</option><option value='http://www.usitrip.com/advanced_search_result.php?&vc=0&st=o_a&w=%BB%C6%CA%AF' val='o_a' >按热销升序</option><option value='http://www.usitrip.com/advanced_search_result.php?&vc=0&st=o_d&w=%BB%C6%CA%AF' val='o_d' >按热销降序</option>            </select>
-            <div class="orderby ">
-                <a href="http://www.usitrip.com/advanced_search_result.php?&vc=0&st=d_a&w=%BB%C6%CA%AF" val="d_a" mod="st" class="_s_search_ajax">持续时间</a>
-            </div>
-            <div class="orderby ">
-                <a href="http://www.usitrip.com/advanced_search_result.php?&vc=0&st=p_a&w=%BB%C6%CA%AF" val="p_a" mod="st" class="_s_search_ajax">价格</a>
-            </div>
-            <div class="" style="float:right;color:#111;">排序：</div>
-        </div>
-
-    </div>
-    <div class="proListCon"  id="proListCon_3038">
-        <h2><a href="http://www.usitrip.com/huangshi-luoshanji-lasi-baoweihu-bulaisixiagu-yanhucheng-daxiagu-7d-lvyou.html" target="_self">[美西<i>黄石</i>公园，鲍威尔湖7日深度游] 畅游美西五大自然特色保护区、五大人工奇景|限量团</a></h2>
-        <div class="left">
-            <div class="pic">
-                <div class="gift" style="padding-top:1px;">
-                    <table><tbody><tr><td>买2送1</span></td></tr></tbody></table>              </div>
-                <div class="searchpicbox"><a href="http://www.usitrip.com/huangshi-luoshanji-lasi-baoweihu-bulaisixiagu-yanhucheng-daxiagu-7d-lvyou.html" target="_self"><img src="http://www.usitrip.com/images/picture/thumb_0_1340999144_us_nv_lv.jpg" border="0" alt="[美西<i>黄石</i>公园，鲍威尔湖7日深度游] 畅游美西五大自然特色保护区、五大人工奇景|限量团**独家入住豪华<i>黄石</i>湖木屋，免费精美早餐 + 免费酒店WIFI ！赠送超值百元大礼包！**" title=" [美西<i>黄石</i>公园，鲍威尔湖7日深度游] 畅游美西五大自然特色保护区、五大人工奇景|限量团**独家入住豪华<i>黄石</i>湖木屋，免费精美早餐 + 免费酒店WIFI ！赠送超值百元大礼包！** " /></a></div>
-            </div>
-        </div>
-        <ul class="mid">
-            <li>
-                <h4>游玩∶</h4>
-                <p>洛杉矶&nbsp;</p>
-            </li>
-            <li>
-                <h4>出团时间∶</h4>
-                <p>						2014年5月21日 - 2014年7月14日 : 周日/周三/周四/周六<br/>2014年7月15日 - 2014年10月2日 : 每日<br/>&nbsp;</p>
-            </li>
-            <li>
-                <h4>行程特色：</h4>
-                <p>上车地点免费接送。保证独家入住豪华黄石湖木屋，在湖边观赏黄石湖日出日落，并精心安排黄石湖畔餐厅晚餐，落地大窗户旁赏落日余晖遍布黄...&nbsp;</p>
-            </li>
-        </ul>
-        <div class="right">
-            <del></del>
-            <b>$334.00</b>
-
-            <a href="http://www.usitrip.com/huangshi-luoshanji-lasi-baoweihu-bulaisixiagu-yanhucheng-daxiagu-7d-lvyou.html" class="btn btnOrange btnAddCar" target="_self">预订行程</a>
-
-
-            <span class="btn btnGrey btnAddCollect" style="border:1px solid #ccc;width:88px;text-align:center;cursor:default;">赠334<a href="http://www.usitrip.com/points.php">积分</a></span>
-        </div>
-    </div>
-    <div class="proListCon proListConEven"  id="proListCon_2973">
-        <h2><a href="http://www.usitrip.com/huangshigongyuan-baoweihu-xixia-youshenmeidi-10d-lvyou.html" target="_self">[美西<i>黄石</i>公园，鲍威尔湖，斯坦福大学10日特色游] 畅游美西七大自然特色保护区、五大人工奇景|限量团</a></h2>
-        <div class="left">
-            <div class="pic">
-                <div class="gift" style="padding-top:1px;">
-                    <table><tbody><tr><td>买2送1</span></td></tr></tbody></table>              </div>
-                <div class="searchpicbox"><a href="http://www.usitrip.com/huangshigongyuan-baoweihu-xixia-youshenmeidi-10d-lvyou.html" target="_self"><img src="http://www.usitrip.com/images/picture/thumb_9_1340820021_us_wy_.jpg" border="0" alt="[美西<i>黄石</i>公园，鲍威尔湖，斯坦福大学10日特色游] 畅游美西七大自然特色保护区、五大人工奇景|限量团**独家入住豪华<i>黄石</i>湖木屋，免费精美早餐 + 免费酒店WIFI ！赠送超值百元大礼包！**" title=" [美西<i>黄石</i>公园，鲍威尔湖，斯坦福大学10日特色游] 畅游美西七大自然特色保护区、五大人工奇景|限量团**独家入住豪华<i>黄石</i>湖木屋，免费精美早餐 + 免费酒店WIFI ！赠送超值百元大礼包！** " /></a></div>
-            </div>
-
-        </div>
-        <ul class="mid">
-            <li>
-                <h4>旅游团号：</h4>
-                <p><b>LA235-2973&nbsp;</b></p>
-            </li>
-            <li>
-                <h4>出发城市∶</h4>
-                <p>洛杉矶&nbsp;</p>
-            </li>
-            <li>
-                <h4>结束城市：</h4>
-                <p>洛杉矶&nbsp;</p>
-            </li>
-            <li>
-                <h4>出团时间∶</h4>
-                <p>						2014年5月21日 - 2014年7月14日 : 周日/周三/周四/周六<br/>2014年7月15日 - 2014年10月2日 : 每日<br/>&nbsp;</p>
-            </li>
-            <li style="display:none">
-                <h4>积分信息：</h4>
-                <p>订购就赚取 <span class="jifen_num">469</span> 个<a class="sp3" href="http://www.usitrip.com/points.php" target="_blank">积分</a></p>
-            </li>
-            <li>
-                <h4>行程特色：</h4>
-                <p>上车地点免费接送。保证独家入住豪华黄石湖木屋，在湖边观赏黄石湖日出日落，并精心安排黄石湖畔餐厅晚餐，落地大窗户旁赏落日余晖遍布黄...&nbsp;</p>
-            </li>
-        </ul>
-        <div class="right">
-            <del></del>
-            <b>$469.00</b>
-
-            <a href="http://www.usitrip.com/huangshigongyuan-baoweihu-xixia-youshenmeidi-10d-lvyou.html" class="btn btnOrange btnAddCar" target="_self">预订行程</a>
-
-
-            <span class="btn btnGrey btnAddCollect" style="border:1px solid #ccc;width:88px;text-align:center;cursor:default;">赠469<a href="http://www.usitrip.com/points.php">积分</a></span>
-        </div>
-    </div>
-    <div class="proListCon"  id="proListCon_2993">
-        <h2><a href="http://www.usitrip.com/huangshigongyuan-yanhucheng-datidun-4d-lvyou.html" target="_self">[美西<i>黄石</i>公园，盐湖城 4日经典游] 美西国家公园之旅|限量团</a></h2>
-        <h3>**独家入住豪华<i>黄石</i>湖木屋，坐看湖边日出。免费精美早餐 + 免费酒店WIFI ！**</h3>
-        <div class="left">
-            <div class="pic">
-                <div class="gift" style="padding-top:1px;">
-                    <table><tbody><tr><td>买2送1</span></td></tr></tbody></table>              </div>
-                <div class="searchpicbox"><a href="http://www.usitrip.com/huangshigongyuan-yanhucheng-datidun-4d-lvyou.html" target="_self"><img src="http://www.usitrip.com/images/picture/thumb_7_1340819833_us_ut_slc.jpg" border="0" alt="[美西<i>黄石</i>公园，盐湖城 4日经典游] 美西国家公园之旅|限量团**独家入住豪华<i>黄石</i>湖木屋，坐看湖边日出。免费精美早餐 + 免费酒店WIFI ！**" title=" [美西<i>黄石</i>公园，盐湖城 4日经典游] 美西国家公园之旅|限量团**独家入住豪华<i>黄石</i>湖木屋，坐看湖边日出。免费精美早餐 + 免费酒店WIFI ！** " /></a></div>
-            </div>
-
-        </div>
-        <ul class="mid">
-            <li>
-                <h4>旅游团号：</h4>
-                <p><b>SLC235-2993&nbsp;</b></p>
-            </li>
-            <li>
-                <h4>出发城市∶</h4>
-                <p>盐湖城&nbsp;</p>
-            </li>
-            <li>
-                <h4>结束城市：</h4>
-                <p>盐湖城&nbsp;</p>
-            </li>
-            <li>
-                <h4>出团时间∶</h4>
-                <p>						2014年5月22日 - 2014年7月15日 : 周日/周一/周四/周五<br/>2014年7月16日 - 2014年10月3日 : 周日/周一/周三/周四/周五<br/>&nbsp;</p>
-            </li>
-            <li>
-                <h4>行程特色：</h4>
-                <p>保证独家入住豪华黄石湖木屋，在湖边观赏黄石湖日出日落，并精心安排黄石湖畔餐厅晚餐，落地大窗户旁赏落日余晖遍布黄石湖面，更可浪漫烛...&nbsp;</p>
-            </li>
-        </ul>
-        <div class="right">
-            <del></del>
-            <b>$276.00</b>
-
-            <a href="http://www.usitrip.com/huangshigongyuan-yanhucheng-datidun-4d-lvyou.html" class="btn btnOrange btnAddCar" target="_self">预订行程</a>
-
-
-            <span class="btn btnGrey btnAddCollect" style="border:1px solid #ccc;width:88px;text-align:center;cursor:default;">赠276<a href="http://www.usitrip.com/points.php">积分</a></span>
-        </div>
-    </div>
-
-
-</div-->

@@ -107,16 +107,20 @@ passport.use('local', new LocalStrategy(
 ));
 
 passport.serializeUser(function (user, done) {//保存user对象
-    done(null, {username:user.username, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});//可以通过数据库方式操作
+    done(null, {customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});//可以通过数据库方式操作
 });
 
 passport.deserializeUser(function (user, done) {//删除user对象
-    done(null, {username:user.username, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName} );//可以通过数据库方式操作
+    done(null, {customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName} );//可以通过数据库方式操作
 });
 
 //Home page
 app.get('/', function (req,res){
-    res.render('index');
+    if(req.user) {
+        res.render('index',{customerId:req.user.customerId, randomKey:req.user.randomKey,firstName: req.user.firstName, lastName: req.user.lastName});
+    } else {
+        res.render('index');
+    }
 });
 app.get('/test', function (req,res){
     res.render('test');
@@ -125,10 +129,23 @@ app.get('/login', function (req,res){
     res.render('login/customerLogin',{error: req.flash('error'), success: req.flash('success'), message:req.flash('message') });
 });
 
+app.get('/account/myorders', isLoggedIn, function (req,res){
+    var user = req.user;
+    console.dir(user);
+    req.session.lastPage = "/login/myOrdersPage";
+    res.render('login/myOrdersPage',{customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
+});
+app.get('/account/myaccount', isLoggedIn, function (req,res){
+    var user = req.user;
+    console.dir(user);
+    req.session.lastPage = "/login/myAccountPage";
+    res.render('login/myAccountPage',{customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
+});
+
 app.get('/signup', function (req,res){
     res.render('login/createAccount');
 });
-app.get('/results', function (req,res){
+app.get('/package-search-results', function (req,res){
     var keywords;
 
     if(req.body.keywords) {
@@ -198,9 +215,14 @@ app.post('/services/customer/accounts/new', function(req,res) {
 
 //app.all('/users', isLoggedIn);
 app.get('/logout', isLoggedIn, function (req, res) {
-    console.log(req.user.customerId + " logged out.");
+    console.log(req.user.customerId + " logging out.");
     userLogin.logoutCustomerLoginHistory(req.user.customerId,req.user.randomKey, function(err, results){
-        console.info("");//write logout history success
+        if(results==constants.CALLBACK_SUCCESS) {
+        } else {
+            console.error("Logout error, please retry");
+            return;
+        }
+
     })
     req.flash('success','登出成功!');
     req.logout();

@@ -1,0 +1,2 @@
+'parent_product_type','parent_product_name','subTitle',  'description','rating','max_price', 'min_price', 'is_active', 'customer_group', 'product_class',  'duration',  'keywords',  'airline',   'flightNo',  'departure', 'arrival'
+1, 
