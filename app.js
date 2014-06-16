@@ -212,7 +212,13 @@ app.get('/package-search-results', function (req,res){
         keywords="chengdu";
     }
 
-    res.render('searchPages/packageResults.ejs',{keywords: keywords+""});
+    if(req.user) {
+       res.render('searchPages/packageResults.ejs',{keywords: keywords+"",customerId:req.user.customerId, randomKey:req.user.randomKey,firstName: req.user.firstName, lastName: req.user.lastName});
+    } else {
+        res.render('searchPages/packageResults.ejs',{keywords: keywords+""});
+
+    }
+
 });
 
 

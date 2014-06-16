@@ -3,10 +3,15 @@
 
         <a id="header-logo" class="logo us-pos" href="/ " target="_top" data-tid="header-logo">成都旅游网</a>
         <div id="globalSiteNavigation" class="site-navigation cf">
-            <b>Welcome to ChengDu Travel!</b>
             <% if (typeof customerId != 'undefined' && customerId !=null) { %>
-                <div> <style="text-align:'center';color:'red';font-family:'arial';font-size:'small';font-style:'italic'"/>Hello!<%= firstName+lastName %></div>
-                <a id="logout" class="nav-tab" href="/logout">Logout</a>
+            <b>Welcome to ChengDu Travel! <%= firstName+" "+lastName %> </b>
+                <ul class="shop-nav nav-group cf">
+                    <li id="utility-menu1">
+                        <a id="myaccount" class="nav-tab" href="/account/myaccount">My Account</a>
+                    </li>
+                    <li>
+                        <a id="logout" class="nav-tab" href="/logout">Logout</a>
+                    </li>
             <% }  else { %>
             <ul class="shop-nav nav-group cf">
                 <li id="utility-menu1">
