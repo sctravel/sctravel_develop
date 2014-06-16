@@ -141,6 +141,62 @@ app.get('/account/myaccount', isLoggedIn, function (req,res){
     req.session.lastPage = "/login/myAccountPage";
     res.render('login/myAccountPage',{customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
 });
+app.get('/account/myaccount/updatePassword', isLoggedIn, function (req,res){
+    var user = req.user;
+    console.dir(user);
+    req.session.lastPage = "/login/myAccountPageUpdatePassword";
+    res.render('login/myAccountPageUpdatePassword',{customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
+});
+
+app.post('/account/updatePassword',isLoggedIn, function(req,res){
+    var user = req.user ;
+    var updateData = req.body.updateData;
+    console.log("updating password!")
+    console.dir(updateData);
+    userLogin.updatePasswordForAccount(updateData,user.customerId,user.randomKey,function(err,data){
+        if(err) {
+            console.error(err);
+            return;
+        }
+
+        if(data==constants.CALLBACK_SUCCESS){
+            res.send(data);
+        }
+
+    })
+
+})
+app.get('/services/customer/accounts', isLoggedIn, function(req,res){
+
+    userLogin.getAccountInfoForCustomer(req.user.customerId,req.user.randomKey, function(err,results){
+        if(err) {
+            console.error(err);
+            return;
+        }
+
+        res.send(results);
+    })
+})
+
+
+app.post('/account/updateAccountInfo',isLoggedIn, function(req,res){
+    var user = req.user ;
+    var updateAccountInfo = req.body.updateAccountInfo;
+    console.log("updating account information!")
+    console.dir(updateAccountInfo);
+    userLogin.updateAccountInformation(updateAccountInfo,user.customerId,user.randomKey,function(err,data){
+        if(err) {
+            console.error(err);
+            return;
+        }
+
+        if(data==constants.CALLBACK_SUCCESS){
+            res.send(data);
+        }
+
+    })
+
+})
 
 app.get('/signup', function (req,res){
     res.render('login/createAccount');
