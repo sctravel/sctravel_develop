@@ -75,7 +75,14 @@ if ('development' == app.get('env')) {
 };
 
 
-
+//Home page
+app.get('/', function (req,res){
+    if(req.user) {
+        res.render('index',{customerId:req.user.customerId, randomKey:req.user.randomKey,firstName: req.user.firstName, lastName: req.user.lastName});
+    } else {
+        res.render('index');
+    }
+});
 
 app.get('/services/getConfirmPic',function(req,res){
     var conf = confirmPicGenerator.generateConfirmPic();
@@ -84,9 +91,9 @@ app.get('/services/getConfirmPic',function(req,res){
     res.end(conf[1]);
 })
 
-//********************************************************************
+///////////////////////////////////////////////////////////////////////
 // * CustomerLogin methods
-//********************************************************************/
+///////////////////////////////////////////////////////////////////////
 passport.use('local', new LocalStrategy(
     function (username, password, done) {
 
@@ -114,19 +121,22 @@ passport.deserializeUser(function (user, done) {//删除user对象
     done(null, {customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName} );//可以通过数据库方式操作
 });
 
-//Home page
-app.get('/', function (req,res){
-    if(req.user) {
-        res.render('index',{customerId:req.user.customerId, randomKey:req.user.randomKey,firstName: req.user.firstName, lastName: req.user.lastName});
-    } else {
-        res.render('index');
-    }
-});
-app.get('/test', function (req,res){
-    res.render('test');
-});
+app.post('/login',
+    passport.authenticate('local',
+        { successRedirect: '/',
+            failureRedirect: '/login',
+            failureFlash: true })
+);
+
+
+///////////////////////////////////////////////////////////////////////
+// Customer Login and Account Management
+///////////////////////////////////////////////////////////////////////
 app.get('/login', function (req,res){
     res.render('login/customerLogin',{error: req.flash('error'), success: req.flash('success'), message:req.flash('message') });
+});
+app.get('/signup', function (req,res){
+    res.render('login/createAccount');
 });
 
 app.get('/account/myorders', isLoggedIn, function (req,res){
@@ -146,6 +156,22 @@ app.get('/account/myaccount/updatePassword', isLoggedIn, function (req,res){
     console.dir(user);
     req.session.lastPage = "/login/myAccountPageUpdatePassword";
     res.render('login/myAccountPageUpdatePassword',{customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
+});
+
+//Data Services for account
+app.post('/services/customer/accounts/new', function(req,res) {
+    var newAccountInfo = req.body.newAccountInfo;
+
+    userLogin.addNewCustomerAccount(newAccountInfo, function(err,results){
+        if(err) {
+            console.error(err);
+            res.send(err);
+        } else {
+            console.info(results);
+            res.send(results);
+        }
+    });
+
 });
 
 app.post('/account/updatePassword',isLoggedIn, function(req,res){
@@ -198,9 +224,7 @@ app.post('/account/updateAccountInfo',isLoggedIn, function(req,res){
 
 })
 
-app.get('/signup', function (req,res){
-    res.render('login/createAccount');
-});
+
 app.get('/package-search-results', function (req,res){
     var keywords;
 
@@ -260,20 +284,7 @@ app.post('/package-search',function(req,res){
 })
 
 //User Login Functionalities
-app.post('/services/customer/accounts/new', function(req,res) {
-    var newAccountInfo = req.body.newAccountInfo;
 
-    userLogin.addNewCustomerAccount(newAccountInfo, function(err,results){
-        if(err) {
-            console.error(err);
-            res.send(err);
-        } else {
-            console.info(results);
-            res.send(results);
-        }
-    });
-
-});
 
 //app.all('/users', isLoggedIn);
 app.get('/logout', isLoggedIn, function (req, res) {
@@ -291,12 +302,7 @@ app.get('/logout', isLoggedIn, function (req, res) {
     res.redirect("/");
 });
 
-app.post('/login',
-    passport.authenticate('local',
-        { successRedirect: '/',
-            failureRedirect: '/login',
-            failureFlash: true })
-);
+
 
 
 http.createServer(app).listen(app.get('port'), function(){
