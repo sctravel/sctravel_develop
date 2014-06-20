@@ -422,7 +422,15 @@
                 box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.5);
             }
 
-
+            .local-favourites-module .disclaimer {
+                float: right;
+                font-size: 0.764706em;
+                margin-top: -1.84615em;
+                padding: 0;
+                position: relative;
+                text-align: right;
+                width: 25%;
+            }
 
         </style>
 
@@ -644,6 +652,55 @@
 
     </div>
 
+     <div>
+
+         <header class="cols-row-header cf section-header no-group" id="local-favourites-module-1-header">
+             <h3 class="section-header-main ">Top local destinations booked by Chengdu travelers</h3>
+         </header>
+
+        <ul class="bxslider" style = "height:500">
+            <li><div><img src="/assets/img/hill_trees.jpg" title="Funky roots sdfsfsdfsdfsdfsdfsd"/>asdfahasdfasdfasdfasdflkjlkjlkskdjf</div>
+
+
+            </li>
+            <li>
+                    <div><img src="/assets/img/hill_trees.jpg" title="Funky roots sdfsfsdfsdfsdfsdfsd"/>
+                    <a>sdfasdfasdfasdfasdfasfda</a></div>
+
+            </li>
+
+            <li><div><img src="/assets/img/me_trees.jpg" title="Funky roots sdfsdfsd"/>fhgslkdjfhgslidfuhgsiu</div>
+
+            </li>
+            <li><div><img src="/assets/img/hill_trees.jpg" title="Funky rootswerwerwerwerwerwrw" /></div></li>
+        </ul>
+     </div>
+
+
+
+
+        <script src="/assets/jquery.bxslider.js"></script>
+        <link href="/assets/jquery.bxslider.css" rel="stylesheet" />
+
+        <script>
+            $(document).ready(function(){
+                $('.bxslider').bxSlider(
+                        {   minSlides: 3,
+                            maxSlides: 3,
+                            slideWidth: 360,
+                            slideMargin: 10,
+                            height: 100,
+
+                            slideSelector:'li'
+
+                        }
+
+
+                );
+
+
+            });
+        </script>
 <script>
 
     $('#package-search-button').click(function() {
