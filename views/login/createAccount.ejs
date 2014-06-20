@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="/assets/css/global-header-responsive-bundle-min-733236120.css">
     <link rel="stylesheet" href="/assets/css/core-responsive.css">
     <link rel="stylesheet" href="/assets/css/userlogin-min-2366612448.css">
-    <%include ../layout/header.ejs%>
 
+    <%include ../layout/header.ejs%>
+    <%include ../layout/navBar.ejs%>
 </head>
 
 <body data-spy="scroll" data-target=".bs-docs-sidebar" data-twttr-rendered="true">
@@ -155,7 +156,6 @@
      }
 
      $('#customerSignup').click(function(){
-         console.log("clicked!");
          reporter.clear();
 
          if(!validateSignupForm()) {
@@ -177,6 +177,7 @@
                    console.log("successfully created a new account");
                    reporter.successStatus("successfully created a new account");
                    reporter.render();
+                   window.location.href("/login");
                } else {
                    reporter.errorStatus(data);
                    reporter.render();
