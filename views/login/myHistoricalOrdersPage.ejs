@@ -45,6 +45,7 @@
 
     <%include ../layout/header.ejs%>
     <%include ../layout/navBar.ejs%>
+    <%include ../layout/jqGridInclude.ejs%>
 
 </head>
 
@@ -66,7 +67,7 @@
                         <ul class="Personal_l_meun_list">
                             <h3 class="Personal_l_meun_h3">My Orders</h3>
                             <li><a class="Personal_l_meun_icon5" href="/account/myorders">Upcoming</a></li>
-                            <li><a class="Personal_l_meun_icon6_2 selected" href="/account/myorders/history">History</a></li>
+                            <li><a class="Personal_l_meun_icon6_2" href="/account/myorders/history">History</a></li>
 
                         </ul>
                     </div></td>
@@ -80,97 +81,18 @@
                     });
                 </script>
                 <td style="width:15px;">&nbsp;</td>
-                <td style="width:1015px;"><div class="Personal_r_con Personal_bd1">
-                        <h3 class="Personal_r_con_h3 menuselected"> </h3>
-                        <div class="Personal_r_con_mian3">
-                            <div class="Personal_buy">
-
-                                <div class="Personal_buy_box2">
-
-                                </div>
-                                <div class="Personal_orders_box2_qx">
-
-
-
-
-                                    <input name='pageIndex' type='hidden' id='hdfPageIndex' value='1' />
-                                    <input name='pageSize' type='hidden' id='hdfPageSize' value='20' />
-                                    <input name='recordCount' type='hidden' id='hdfRecordCount' value='0' />
-                                    <input name='orderBy' type='hidden' id='hdfOrderBy' value='' />
-                                    <input name='isAsc' type='hidden' id='hdfIsAsc' value='False' />
-
-                                    <table class="Personal_buy_box2_tab" cellspacing="0" style="width:100%; margin: 0; ">
-                                        <thead>
-                                        <tr class="Personal_buy_box2_tab_th">
-                                            <th  scope="col" style="width:140px">订单编号</th>
-                                            <th  scope="col">
-                                                产品信息
-                                            </th>
-                                            <th scope="col" style="width:40px">
-                                                数量
-                                            </th>
-
-                                            <th scope="col" style="width:5%">
-                                                单价
-                                            </th>
-                                            <th scope="col" style="width:10%">
-                                                <select id="OrderDate">
-                                                    <option value="0" selected="selected">全部时间</option>
-                                                    <option value="1">三个月内</option>
-                                                    <option value="2">今年内</option>
-                                                    <option value="3">2013年</option>
-                                                    <option value="4">2013年以前</option>
-                                                </select>
-                                            </th>
-                                            <th scope="col" style="width:10%">
-                                                <select id="OrderStatus">
-                                                    <option value="">全部状态</option>
-                                                    <option value="6" >等待付款</option>
-                                                    <option value="7" >已付款</option>
-                                                    <option value="8" >已完成</option>
-                                                    <option value="4" >退款成功</option>
-                                                    <option value="3" >退款申请中</option>
-                                                    <option value="5" >退款被否决</option>
-                                                </select>
-                                            </th>
-                                            <th scope="col" style="width:70px"></th>
-                                            <th scope="col" style="width:10%">操作</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody class="content">
-                                        </tbody>
-                                    </table>
-
-                                    <ul class="message no-margin">
-                                        <li class="pagerRemark">Loading...</li>
-                                    </ul>
-                                    <div class="block-footer">
-                                        <div class="float-right">
-                                            <label for="table-display" style="display: inline">
-                                                显示</label>
-                                            <select size="1" id="pageSizeChange">
-                                                <option value="10">10</option>
-                                                <option value="20" selected="selected">20</option>
-                                                <option value="25">25</option>
-                                                <option value="50">50</option>
-                                                <option value="100">100</option>
-                                            </select>
-                                            <label for="table-display" style="display: inline">
-                                                记录</label>
-                                        </div>
-                                        <img src="/Content/images/icons/fugue/arrow-curve-000-left.png" width="16" height="16"
-                                             class="picto">
-                                        <div class="pager" style="height: 30px; margin: 5px; float: left">
-                                        </div>
-                                    </div>
-                                    <div class='commnet-dialog' id='commentDialog' style="display:none"><iframe id='frameCommentDialog' frameborder='0' width='100%' height='100%'></iframe></div>
-
-
-
-                                </div>
-                            </div>
+                <td style="width:1015px;">
+                    <section id="packageOrdersPage">
+                        <div class="page-header">
+                            <h1>My Historical Vacation Packages：</h1>
                         </div>
-                    </div></td>
+                        <div>
+                            <table id="packageOrderResult"></table>
+                            <div id="noresults" style="display:none"><h1  style="text-align:center">You have no historical orders.</h1></div>
+                        </div>
+                        <br />
+                    </section>
+                </td>
             </tr>
             </tbody></table>
     </div>
@@ -180,16 +102,128 @@
 <script>
     var orders={};
     var orderDetails={};
+    var searchResults={};
+
+
+    var displayPackageOrders = function(data){
+        searchResults=data;
+        console.dir(searchResults);
+        jQuery("#packageOrderResult").GridUnload();
+        jQuery("#packageOrderResult").jqGrid({
+            data: searchResults,
+            datatype: "local",
+            colNames:['Product','StartDate','OrderDate','Description','Link','Amount','confirmCode','Quantity'],
+            colModel:[  {name:'product_name',index:'product_name',width:120} ,
+                {name:'start_date',index:'start_date', formatter:dateDisplayFormatter, width:120},
+                {name:'order_datetime',index:'order_datetime', formatter:dateDisplayFormatter, width:120},
+                {name:'description',index:'description', align:"right", width:160},
+                {name:'parent_product_id',index:'parent_product_id', align:"right",width:150,formatter:packageDetailsFormatter},
+                {name:'total_order_amount',index:'total_order_amount', align:"right",width:60},
+                {name:'confirmation_code',index:'confirmation_code', align:"right"},
+                {name:'quantity',index:'quantity', align:"right",width:60},
+            ],
+            //shrikToFit: true,
+            /*gridComplete: function(){ var ids = jQuery("#packageOrderResult").jqGrid('getRowData');
+             for(var i=0;i < ids.length;i++){
+             var data = ids[i];
+             console.dir(data);
+             if(data.order_status == '未付款') {
+             console.log("status is Booked");
+
+             var ce = "<input style='height:22px;width:80px;background-color:#ff0000' id=" + data.order_id+ " type='button' value='取消' />" ;
+             jQuery("#orderSearchResult").jqGrid('setRowData',(i+1)+"",{is_valid:ce});
+
+             $('#'+data.order_id).click(function(){
+             $.post('/services/orders/cancel',{orderId:data.order_id},function(results){
+             if(results=="done") {
+             reporter.successStatus("您已经成功取消了一个订单，订单号为:"+data.order_id);
+             reporter.render();
+
+             if($('#name').val() && $('#name').val().length>1 ) {
+             searchByCustomerName();
+             } else if($('#phone').val() && $('#phone').val().length>1) {
+             searchByPhone();
+             } else if($('#orderId').val() && $('#orderId').val().length>1) {
+             searchByOrderId();
+             } else if($('#confirmCode').val() && $('#confirmCode').val().length>1) {
+             searchByConfirmCode();
+             }
+
+             } else {
+             reporter.errorStatus("取消订单出现问题,请重试或者联系管理员.");
+             reporter.render();
+             //TODO deal with the edit failed case
+             }
+             });
+             });
+
+             } else {
+             var ce = "<input style='height:22px;width:80px; background-color: yellow' id=" + data.order_id+ "  value="+data.order_status+" />" ;
+             jQuery("#orderSearchResult").jqGrid('setRowData',(i+1)+"",{is_valid:ce});
+             }
+             }},
+
+
+             subGrid: true,  // (1)开启子表格支持
+             subGridRowExpanded: function(subgrid_id, row_id) {
+             var orderId = jQuery("#packageOrderResult").jqGrid('getRowData',row_id).order_id;
+
+             $.get('/services/search/orders', {"orderId" : orderId}, function(data){
+             console.log('getting data from orderId');
+             console.dir(data);
+             var subgrid_table_id;
+             subgrid_table_id = subgrid_id + "_t";   //
+             var subgrid_pager_id;
+             subgrid_pager_id = subgrid_id + "_pgr"  //
+             $("#" + subgrid_id).html("<table id='"+subgrid_table_id+"'class='scroll'></table><div id='"+subgrid_pager_id+"'class='scroll'></div>");
+             $("#" + subgrid_table_id).jqGrid({
+             data: data,
+             datatype: "local",
+             colNames:['出发地','景点','套餐名','日期','时间','人数','价格'],
+             colModel:[
+             {name:'depart_spot_name',index:'depart_spot_name',align:'right',sortable:false,width:120},
+             {name:'to_label',index:'to_label', align:"right",sortable:false,width:100},
+             {name:'offer_name', index:'offer_name', align:"right" ,sortable:false,width:300},
+             {name:'valid_date',index:'valid_date', align:"right", formatter:dateDisplayFormatter,width:130},
+             {name:'departure_time',index:'departure_time', align:"right",sortable:false,width:60},
+             {name:'quantity',index:'quantity', align:"right",sortable:false,width:40},
+             {name:'offer_subtotal_amount',index:'offer_subtotal_amount', align:"right",sortable:false,width:40},
+
+             ],
+             prmNames: {search: "search"},
+             pager: subgrid_pager_id,
+             viewrecords: true,
+             height: "100%",
+             rowNum: 5
+             });
+             });
+
+             },*/
+
+            caption: "Your Vacation Packages:",
+            //rowNum:10,
+            //pager:$('#pager2'),
+            loadonce:false,
+            width:900,
+            height: "100%"
+        });
+    };
 
     function getHistoricalOrders() {
+        console.log("getHistoricalOrders");
         $.get('/services/customer/orders/historical',function(data){
-            orders=data
+            console.dir(data);
+            if(data && data.length>0) {
+                displayPackageOrders(data);
+            }
+            else{
+                $('#noresults').show();
+            }
         });
     }
 
     $(function(){
         getHistoricalOrders();
-
     })
 </script>
 </body>
