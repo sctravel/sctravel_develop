@@ -4,7 +4,7 @@
 <!--[if IE 8 ]>    <html class="no-js ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
 <html class="js" lang="en"><!--<![endif]--><!-- Content Copyright National Park Service --><!-- JavaScript & DHTML Code Copyright &copy; 1998-2013, PaperThin, Inc. All Rights Reserved. -->
-<head> <title>Crater Lake National Park (U.S. National Park Service)</title>
+<head> <title>Jiuzhai Valley national park</title>
 <meta name="Description" id="Description" content="">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="Keywords" id="Keywords" content="Crater Lake National Park, National Park Service, Park Information">
@@ -10395,11 +10395,11 @@ if ((top != self) && (typeof(top.commonspot)!== 'undefined') && (typeof(top.comm
     //-->
 </script>
 
-<script src="http://www.mattkruse.com/javascript/popupwindow/PopupWindow.js"></script>
-<script src="http://www.mattkruse.com/javascript/anchorposition/AnchorPosition.js"></script>
-<script src="http://www.mattkruse.com/javascript/date/date.js"></script>
-<script src="http://www.mattkruse.com/javascript/calendarpopup/CalendarPopup.js"></script>
-<script src="http://ilsen.zxq.net/calendar/js/calendar-2.4.js"></script>
+<script src="/assets/js/PopupWindow.js"></script>
+<script src="/assets/js/AnchorPosition.js"></script>
+<script src="/assets/js/date.js"></script>
+<script src="/assets/js/CalendarPopup.js"></script>
+<script src="/assets/js/calendar-2.4.js"></script>
 
 <script>
 
@@ -10450,10 +10450,10 @@ if ((top != self) && (typeof(top.commonspot)!== 'undefined') && (typeof(top.comm
             '</div>';
 
 
-    function displayNoResults(){
+    function displayNoResults(parent_productId){
         alert("Display no results");
         jQuery('#resultsContainer').empty();
-        jQuery('#resultsContainer').append("Sorry, currently no products available ");
+        jQuery('#resultsContainer').append("Sorry, currently no products available for parent product ID"+ parent_productId);
 
     }
 
@@ -10477,7 +10477,7 @@ if ((top != self) && (typeof(top.commonspot)!== 'undefined') && (typeof(top.comm
         jQuery.post('/children-products',{parent_productId:parent_productId},function(data){
             if(!data || data=="error") {
                 alert("error returned from DB query");
-                displayNoResults();
+                displayNoResults(parent_productId);
                 return;
             }
             console.dir("callback data:"+ data);
@@ -10549,6 +10549,15 @@ function initResultPage(data){
 
 <script>
 
+function getAvailableDates(){
+
+    return  ["20140707", "20140708", "20140709"];
+}
+
+
+</script>
+<script>
+
 
     loadChildrenResults();
 
@@ -10558,27 +10567,30 @@ function initResultPage(data){
 
     var myCal = new JEC('myCalendarContainer', {
         tableClass: 'styledCalendar',
-        firstMonth: 201003,
-        lastMonth: 201010
+        firstMonth: 201407,
+        lastMonth: 201407
     });
-    myCal.defineEvents(
-            [
-                {
-                    eventDate: 20100407,
-                    eventDescription: 'JEC 2.0 Released',
-                    eventLink: 'http://calendar.ilsen.net',
-                    eventTitle: 'A JavaScript Event Calendar'
-                },
-                { eventDate: 20100705, eventDescription: 'Available' },
-                { eventDate: 20100706, eventDescription: 'Available' },
-                { eventDate: 20100709, eventDescription: 'Available' },
-                { eventDate: 20100711, eventDescription: 'Available' },
-                { eventDate: 20100713, eventDescription: 'Available' },
-                { eventDate: 20100714, eventDescription: 'Available' },
 
-            ]
-    );
-    myCal.showCalendar(201007);
+    var dates= getAvailableDates();
+
+
+    for (var i = 0; i < dates.length; i++) {
+        myCal.defineEvents(
+                [
+                    {
+                        eventDate: dates[i],
+                        eventDescription: 'Available',
+                        eventLink: 'http://calendar.ilsen.net',
+                        eventTitle: 'A JavaScript Event Calendar'
+                    }
+                ]
+        );
+    }
+
+
+
+
+    myCal.showCalendar(20140707);
 
  </script>
 
