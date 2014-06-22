@@ -356,6 +356,24 @@ app.post('/package-search',function(req,res){
     })
 })
 
+
+app.post('/children-products',function(req,res){
+
+    console.warn("invoking restful feed children-products");
+    var product_parentId = req.body.parent_productId;
+
+    console.warn("product_parentId: "+ product_parentId);
+
+    clientQueryDB.searchChildrenProducts(product_parentId,function(err,results){
+        if(err) {
+            res.send("error");
+            return;
+        }
+        res.send(results);
+
+    })
+})
+
 //User Login Functionalities
 
 

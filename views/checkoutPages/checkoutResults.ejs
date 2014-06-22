@@ -10480,21 +10480,13 @@ if ((top != self) && (typeof(top.commonspot)!== 'undefined') && (typeof(top.comm
     //-->
 </script>
 
-
 <script src="http://www.mattkruse.com/javascript/popupwindow/PopupWindow.js"></script>
 <script src="http://www.mattkruse.com/javascript/anchorposition/AnchorPosition.js"></script>
 <script src="http://www.mattkruse.com/javascript/date/date.js"></script>
 <script src="http://www.mattkruse.com/javascript/calendarpopup/CalendarPopup.js"></script>
-
-
-
 <script src="http://ilsen.zxq.net/calendar/js/calendar-2.4.js"></script>
 
-
-
 <script>
-
-function initResultPage(){
 
     var defaultHtml =
             '<div class="hotelWrapper" style="width:150%">'+
@@ -10542,6 +10534,49 @@ function initResultPage(){
             '</article>'+
             '</div>';
 
+
+    function displayNoResults(){
+        alert("Display no results");
+        jQuery('#resultsContainer').empty();
+        jQuery('#resultsContainer').append("Sorry, currently no products available ");
+
+    }
+
+
+    function replaceHtml(searchResult){
+        return defaultHtml.replace("{product_id}",searchResult.parent_product_id)
+                .replace("{parent_product_name}",searchResult.parent_product_name)
+                .replace("{product_name}",searchResult.product_name)
+                .replace("{list_price}",searchResult.list_price)
+                .replace("{description}",searchResult.description)
+                .replace("{keywords}",searchResult.keywords)
+                ;
+
+    }
+
+
+    function loadChildrenResults(){
+        var parent_productId="<%= parentId %>";
+        console.warn("parent_productId:"+ parent_productId);
+        console.log("generating children product page");
+        jQuery.post('/children-products',{parent_productId:parent_productId},function(data){
+            if(!data || data=="error") {
+                alert("error returned from DB query");
+                displayNoResults();
+                return;
+            }
+            console.dir("callback data:"+ data);
+            //searchResults = data;
+            //if(data.length>0)
+                initResultPage(data);
+           // else
+             //   displayNoResults();
+        })
+    }
+
+
+function initResultPage(data){
+
     var defaultHtml2='<div class="proListCon"  style="width:700px;height=auto ;border:2px solid red">' +
             '<div class="left">' +
             '  <div class="pic">' +
@@ -10561,6 +10596,11 @@ function initResultPage(){
     var resultConainer = jQuery('#resultsContainer');
     var result=[];
     var searchResults=[];
+
+
+
+
+
     var childResults=[];
     var package1 = {};
     package1.parent_product_id=1;
@@ -10577,6 +10617,8 @@ function initResultPage(){
     package2.list_price=400;
     searchResults.push(package2);
 
+    searchResults= data;
+
 
     for(var i=0;i<searchResults.length ;++i) {
         var html = defaultHtml.replace("{parent_product_id}", searchResults[i].parent_product_id).replace("{parent_product_name}", searchResults[i].parent_product_name)
@@ -10585,9 +10627,6 @@ function initResultPage(){
         resultConainer.append(html);
     }
 
-
-    //alert("print html results now:"+result);
-    //document.getElementById("resultsContainer").innerHTML = result;
 }
 
 
@@ -10595,8 +10634,8 @@ function initResultPage(){
 
 <script>
 
-    //alert("init initResultPage()");
-    initResultPage();
+
+    loadChildrenResults();
 
     var myCalendar = new JEC('myCalendarContainer');
     myCalendar.showCalendar();
