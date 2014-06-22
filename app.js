@@ -14,6 +14,7 @@ var userLogin = require('./lib/login/userLogin');
 var clientQueryDB = require('./lib/dbOperation/clientQueryDB');
 var confirmPicGenerator = require('./lib/utilities/confirmPicGenerator');
 var passport = require('passport');
+var fpass = require('passport-facebook').Strategy;
 var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
 
@@ -112,6 +113,32 @@ passport.use('local', new LocalStrategy(
         });
     }
 ));
+passport.use(new fpass({
+        clientID:'323966477728028',
+        clientSecret:'660a1a721669c9daa0244faa45113b21',
+        callbackURL:'/auth/facebook/callback'
+    },
+    function(accessToken, refreshToken, fbUserData, done){
+        console.dir(fbUserData);
+        console.log('got here');
+        console.dir(accessToken);
+        console.dir(refreshToken);
+        userLogin.loginOrCreateAccountWithFacebook(fbUserData._json,function(err,results){
+            console.dir(results);
+            if(err) {
+                return done(null, false, { message: 'Internal Error.' });
+            }
+            if(results.isAuthenticated == true ) {
+                console.dir(results);
+                return done(null,{customerId :results.customerId, randomKey: results.randomKey,
+                    firstName: results.firstName, lastName: results.lastName});
+            } else {
+                return done(null, false, { message: results.errorMessage });
+            }
+        })
+
+    }
+));
 
 passport.serializeUser(function (user, done) {//保存user对象
     done(null, {customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});//可以通过数据库方式操作
@@ -127,7 +154,26 @@ app.post('/login',
             failureRedirect: '/login',
             failureFlash: true })
 );
+// GET /auth/facebook
+//   Use passport.authenticate() as route middleware to authenticate the
+//   request.  The first step in Facebook authentication will involve
+//   redirecting the user to facebook.com.  After authorization, Facebook will
+//   redirect the user back to this application at /auth/facebook/callback
+app.get('/auth/facebook',
+    passport.authenticate('facebook'),
+    function(req, res){
+        // The request will be redirected to Facebook for authentication, so this
+        // function will not be called.
+    });
 
+// GET /auth/facebook/callback
+//   Use passport.authenticate() as route middleware to authenticate the
+//   request.  If authentication fails, the user will be redirected back to the
+//   login page.  Otherwise, the primary route function function will be called,
+//   which, in this example, will redirect the user to the home page.
+app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', { successRedirect: '/',
+        failureRedirect: '/login' }));
 
 ///////////////////////////////////////////////////////////////////////
 // Customer Login and Account Management
@@ -141,22 +187,25 @@ app.get('/signup', function (req,res){
 
 app.get('/account/myorders', isLoggedIn, function (req,res){
     var user = req.user;
-    console.dir(user);
     req.session.lastPage = "/login/myOrdersPage";
     res.render('login/myOrdersPage',{customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
 });
 app.get('/account/myaccount', isLoggedIn, function (req,res){
     var user = req.user;
-    console.dir(user);
     req.session.lastPage = "/login/myAccountPage";
     res.render('login/myAccountPage',{customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
 });
 app.get('/account/myaccount/updatePassword', isLoggedIn, function (req,res){
     var user = req.user;
-    console.dir(user);
     req.session.lastPage = "/login/myAccountPageUpdatePassword";
     res.render('login/myAccountPageUpdatePassword',{customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
 });
+app.get('/account/myorders/history', isLoggedIn, function (req,res){
+    var user = req.user;
+    req.session.lastPage = "/account/myorders/history";
+    res.render('login/myHistoricalOrdersPage',{customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
+});
+
 
 //Data Services for account
 app.post('/services/customer/accounts/new', function(req,res) {
@@ -192,6 +241,30 @@ app.post('/account/updatePassword',isLoggedIn, function(req,res){
     })
 
 })
+
+app.get('/services/customer/orders/upcoming', isLoggedIn, function(req,res) {
+
+    userLogin.getOrdersByCustomer(req.user.customerId, req.user.randomKey, true, function(err,results){
+        if(err) {
+            console.error(err);
+            return;
+        }
+
+        res.send(results);
+    })
+})
+app.get('/services/customer/orders/historical', isLoggedIn, function(req,res) {
+
+    userLogin.getOrdersByCustomer(req.user.customerId, req.user.randomKey, false, function(err,results){
+        if(err) {
+            console.error(err);
+            return;
+        }
+
+        res.send(results);
+    })
+})
+
 app.get('/services/customer/accounts', isLoggedIn, function(req,res){
 
     userLogin.getAccountInfoForCustomer(req.user.customerId,req.user.randomKey, function(err,results){
@@ -229,7 +302,7 @@ app.get('/package-search-results', function (req,res){
     var keywords;
 
     if(req.body.keywords) {
-        keywords = req.body.keywords
+        keywords = req.query.keywords
     } else if(req.session.searchPackageKeywords) {
         keywords= req.session.searchPackageKeywords;
     } else {

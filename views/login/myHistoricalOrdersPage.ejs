@@ -52,7 +52,7 @@
 <!-- Navigation bar-->
 
 <div class="all_main pad_t10">
-    <div class="tour_top_por">Current Position：<a href='/'>homepage</a> &gt; <a href='/account/myaccount'>membership center</a> &gt; <span>my orders</span></div>
+    <div class="tour_top_por">Current Position：<a href='/'>homepage</a> &gt; <a href='/account/myaccount'>membership center</a> &gt; <span>my historical orders</span></div>
     <div class="Personal">
         <table width="100%" cellspacing="0" cellpadding="0">
             <tbody><tr>
@@ -102,16 +102,16 @@
                                     <table class="Personal_buy_box2_tab" cellspacing="0" style="width:100%; margin: 0; ">
                                         <thead>
                                         <tr class="Personal_buy_box2_tab_th">
-                                            <th  scope="col" style="width:140px">Order Date</th>
+                                            <th  scope="col" style="width:140px">订单编号</th>
                                             <th  scope="col">
-                                                Product Name
+                                                产品信息
                                             </th>
                                             <th scope="col" style="width:40px">
-                                                Quantity
+                                                数量
                                             </th>
 
                                             <th scope="col" style="width:5%">
-                                                Price
+                                                单价
                                             </th>
                                             <th scope="col" style="width:10%">
                                                 <select id="OrderDate">
@@ -122,7 +122,17 @@
                                                     <option value="4">2013年以前</option>
                                                 </select>
                                             </th>
-
+                                            <th scope="col" style="width:10%">
+                                                <select id="OrderStatus">
+                                                    <option value="">全部状态</option>
+                                                    <option value="6" >等待付款</option>
+                                                    <option value="7" >已付款</option>
+                                                    <option value="8" >已完成</option>
+                                                    <option value="4" >退款成功</option>
+                                                    <option value="3" >退款申请中</option>
+                                                    <option value="5" >退款被否决</option>
+                                                </select>
+                                            </th>
                                             <th scope="col" style="width:70px"></th>
                                             <th scope="col" style="width:10%">操作</th>
                                         </tr>
@@ -171,14 +181,14 @@
     var orders={};
     var orderDetails={};
 
-    function getUpcomingOrders() {
-        $.get('/services/customer/orders/upcoming',function(data){
+    function getHistoricalOrders() {
+        $.get('/services/customer/orders/historical',function(data){
             orders=data
         });
     }
 
     $(function(){
-        getUpcomingOrders();
+        getHistoricalOrders();
 
     })
 </script>

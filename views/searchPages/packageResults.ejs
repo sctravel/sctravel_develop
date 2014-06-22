@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="cn">
+<html lang="cn" ng-app>
 <head>
     <%include ../layout/header.ejs%>
     <%include ../layout/navbar.ejs%>
@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/assets/css/packageSearch/2.css">
     <link rel="stylesheet" href="/assets/css/packageSearch/homepage-2012-1123-min.css">
     <link type="text/css" rel="stylesheet" href="/assets/css/simplePagination.css"/>
+
 
     <!--link rel="stylesheet" type="text/css" href="extjs-3.0.0-src/resources/css/ext-all.css" />
     <script type="text/javascript" src="/extjs-4.0.0-src/bootstrap.js"></script>
@@ -490,7 +491,7 @@
 
      function searchPackagesByKeywords(){
          var keywords=$('#search-package-keywords').val();
-         console.log("search-package-button clicked");
+         console.log("search-package-button clicked:"+keywords);
          $.post('/package-search',{keywords:keywords},function(data){
              if(!data || data=="error") {
                  alert("error returned");
