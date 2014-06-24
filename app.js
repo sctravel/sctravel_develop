@@ -12,7 +12,7 @@ var dateFormat = require('dateformat');
 var constants = require('./lib/common/constants');
 var userLogin = require('./lib/login/userLogin');
 var clientQueryDB = require('./lib/dbOperation/clientQueryDB');
-var confirmPicGenerator = require('./lib/utilities/confirmPicGenerator');
+//var confirmPicGenerator = require('./lib/utilities/confirmPicGenerator');
 var passport = require('passport');
 var fpass = require('passport-facebook').Strategy;
 var LocalStrategy = require('passport-local').Strategy;
@@ -85,12 +85,6 @@ app.get('/', function (req,res){
     }
 });
 
-app.get('/services/getConfirmPic',function(req,res){
-    var conf = confirmPicGenerator.generateConfirmPic();
-    req.session.confirmText = conf[0];
-    console.log("text is "+conf[0]);
-    res.end(conf[1]);
-})
 
 ///////////////////////////////////////////////////////////////////////
 // * CustomerLogin methods
@@ -120,7 +114,6 @@ passport.use(new fpass({
     },
     function(accessToken, refreshToken, fbUserData, done){
         console.dir(fbUserData);
-        console.log('got here');
         console.dir(accessToken);
         console.dir(refreshToken);
         userLogin.loginOrCreateAccountWithFacebook(fbUserData._json,function(err,results){
@@ -148,11 +141,21 @@ passport.deserializeUser(function (user, done) {//删除user对象
     done(null, {customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName} );//可以通过数据库方式操作
 });
 
+//redirect to last page remembered by session
 app.post('/login',
     passport.authenticate('local',
-        { successRedirect: '/',
+        {
             failureRedirect: '/login',
-            failureFlash: true })
+            failureFlash: true }),
+    function(req,res){
+        console.dir(req.session);
+        if(req.session.lastPage) {
+            res.redirect(req.session.lastPage);
+        } else {
+            res.redirect("/");
+        }
+
+    }
 );
 // GET /auth/facebook
 //   Use passport.authenticate() as route middleware to authenticate the
@@ -172,8 +175,19 @@ app.get('/auth/facebook',
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
 app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { successRedirect: '/',
-        failureRedirect: '/login' }));
+    passport.authenticate('facebook', {
+        failureRedirect: '/login' })
+    ,
+    function(req,res){
+        console.dir(req.session);
+        if(req.session.lastPage) {
+            res.redirect(req.session.lastPage);
+        } else {
+            res.redirect("/");
+        }
+
+    }
+);
 
 ///////////////////////////////////////////////////////////////////////
 // Customer Login and Account Management
@@ -187,17 +201,17 @@ app.get('/signup', function (req,res){
 
 app.get('/account/myorders', isLoggedIn, function (req,res){
     var user = req.user;
-    req.session.lastPage = "/login/myOrdersPage";
+    req.session.lastPage = "/account/myorders";
     res.render('login/myOrdersPage',{customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
 });
 app.get('/account/myaccount', isLoggedIn, function (req,res){
     var user = req.user;
-    req.session.lastPage = "/login/myAccountPage";
+    req.session.lastPage = "/account/myaccount";
     res.render('login/myAccountPage',{customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
 });
 app.get('/account/myaccount/updatePassword', isLoggedIn, function (req,res){
     var user = req.user;
-    req.session.lastPage = "/login/myAccountPageUpdatePassword";
+    req.session.lastPage = "/account/myaccount/updatePassword";
     res.render('login/myAccountPageUpdatePassword',{customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
 });
 app.get('/account/myorders/history', isLoggedIn, function (req,res){
@@ -220,7 +234,6 @@ app.post('/services/customer/accounts/new', function(req,res) {
             res.send(results);
         }
     });
-
 });
 
 app.post('/account/updatePassword',isLoggedIn, function(req,res){
@@ -278,6 +291,13 @@ app.get('/services/customer/accounts', isLoggedIn, function(req,res){
 })
 
 
+app.get('/services/getConfirmPic',function(req,res){
+    var conf = confirmPicGenerator.generateConfirmPic();
+    req.session.confirmText = conf[0];
+    console.log("text is "+conf[0]);
+    res.end(conf[1]);
+})
+
 app.post('/account/updateAccountInfo',isLoggedIn, function(req,res){
     var user = req.user ;
     var updateAccountInfo = req.body.updateAccountInfo;
@@ -300,13 +320,14 @@ app.post('/account/updateAccountInfo',isLoggedIn, function(req,res){
 
 app.get('/package-search-results', function (req,res){
     var keywords;
+    req.session.lastPage = "/package-search-results";
 
-    if(req.body.keywords) {
+    if(req.query.keywords) {
         keywords = req.query.keywords
     } else if(req.session.searchPackageKeywords) {
         keywords= req.session.searchPackageKeywords;
     } else {
-        keywords="chengdu";
+        keywords="";
     }
 
     if(req.user) {
@@ -322,6 +343,8 @@ app.get('/package-search-results', function (req,res){
 app.get('/checkout',function (req,res){
 
     console.dir(req);
+
+    req.session.lastPage = "/checkout";
 
     res.render('checkoutPages/checkoutResults.ejs',{parentId : req.query.parentId } );
 
@@ -388,7 +411,7 @@ app.get('/logout', isLoggedIn, function (req, res) {
         }
 
     })
-    req.flash('success','登出成功!');
+    req.flash('success','You have successfully logged out!');
     req.logout();
     res.redirect("/");
 });

@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="/assets/css/userlogin-min-2366612448.css">
     <link rel="stylesheet" href="/assets/css/hotelSearch-min.css">
     <link rel="stylesheet" href="/assets/css/packageSearch/advanced_search_result.css">
-    <link rel="stylesheet" href="/assets/css/packageSearch/2.css">
     <link rel="stylesheet" href="/assets/css/packageSearch/homepage-2012-1123-min.css">
     <link type="text/css" rel="stylesheet" href="/assets/css/simplePagination.css"/>
 
@@ -21,123 +20,302 @@
     <script type="text/javascript" src="/extjs-3.0.0-src/adapter/ext/ext-base.js"></script>
     <script type="text/javascript" src="/extjs-3.0.0-src/ext-all.js"></script-->
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+    <style type="text/css">
 
-        body {
-            margin: 0;
-        }
 
-        html {
-            background: #f5f5f5;
-            font-size: 156.25%;
-            line-height: 1.45;
-            font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-            -webkit-font-smoothing: antialiased;
-            font-smoothing: antialiased;
-            -webkit-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
-        }
 
-        img {
-            position: relative;
-            border: 0;
-            -ms-interpolation-mode: bicubic;
-            vertical-align: middle;
-        }
+    * {
+        box-sizing: border-box;
+    }
+    *::-moz-selection {
+        background: none repeat scroll 0 0 #D4D4D4;
+        text-shadow: none;
+    }
 
-        hr {
-            display: block;
-            clear: both;
-            height: 1px;
-            border: 0;
-            border-top: 0.058823529411764705em solid;
-            margin: 1.3529411764705883em 0em 1.411764705882353em;
-            padding: 0;
-            border-color: #c7c7c7;
-        }
+    .site-header-primary {
+        border-color: #FFCB00;
+        border-top: 0.294118em solid #FFCB00;
+        box-shadow: 0 0.0588235em #EBC326 inset;
+        padding-top: 0.764706em;
+        position: relative;
+    }
+    .site-header {
+        background: none repeat scroll 0 0 #FFFFFF;
+        height: auto;
+    }
 
-        #pageInterstitial {
-            width: 24em;
-            padding-top: 2em;
-            text-align: center;
-            margin: 0 auto;
-        }
 
-        #pageInterstitial .msg {
-            font: bold 1.66666666667em 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
-            padding-top: 2em;
-            color: #00355f;
-        }
 
-        #pageInterstitial .imgLogoLarge {
-            padding-top: 5em;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
+    .site-header .cols-row {
+        padding: 0 1.41176em;
+    }
 
-        #pageInterstitial .imgLogoLarge.fallback {
-            display: none;
-        }
 
-        .ie8 #pageInterstitial .imgLogoLarge.fallback {
-            display: inline;
-            width: 10em;
-            padding-top: 2em;
-            background: none;
-        }
 
-        .ie8 #pageInterstitial .imgLogoLarge {
-            display: none;
-        }
 
-        #pageInterstitial .imgLoading, #pageInterstitial .imgPriming {
-            padding-top: 2em;
-        }
 
-        #pageInterstitial .logo + .msg {
-            padding-top: 0;
-        }
+    .site-header-primary .logo {
+        display: block;
+        float: left;
+        margin: 0.176471em 0 0.294118em;
+        overflow: hidden;
+        padding: 0;
 
-        .cssanimations.svg .loader {
-            background-image: url(/static/ui_toolkit/v2-0/images/loader-light.svg);
-        }
+    }
+    .site-header a {
+        display: block;
+        padding: 0.461538em 0.615385em;
+        text-decoration: none;
+    }
+    a:link, .link, a:visited {
+        color: #0065B8;
+        text-decoration: none;
+    }
+    a {
+        color: #0000EE;
+    }
 
-        .ie10.cssanimations.svg .loader, .cssanimations.no-svg .loader, .no-cssanimations.no-svg .loader, .no-cssanimations .loader {
-            background-image: url(/static/ui_toolkit/v2-0/images/loader-light.png);
-        }
+    .site-header-primary #header-logo.logo.us-pos {
+        height: 1.94118em;
+        width: 9.11765em;
+    }
 
-        .no-cssanimations.no-svg .loader, .no-cssanimations .loader {
-            background-image: url(/static/ui_toolkit/v2-0/images/loader-light.gif);
-        }
+    .site-header-primary .site-navigation {
+        float: right;
+        font-size: 0.764706em;
+    }
 
-        .loader-overlay .loader {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            margin-top: -1.0588235294117647em;
-            margin-left: -1.0588235294117647em;
-        }
+    .cf:before, .cf:after {
+        content: "";
+        display: table;
+    }
+    .cf:after {
+        clear: both;
+    }
+    .cf:before, .cf:after {
+        content: "";
+        display: table;
+    }
+    .site-header-primary .site-navigation .shop-nav {
+        float: right;
+    }
+    .site-header-primary .site-navigation .nav-group {
+        display: inline-block;
+    }
+    .site-header ul {
+        margin: 0;
+        padding: 0;
+    }
+    .cf {
+    }
 
-        .loader {
-            display: inline-block;
-            position: relative;
-            width: 2.1176470588235294em;
-            height: 2.1176470588235294em;
-            overflow: hidden;
-            background-position: 50% 50%;
-            background-repeat: no-repeat;
-            -webkit-background-size: contain;
-            -moz-background-size: contain;
-            -ms-background-size: contain;
-            -o-background-size: contain;
-            -ms-background-size: contain;
-            background-size: contain;
-            line-height: 1;
-        }
+    ul, ol {
+        margin: 1.41176em 0 0;
+    }
+    ul {
+        list-style-type: disc;
+    }
+    ul, ol {
+        margin: 1.41176em 0;
+        padding: 0 0 0 1.41176em;
+    }
+
+    .site-header li {
+        float: left;
+        list-style-type: none;
+        padding-bottom: 0;
+        position: relative;
+    }
+    ul li, ol li {
+        padding: 0 0 0.705882em;
+    }
+
+    .site-header a {
+        display: block;
+        padding: 0.461538em 0.615385em;
+        text-decoration: none;
+    }
+    a:link, .link, a:visited {
+        color: #0065B8;
+        text-decoration: none;
+    }
+    .nav-tab {
+        border-radius: 0.133333em;
+    }
+    a {
+        color: #0000EE;
+    }
+
+    .site-header-secondary ul {
+        white-space: nowrap;
+        width: auto;
+    }
+    .site-header-secondary ul {
+        font-size: 0.882353em;
+        width: 68.2667em;
+    }
+
+    .site-header-secondary .selected-tab a {
+        background: none repeat scroll 0 0 #0065B8;
+        color: #FFFFFF;
+    }
+    .site-header-secondary a {
+        padding: 0.411765em 0.529412em;
+    }
+
+
+    .cols-row:after {
+        clear: both;
+    }
+    .cols-row:before, .cols-row:after {
+        content: "";
+        display: table;
+    }
+
+    body .cols-row {
+        margin: 0 auto;
+        max-width: 69.1765em;
+        padding-right: 1.41176em;
+        width: 100%;
+    }
+    .cols-row {
+        padding-right: 1.41176em;
+        position: relative;
+    }
+
+
+
+    ul li, ol li {
+        padding: 0 0 0.705882em;
+    }
+
+
+    .hero-banner-wrap {
+        background-color: #1F1F1F;
+        position: relative;
+    }
+    article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, datalist, meter {
+        display: block;
+    }
+
+
+
+    .hero-banner-wrap .hero-banner:before {
+        background-image: url("../images/hero-banner-secondary-vertical-gradient.png");
+        background-repeat: repeat-x;
+        background-size: 100% auto;
+        bottom: 0;
+        content: "";
+        display: block;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 100%;
+    }
+
+    .hero-banner-wrap .hero-banner, .hero-banner-wrap .hero-banner:before {
+        transition: padding 0.25s cubic-bezier(0.23, 1, 0.32, 1) 0s, background 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+    }
+
+    #home-page section.hero-banner-wrap .hero-banner {
+        padding-top: 0;
+    }
+
+    #WIZARD.hero-banner-wrap .hero-banner {
+        background-color: #6592B8;
+        background-image: url("/assets/img/background.jpg");
+        position: relative;
+    }
+
+    .hero-banner-wrap .hero-banner {
+        padding-top: 6%;
+    }
+
+    .hero-banner-wrap .hero-banner {
+        background-position: 50% 0;
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+        margin: 0 auto;
+        padding-top: 15%;
+        position: relative;
+        width: 100%;
+    }
+    .theme-inverse-pills .tabs a.on, .no-touch .theme-inverse-pills .tabs a.on:hover, .theme-inverse-pills .tabs a.on:active, .theme-inverse-pills .tabs a.on:focus, .theme-inverse-pills .tabs a.on.vtest-focus {
+        background: none repeat scroll 0 0 #0065B8;
+    }
+    .theme-inverse-pills .tabs a.on {
+        background: none repeat scroll 0 0 #0065B8;
+        color: #FFFFFF;
+    }
+    .theme-inverse-pills .tabs a {
+        padding-left: 0.941176em;
+        padding-right: 0.941176em;
+    }
+    .theme-inverse-pills .tabs a {
+        color: #FFFFFF;
+    }
+    .theme-inverse-pills .link, .theme-inverse-pills a {
+        color: #57B3FF;
+    }
+    .tabs a {
+        border-radius: 0.266667em;
+        display: block;
+        font-size: 0.882353em;
+        font-weight: bold;
+        padding: 0.4em;
+    }
+    a:link, .link, a:visited {
+        color: #0065B8;
+        text-decoration: none;
+    }
+
+
+
+
+
+    .hero-banner-wrap .hero-banner, .hero-banner-wrap .hero-banner:before {
+        transition: padding 0.25s cubic-bezier(0.23, 1, 0.32, 1) 0s, background 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+    }
+
+    fieldset.pkg-tab-radio-btns label span {
+        font-size: 13px;
+    }
+    fieldset.pkg-tab-radio-btns label {
+        margin-bottom: -6px;
+        padding-left: 36px;
+    }
+    fieldset.pkg-tab-radio-btns label:last-child {
+        margin-bottom: 0px;
+    }
+
+    #home-page section.hero-banner-wrap .hero-banner .hero-banner-gradient {
+        background: none repeat scroll 0 center rgba(0, 0, 0, 0);
+    }
+
+
+    body {
+        color: #6B6B6B;
+    }
+    html {
+        font-size: 106.25%;
+        line-height: 1.45;
+    }
+    html, button, input, select, textarea {
+        color: #1F1F1F;
+    }
+    html {
+        font-family: "Helvetica Neue",Arial,"Lucida Grande",sans-serif;
+        font-size: 106.25%;
+    }
+    #ui-datepicker-div{
+
+        background-color: #FFFFFF;
+        border: 1px solid #11F9F1;
+
+    }
+
     </style>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta charset="UTF-8" />
@@ -149,7 +327,7 @@
 
 </head>
 
-<body data-spy="scroll" data-target=".bs-docs-sidebar" data-twttr-rendered="true">
+<body data-spy="scroll" data-target=".bs-docs-sidebar" data-twttr-rendered="true" style="font-size: 90%">
 <!-- Navigation bar-->
 
 
@@ -358,7 +536,7 @@
 <script type="text/javascript" src="/assets/js/jquery.simplePagination.js"></script>
 <script>
     var defaultHtml =
-    '<div class="hotelWrapper" style="width:600px">'+
+    '<div class="hotelWrapper" style="width:700px">'+
             '<article class="segment hotel avgPerNight memberFencingEligible" >'+
             '<a class="target edsHotel" target="1103256" href="/" data-track="HOT:SR:HotelModule">'+
             '<div class="thumbnailContainer" style="width:300px; height: 150px;" >'+
@@ -398,20 +576,6 @@
     '<div id="spid" class="hidden automationTag">24</div></a>'+
     '</article>'+
     '</div>'
-
-    var defaultHtml2='<div class="proListCon"  style="width:700px;height=auto ;border:2px solid red">' +
-            '<div class="left">' +
-            '  <div class="pic">' +
-            '    <div class="gift" style="padding-top:1px;">' +
-            '</div> </div>' +
-            '<img src="/product/packages/{product_id}/images/searchImg.jpg"  width="100%" height= auto" title="{product_name}" /></div>'+
-            '<ul class="mid" style="padding-left:30px"> </br>'+
-            '<li style="padding-left:10px"><h1> &nbsp;&nbsp; <a href="/" target="_self" >{product_name} &nbsp;</a></h1></li>'+
-            '<li style="padding-left:30px"><h4> &nbsp;&nbsp;注意事项: </h4><p>注意事项&nbsp;</p> </li>'+
-            '<li style="padding-left:30px"><h4> &nbsp;&nbsp;行程特色: </h4><p>{description}&nbsp;</p></li>'+
-            '<li style="padding-left:30px"><h4> &nbsp;&nbsp;价格: </h4> <p>${list_price}&nbsp;</p> </li>'+
-            '<li style="padding-left:30px"><a href="/" class="btn btnOrange btnAddCar" target="_self" >预订行程</a></li>'+
-            '</ul><div class="right"></div></div>';
 
 
     function replaceHtml(searchResult){
