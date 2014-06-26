@@ -7,303 +7,7 @@
     <%include layout/navBar.ejs%>
 
 
-    <style type="text/css">
-
-
-
-        * {
-            box-sizing: border-box;
-        }
-        *::-moz-selection {
-            background: none repeat scroll 0 0 #D4D4D4;
-            text-shadow: none;
-        }
-
-        .site-header-primary {
-            border-color: #FFCB00;
-            border-top: 0.294118em solid #FFCB00;
-            box-shadow: 0 0.0588235em #EBC326 inset;
-            padding-top: 0.764706em;
-            position: relative;
-        }
-        .site-header {
-            background: none repeat scroll 0 0 #FFFFFF;
-            height: auto;
-        }
-
-
-
-        .site-header .cols-row {
-            padding: 0 1.41176em;
-        }
-
-
-
-
-
-        .site-header-primary .logo {
-            display: block;
-            float: left;
-            margin: 0.176471em 0 0.294118em;
-            overflow: hidden;
-            padding: 0;
-
-        }
-        .site-header a {
-            display: block;
-            padding: 0.461538em 0.615385em;
-            text-decoration: none;
-        }
-        a:link, .link, a:visited {
-            color: #0065B8;
-            text-decoration: none;
-        }
-        a {
-            color: #0000EE;
-        }
-
-        .site-header-primary #header-logo.logo.us-pos {
-            height: 1.94118em;
-            width: 9.11765em;
-        }
-
-        .site-header-primary .site-navigation {
-            float: right;
-            font-size: 0.764706em;
-        }
-
-        .cf:before, .cf:after {
-            content: "";
-            display: table;
-        }
-        .cf:after {
-            clear: both;
-        }
-        .cf:before, .cf:after {
-            content: "";
-            display: table;
-        }
-        .site-header-primary .site-navigation .shop-nav {
-            float: right;
-        }
-        .site-header-primary .site-navigation .nav-group {
-            display: inline-block;
-        }
-        .site-header ul {
-            margin: 0;
-            padding: 0;
-        }
-        .cf {
-        }
-
-        ul, ol {
-            margin: 1.41176em 0 0;
-        }
-        ul {
-            list-style-type: disc;
-        }
-        ul, ol {
-            margin: 1.41176em 0;
-            padding: 0 0 0 1.41176em;
-        }
-
-        .site-header li {
-            float: left;
-            list-style-type: none;
-            padding-bottom: 0;
-            position: relative;
-        }
-        ul li, ol li {
-            padding: 0 0 0.705882em;
-        }
-
-        .site-header a {
-            display: block;
-            padding: 0.461538em 0.615385em;
-            text-decoration: none;
-        }
-        a:link, .link, a:visited {
-            color: #0065B8;
-            text-decoration: none;
-        }
-        .nav-tab {
-            border-radius: 0.133333em;
-        }
-        a {
-            color: #0000EE;
-        }
-
-        .site-header-secondary ul {
-            white-space: nowrap;
-            width: auto;
-        }
-        .site-header-secondary ul {
-            font-size: 0.882353em;
-            width: 68.2667em;
-        }
-
-        .site-header-secondary .selected-tab a {
-            background: none repeat scroll 0 0 #0065B8;
-            color: #FFFFFF;
-        }
-        .site-header-secondary a {
-            padding: 0.411765em 0.529412em;
-        }
-
-
-        .cols-row:after {
-            clear: both;
-        }
-        .cols-row:before, .cols-row:after {
-            content: "";
-            display: table;
-        }
-
-        body .cols-row {
-            margin: 0 auto;
-            max-width: 69.1765em;
-            padding-right: 1.41176em;
-            width: 100%;
-        }
-        .cols-row {
-            padding-right: 1.41176em;
-            position: relative;
-        }
-
-
-
-        ul li, ol li {
-            padding: 0 0 0.705882em;
-        }
-
-
-        .hero-banner-wrap {
-            background-color: #1F1F1F;
-            position: relative;
-        }
-        article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, datalist, meter {
-            display: block;
-        }
-
-
-
-        .hero-banner-wrap .hero-banner:before {
-            background-image: url("../images/hero-banner-secondary-vertical-gradient.png");
-            background-repeat: repeat-x;
-            background-size: 100% auto;
-            bottom: 0;
-            content: "";
-            display: block;
-            height: 100%;
-            left: 0;
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 100%;
-        }
-
-        .hero-banner-wrap .hero-banner, .hero-banner-wrap .hero-banner:before {
-            transition: padding 0.25s cubic-bezier(0.23, 1, 0.32, 1) 0s, background 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s;
-        }
-
-        #home-page section.hero-banner-wrap .hero-banner {
-            padding-top: 0;
-        }
-
-        #WIZARD.hero-banner-wrap .hero-banner {
-            background-color: #6592B8;
-            background-image: url("/assets/img/background.jpg");
-            position: relative;
-        }
-
-        .hero-banner-wrap .hero-banner {
-            padding-top: 6%;
-        }
-
-        .hero-banner-wrap .hero-banner {
-            background-position: 50% 0;
-            background-repeat: no-repeat;
-            background-size: 100% auto;
-            margin: 0 auto;
-            padding-top: 15%;
-            position: relative;
-            width: 100%;
-        }
-        .theme-inverse-pills .tabs a.on, .no-touch .theme-inverse-pills .tabs a.on:hover, .theme-inverse-pills .tabs a.on:active, .theme-inverse-pills .tabs a.on:focus, .theme-inverse-pills .tabs a.on.vtest-focus {
-            background: none repeat scroll 0 0 #0065B8;
-        }
-        .theme-inverse-pills .tabs a.on {
-            background: none repeat scroll 0 0 #0065B8;
-            color: #FFFFFF;
-        }
-        .theme-inverse-pills .tabs a {
-            padding-left: 0.941176em;
-            padding-right: 0.941176em;
-        }
-        .theme-inverse-pills .tabs a {
-            color: #FFFFFF;
-        }
-        .theme-inverse-pills .link, .theme-inverse-pills a {
-            color: #57B3FF;
-        }
-        .tabs a {
-            border-radius: 0.266667em;
-            display: block;
-            font-size: 0.882353em;
-            font-weight: bold;
-            padding: 0.4em;
-        }
-        a:link, .link, a:visited {
-            color: #0065B8;
-            text-decoration: none;
-        }
-
-
-
-
-
-        .hero-banner-wrap .hero-banner, .hero-banner-wrap .hero-banner:before {
-            transition: padding 0.25s cubic-bezier(0.23, 1, 0.32, 1) 0s, background 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s;
-        }
-
-        fieldset.pkg-tab-radio-btns label span {
-            font-size: 13px;
-        }
-        fieldset.pkg-tab-radio-btns label {
-            margin-bottom: -6px;
-            padding-left: 36px;
-        }
-        fieldset.pkg-tab-radio-btns label:last-child {
-            margin-bottom: 0px;
-        }
-
-        #home-page section.hero-banner-wrap .hero-banner .hero-banner-gradient {
-            background: none repeat scroll 0 center rgba(0, 0, 0, 0);
-        }
-
-
-        body {
-            color: #6B6B6B;
-        }
-        html {
-            font-size: 106.25%;
-            line-height: 1.45;
-        }
-        html, button, input, select, textarea {
-            color: #1F1F1F;
-        }
-        html {
-            font-family: "Helvetica Neue",Arial,"Lucida Grande",sans-serif;
-            font-size: 106.25%;
-        }
-        #ui-datepicker-div{
-
-            background-color: #FFFFFF;
-            border: 1px solid #11F9F1;
-
-        }
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="/assets/css/index.css" />
     <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
     <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
 </head>
@@ -313,126 +17,6 @@
         <div class="site-header site-header-primary us-pos" role="navigation">
 
 
-        <script>
-            $(function() {
-                $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
-                $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
-
-                $("#oneway").click(function(){
-                    $("#flight-returning-label").css("visibility","hidden");
-
-                });
-
-                $("#roundtrip").click(function(){
-                    $("#flight-returning-label").css("visibility","visible");
-
-
-
-                });
-                $("#datepickerCheckin").datepicker();
-
-                $( "#datepickerCheckout").datepicker();
-
-                $("#datepickerFlightDepart").datepicker();
-
-                $( "#datepickerFlightReturn").datepicker();
-
-
-            });
-        </script>
-        <style>
-            .ui-tabs-vertical { width: 55em; }
-            .ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
-            .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
-            .ui-tabs-vertical .ui-tabs-nav li a { display:block; }
-            .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
-            .ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: right; width: 40em;}
-            .forms .tab-pane .flight-type-select, .forms .tab-pane .radio-set {
-                margin-bottom: 0;
-                margin-left: 0;
-            }
-            fieldset {
-                margin-bottom: 1.41176em;
-            }
-            fieldset {
-                border: 0 none;
-                margin: 0;
-                padding: 0;
-            }
-
-            .forms .tab-pane .flight-type-select .check, .forms .tab-pane .radio-set .check {
-                margin-right: 1.41176em;
-            }
-            .col {
-                float: left;
-                padding-left: 1.41176em;
-                position: relative;
-            }
-            .check {
-                display: inline-block;
-                width: auto;
-            }
-            label {
-                color: #3D3D3D;
-                display: block;
-                margin-top: 0.705882em;
-                position: relative;
-            }
-            label {
-                cursor: pointer;
-            }
-
-            .theme-inverse-pills .forms .tab-pane .label, .theme-inverse-pills .forms .tab-pane .inline-label, .theme-inverse-pills .forms .tab-pane .package-car-message {
-                color: #C7C7C7;
-            }
-            .forms .tab-pane .label, .forms .tab-pane .inline-label {
-                font-weight: bold;
-            }
-            legend, .label, .inline-label, .field-description {
-                color: #6B6B6B;
-                display: block;
-                font-size: 0.764706em;
-                font-weight: bold;
-                line-height: 1.4;
-                margin-bottom: 0.461538em;
-            }
-            label span {
-                display: block;
-            }
-            .forms .tab-pane .flight-type-select, .forms .tab-pane .radio-set {
-                margin-bottom: 0;
-                margin-left: 0;
-            }
-            .cols-row:before, .cols-row:after {
-                content: "";
-                display: table;
-            }
-            .cols-row:after {
-                clear: both;
-            }
-            .cols-row:before, .cols-row:after {
-                content: "";
-                display: table;
-            }
-            .cols-row.search {
-                padding-top: 1.41176em;
-            }
-            .cols-row.search {
-                border-radius: 0.352941em;
-                box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.5);
-            }
-
-            .local-favourites-module .disclaimer {
-                float: right;
-                font-size: 0.764706em;
-                margin-top: -1.84615em;
-                padding: 0;
-                position: relative;
-                text-align: right;
-                width: 25%;
-            }
-
-        </style>
 
 
 
@@ -659,20 +243,20 @@
          </header>
 
         <ul class="bxslider" style = "height:500">
-            <li><div><img src="/assets/img/hill_trees.jpg" title="Funky roots sdfsfsdfsdfsdfsdfsd"/>asdfahasdfasdfasdfasdflkjlkjlkskdjf</div>
+            <li><div class = "slide"><img src="/assets/img/hill_trees.jpg" title="Funky roots sdfsfsdfsdfsdfsdfsd"/>asdfahasdfasdfasdfasdflkjlkjlkskdjf</div>
 
 
             </li>
             <li>
-                    <div><img src="/assets/img/hill_trees.jpg" title="Funky roots sdfsfsdfsdfsdfsdfsd"/>
+                    <div class = "slide"><img src="/assets/img/hill_trees.jpg" title="Funky roots sdfsfsdfsdfsdfsdfsd"/>
                     <a>sdfasdfasdfasdfasdfasfda</a></div>
 
             </li>
 
-            <li><div><img src="/assets/img/me_trees.jpg" title="Funky roots sdfsdfsd"/>fhgslkdjfhgslidfuhgsiu</div>
+            <li><div class = "slide"><img src="/assets/img/me_trees.jpg" title="Funky roots sdfsdfsd"/>fhgslkdjfhgslidfuhgsiu</div>
 
             </li>
-            <li><div><img src="/assets/img/hill_trees.jpg" title="Funky rootswerwerwerwerwerwrw" /></div></li>
+            <li><div  class = "slide"><img src="/assets/img/hill_trees.jpg" title="Funky rootswerwerwerwerwerwrw" /></div></li>
         </ul>
      </div>
 
@@ -684,18 +268,37 @@
 
         <script>
             $(document).ready(function(){
+                $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+                $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+
+                $("#oneway").click(function(){
+                    $("#flight-returning-label").css("visibility","hidden");
+
+                });
+
+                $("#roundtrip").click(function(){
+                    $("#flight-returning-label").css("visibility","visible");
+
+
+
+                });
+                $("#datepickerCheckin").datepicker();
+
+                $( "#datepickerCheckout").datepicker();
+
+                $("#datepickerFlightDepart").datepicker();
+
+                $( "#datepickerFlightReturn").datepicker();
+
                 $('.bxslider').bxSlider(
                         {   minSlides: 3,
                             maxSlides: 3,
                             slideWidth: 360,
-                            slideMargin: 10,
+                            slideMargin: 100,
                             height: 100,
-
-                            slideSelector:'li'
+                            slideSelector:$('.slide')
 
                         }
-
-
                 );
 
 
