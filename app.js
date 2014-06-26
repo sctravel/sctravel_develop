@@ -79,7 +79,8 @@ if ('development' == app.get('env')) {
 //Home page
 app.get('/', function (req,res){
     if(req.user) {
-        res.render('index',{customerId:req.user.customerId, randomKey:req.user.randomKey,firstName: req.user.firstName, lastName: req.user.lastName});
+        console.log(req.user);
+        res.render('index',{provider:req.user.provider,customerId:req.user.customerId, randomKey:req.user.randomKey,firstName: req.user.firstName, lastName: req.user.lastName});
     } else {
         res.render('index');
     }
@@ -99,7 +100,7 @@ passport.use('local', new LocalStrategy(
             }
             if(results.isAuthenticated == true ) {
                 console.dir(results);
-                return done(null, {customerId : results.customerId, randomKey: results.randomKey,
+                return done(null, {provider:results.provider,customerId : results.customerId, randomKey: results.randomKey,
                                        firstName: results.firstName, lastName: results.lastName} );
             } else {
                 return done(null, false, { message: results.errorMessage });
@@ -123,7 +124,7 @@ passport.use(new fpass({
             }
             if(results.isAuthenticated == true ) {
                 console.dir(results);
-                return done(null,{customerId :results.customerId, randomKey: results.randomKey,
+                return done(null,{provider:results.provider,customerId :results.customerId, randomKey: results.randomKey,
                     firstName: results.firstName, lastName: results.lastName});
             } else {
                 return done(null, false, { message: results.errorMessage });
@@ -134,11 +135,11 @@ passport.use(new fpass({
 ));
 
 passport.serializeUser(function (user, done) {//保存user对象
-    done(null, {customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});//可以通过数据库方式操作
+    done(null, {provider:user.provider,customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});//可以通过数据库方式操作
 });
 
 passport.deserializeUser(function (user, done) {//删除user对象
-    done(null, {customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName} );//可以通过数据库方式操作
+    done(null, {provider:user.provider,customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName} );//可以通过数据库方式操作
 });
 
 //redirect to last page remembered by session
@@ -163,7 +164,7 @@ app.post('/login',
 //   redirecting the user to facebook.com.  After authorization, Facebook will
 //   redirect the user back to this application at /auth/facebook/callback
 app.get('/auth/facebook',
-    passport.authenticate('facebook'),
+    passport.authenticate('facebook',{ scope: ['user_about_me', 'email','public_profile'] }),
     function(req, res){
         // The request will be redirected to Facebook for authentication, so this
         // function will not be called.
@@ -202,36 +203,36 @@ app.get('/signup', function (req,res){
 app.get('/account/myorders', isLoggedIn, function (req,res){
     var user = req.user;
     req.session.lastPage = "/account/myorders";
-    res.render('login/myOrdersPage',{customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
+    res.render('login/myOrdersPage',{provider:user.provider,customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
 });
 app.get('/account/myaccount', isLoggedIn, function (req,res){
     var user = req.user;
     req.session.lastPage = "/account/myaccount";
-    res.render('login/myAccountPage',{customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
+    res.render('login/myAccountPage',{provider:user.provider,customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
 });
 app.get('/account/myaccount/updatePassword', isLoggedIn, function (req,res){
     var user = req.user;
     req.session.lastPage = "/account/myaccount/updatePassword";
-    res.render('login/myAccountPageUpdatePassword',{customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
+    res.render('login/myAccountPageUpdatePassword',{provider:user.provider,customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
 });
 app.get('/account/myorders/history', isLoggedIn, function (req,res){
     var user = req.user;
     req.session.lastPage = "/account/myorders/history";
-    res.render('login/myHistoricalOrdersPage',{customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
+    res.render('login/myHistoricalOrdersPage',{provider:user.provider,customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
 });
 
 
 //Data Services for account
 app.post('/services/customer/accounts/new', function(req,res) {
     var newAccountInfo = req.body.newAccountInfo;
-
+    newAccountInfo.provider=constants.LOGIN_PROVIDER.SYSTEM;
     userLogin.addNewCustomerAccount(newAccountInfo, function(err,results){
         if(err) {
             console.error(err);
             res.send(err);
         } else {
             console.info(results);
-            res.send(results);
+            res.send("done");
         }
     });
 });
@@ -331,7 +332,7 @@ app.get('/package-search-results', function (req,res){
     }
 
     if(req.user) {
-       res.render('searchPages/packageResults.ejs',{keywords: keywords+"",customerId:req.user.customerId, randomKey:req.user.randomKey,firstName: req.user.firstName, lastName: req.user.lastName});
+       res.render('searchPages/packageResults.ejs',{keywords: keywords+"",provider:req.user.provider,customerId:req.user.customerId, randomKey:req.user.randomKey,firstName: req.user.firstName, lastName: req.user.lastName});
     } else {
         res.render('searchPages/packageResults.ejs',{keywords: keywords+""});
 

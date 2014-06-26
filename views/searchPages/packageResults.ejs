@@ -2,15 +2,12 @@
 
 <html lang="cn" ng-app>
 <head>
+
     <%include ../layout/header.ejs%>
     <%include ../layout/navbar.ejs%>
     <%include ../layout/bootstrap.ejs%>
-    <link rel="stylesheet" href="/assets/css/global-header-bundle-min-1313690595.css">
-    <link rel="stylesheet" href="/assets/css/global-header-responsive-bundle-min-733236120.css">
     <link rel="stylesheet" href="/assets/css/core-responsive.css">
-    <link rel="stylesheet" href="/assets/css/userlogin-min-2366612448.css">
     <link rel="stylesheet" href="/assets/css/hotelSearch-min.css">
-    <link rel="stylesheet" href="/assets/css/packageSearch/advanced_search_result.css">
     <link rel="stylesheet" href="/assets/css/packageSearch/homepage-2012-1123-min.css">
     <link type="text/css" rel="stylesheet" href="/assets/css/simplePagination.css"/>
 
@@ -20,303 +17,6 @@
     <script type="text/javascript" src="/extjs-3.0.0-src/adapter/ext/ext-base.js"></script>
     <script type="text/javascript" src="/extjs-3.0.0-src/ext-all.js"></script-->
 
-    <style type="text/css">
-
-
-
-    * {
-        box-sizing: border-box;
-    }
-    *::-moz-selection {
-        background: none repeat scroll 0 0 #D4D4D4;
-        text-shadow: none;
-    }
-
-    .site-header-primary {
-        border-color: #FFCB00;
-        border-top: 0.294118em solid #FFCB00;
-        box-shadow: 0 0.0588235em #EBC326 inset;
-        padding-top: 0.764706em;
-        position: relative;
-    }
-    .site-header {
-        background: none repeat scroll 0 0 #FFFFFF;
-        height: auto;
-    }
-
-
-
-    .site-header .cols-row {
-        padding: 0 1.41176em;
-    }
-
-
-
-
-
-    .site-header-primary .logo {
-        display: block;
-        float: left;
-        margin: 0.176471em 0 0.294118em;
-        overflow: hidden;
-        padding: 0;
-
-    }
-    .site-header a {
-        display: block;
-        padding: 0.461538em 0.615385em;
-        text-decoration: none;
-    }
-    a:link, .link, a:visited {
-        color: #0065B8;
-        text-decoration: none;
-    }
-    a {
-        color: #0000EE;
-    }
-
-    .site-header-primary #header-logo.logo.us-pos {
-        height: 1.94118em;
-        width: 9.11765em;
-    }
-
-    .site-header-primary .site-navigation {
-        float: right;
-        font-size: 0.764706em;
-    }
-
-    .cf:before, .cf:after {
-        content: "";
-        display: table;
-    }
-    .cf:after {
-        clear: both;
-    }
-    .cf:before, .cf:after {
-        content: "";
-        display: table;
-    }
-    .site-header-primary .site-navigation .shop-nav {
-        float: right;
-    }
-    .site-header-primary .site-navigation .nav-group {
-        display: inline-block;
-    }
-    .site-header ul {
-        margin: 0;
-        padding: 0;
-    }
-    .cf {
-    }
-
-    ul, ol {
-        margin: 1.41176em 0 0;
-    }
-    ul {
-        list-style-type: disc;
-    }
-    ul, ol {
-        margin: 1.41176em 0;
-        padding: 0 0 0 1.41176em;
-    }
-
-    .site-header li {
-        float: left;
-        list-style-type: none;
-        padding-bottom: 0;
-        position: relative;
-    }
-    ul li, ol li {
-        padding: 0 0 0.705882em;
-    }
-
-    .site-header a {
-        display: block;
-        padding: 0.461538em 0.615385em;
-        text-decoration: none;
-    }
-    a:link, .link, a:visited {
-        color: #0065B8;
-        text-decoration: none;
-    }
-    .nav-tab {
-        border-radius: 0.133333em;
-    }
-    a {
-        color: #0000EE;
-    }
-
-    .site-header-secondary ul {
-        white-space: nowrap;
-        width: auto;
-    }
-    .site-header-secondary ul {
-        font-size: 0.882353em;
-        width: 68.2667em;
-    }
-
-    .site-header-secondary .selected-tab a {
-        background: none repeat scroll 0 0 #0065B8;
-        color: #FFFFFF;
-    }
-    .site-header-secondary a {
-        padding: 0.411765em 0.529412em;
-    }
-
-
-    .cols-row:after {
-        clear: both;
-    }
-    .cols-row:before, .cols-row:after {
-        content: "";
-        display: table;
-    }
-
-    body .cols-row {
-        margin: 0 auto;
-        max-width: 69.1765em;
-        padding-right: 1.41176em;
-        width: 100%;
-    }
-    .cols-row {
-        padding-right: 1.41176em;
-        position: relative;
-    }
-
-
-
-    ul li, ol li {
-        padding: 0 0 0.705882em;
-    }
-
-
-    .hero-banner-wrap {
-        background-color: #1F1F1F;
-        position: relative;
-    }
-    article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, datalist, meter {
-        display: block;
-    }
-
-
-
-    .hero-banner-wrap .hero-banner:before {
-        background-image: url("../images/hero-banner-secondary-vertical-gradient.png");
-        background-repeat: repeat-x;
-        background-size: 100% auto;
-        bottom: 0;
-        content: "";
-        display: block;
-        height: 100%;
-        left: 0;
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 100%;
-    }
-
-    .hero-banner-wrap .hero-banner, .hero-banner-wrap .hero-banner:before {
-        transition: padding 0.25s cubic-bezier(0.23, 1, 0.32, 1) 0s, background 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s;
-    }
-
-    #home-page section.hero-banner-wrap .hero-banner {
-        padding-top: 0;
-    }
-
-    #WIZARD.hero-banner-wrap .hero-banner {
-        background-color: #6592B8;
-        background-image: url("/assets/img/background.jpg");
-        position: relative;
-    }
-
-    .hero-banner-wrap .hero-banner {
-        padding-top: 6%;
-    }
-
-    .hero-banner-wrap .hero-banner {
-        background-position: 50% 0;
-        background-repeat: no-repeat;
-        background-size: 100% auto;
-        margin: 0 auto;
-        padding-top: 15%;
-        position: relative;
-        width: 100%;
-    }
-    .theme-inverse-pills .tabs a.on, .no-touch .theme-inverse-pills .tabs a.on:hover, .theme-inverse-pills .tabs a.on:active, .theme-inverse-pills .tabs a.on:focus, .theme-inverse-pills .tabs a.on.vtest-focus {
-        background: none repeat scroll 0 0 #0065B8;
-    }
-    .theme-inverse-pills .tabs a.on {
-        background: none repeat scroll 0 0 #0065B8;
-        color: #FFFFFF;
-    }
-    .theme-inverse-pills .tabs a {
-        padding-left: 0.941176em;
-        padding-right: 0.941176em;
-    }
-    .theme-inverse-pills .tabs a {
-        color: #FFFFFF;
-    }
-    .theme-inverse-pills .link, .theme-inverse-pills a {
-        color: #57B3FF;
-    }
-    .tabs a {
-        border-radius: 0.266667em;
-        display: block;
-        font-size: 0.882353em;
-        font-weight: bold;
-        padding: 0.4em;
-    }
-    a:link, .link, a:visited {
-        color: #0065B8;
-        text-decoration: none;
-    }
-
-
-
-
-
-    .hero-banner-wrap .hero-banner, .hero-banner-wrap .hero-banner:before {
-        transition: padding 0.25s cubic-bezier(0.23, 1, 0.32, 1) 0s, background 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s;
-    }
-
-    fieldset.pkg-tab-radio-btns label span {
-        font-size: 13px;
-    }
-    fieldset.pkg-tab-radio-btns label {
-        margin-bottom: -6px;
-        padding-left: 36px;
-    }
-    fieldset.pkg-tab-radio-btns label:last-child {
-        margin-bottom: 0px;
-    }
-
-    #home-page section.hero-banner-wrap .hero-banner .hero-banner-gradient {
-        background: none repeat scroll 0 center rgba(0, 0, 0, 0);
-    }
-
-
-    body {
-        color: #6B6B6B;
-    }
-    html {
-        font-size: 106.25%;
-        line-height: 1.45;
-    }
-    html, button, input, select, textarea {
-        color: #1F1F1F;
-    }
-    html {
-        font-family: "Helvetica Neue",Arial,"Lucida Grande",sans-serif;
-        font-size: 106.25%;
-    }
-    #ui-datepicker-div{
-
-        background-color: #FFFFFF;
-        border: 1px solid #11F9F1;
-
-    }
-
-    </style>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta charset="UTF-8" />
     <title>Search Results</title>
@@ -327,11 +27,11 @@
 
 </head>
 
-<body data-spy="scroll" data-target=".bs-docs-sidebar" data-twttr-rendered="true" style="font-size: 90%">
+<body data-spy="scroll" data-target=".bs-docs-sidebar" data-twttr-rendered="true" style="font-size: 100%">
 <!-- Navigation bar-->
 
 
-<div id="modalInterstitial" style="display:none">
+<div id="modalInterstitial" >
     <div class="updating">Updating your results</div>
         <span class="modalInterstitialWrapper">
             Please wait ...
@@ -340,7 +40,7 @@
 
 <div id="edsContainer"></div>
 
-<div role="banner">
+<div id="mainContent" role="banner" style="display:none">
 
 <form id="searchForm">
 <div id="historyTabs" class="box hidden">
@@ -349,14 +49,14 @@
     </div>
 </div>
 
-    <% if (!keywords) { %>
-        <%= keywords="chengdu" %>
+    <% if (keywords==undefined || keywords==null) { %>
+        <%= keywords="" %>
     <% } %>
 
 <div id="wizard">
     <div class="subHeader box">
 
-        <label id="search-package" style="padding-left:3%; padding-right: 3%;">
+        <label id="search-package" style="padding-left:10%; padding-right: 10%;">
             <span>Search Packages by Keywords</span>
             <input type="text" placeholder="" value="<%= keywords %>" name="keywords" id="search-package-keywords" class="span3" />
 
@@ -670,11 +370,13 @@
          })
      }
 
-     $('#search-package-button').click(searchPackagesByKeywords )
+     $('#search-package-button').click(searchPackagesByKeywords)
 
 
      $(function(){
-         searchPackagesByKeywords( )
+         searchPackagesByKeywords( );
+         $('#modalInterstitial').hide();
+         $('#mainContent').show();
          //initResultPage(searchResults);
      })
 
