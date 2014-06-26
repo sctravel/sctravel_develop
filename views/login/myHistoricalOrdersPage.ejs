@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html lang="cn">
+<head>
+    <%include ../layout/bootstrap.ejs%>
+    <link rel="stylesheet" href="/assets/css/global-header-bundle-min-1313690595.css">
+    <link rel="stylesheet" href="/assets/css/global-header-responsive-bundle-min-733236120.css">
+    <link rel="stylesheet" href="/assets/css/core-responsive.css">
+    <link rel="stylesheet" href="/assets/css/userlogin-min-2366612448.css">
+    <link rel="stylesheet" href="/assets/css/hotelSearch-min.css">
+    <link rel="stylesheet" href="/assets/css/packageSearch/advanced_search_result.css">
+    <link rel="stylesheet" href="/assets/css/packageSearch/2.css">
+    <link rel="stylesheet" href="/assets/css/packageSearch/homepage-2012-1123-min.css">
+    <link type="text/css" rel="stylesheet" href="/assets/css/simplePagination.css"/>
+
+    <link rel="stylesheet" href="/assets/css/accountInfo/base-front.css"/>
+    <link rel="stylesheet" href="/assets/css/accountInfo/block-lists.css"/>
+
+    <link rel="stylesheet" href="/assets/css/accountInfo/calendars.css"/>
+    <link rel="stylesheet" href="/assets/css/accountInfo/common.css"/>
+    <link rel="stylesheet" href="/assets/css/accountInfo/form.css"/>
+    <link rel="stylesheet" href="/assets/css/accountInfo/js.base.css"/>
+    <link rel="stylesheet" href="/assets/css/accountInfo/planning.css"/>
+    <link rel="stylesheet" href="/assets/css/accountInfo/reset.css"/>
+    <link rel="stylesheet" href="/assets/css/accountInfo/simple-lists.css"/>
+    <link rel="stylesheet" href="/assets/css/accountInfo/special-pages.css"/>
+    <link rel="stylesheet" href="/assets/css/accountInfo/standard.css"/>
+    <link rel="stylesheet" href="/assets/css/accountInfo/table.css"/>
+    <link rel="stylesheet" href="/assets/css/accountInfo/wizard.css"/>
+
+
+
+    <style type="text/css">
+        .Personal_buy_box2_tab th{ border: 1px solid #d3d3d3;line-height: 30px;text-align: center;}
+        .Personal_buy_box2_tab td{ border: 1px solid #d3d3d3;background-color:#ffffff;line-height: 27px;padding: 5px 10px;}
+        .Personal_buy_box2_tab td h3{ font-size: 14px;font-weight: bold;height: 30px;line-height: 30px;}
+    </style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="UTF-8" />
+    <title>My Orders</title>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+    <%include ../layout/header.ejs%>
+    <%include ../layout/navBar.ejs%>
+    <%include ../layout/jqGridInclude.ejs%>
+
+</head>
+
+<body data-spy="scroll" data-target=".bs-docs-sidebar" data-twttr-rendered="true">
+<!-- Navigation bar-->
+
+<div class="all_main pad_t10">
+    <div class="tour_top_por">Current Position：<a href='/'>homepage</a> &gt; <a href='/account/myaccount'>membership center</a> &gt; <span>my historical orders</span></div>
+    <div class="Personal">
+        <table width="100%" cellspacing="0" cellpadding="0">
+            <tbody><tr>
+                <td width="180" style="vertical-align:top"><div class="Personal_l_meun Personal_bd1">
+                        <ul class="Personal_l_meun_list">
+                            <h3 class="Personal_l_meun_h3">My Account</h3>
+                            <li><a class="Personal_l_meun_icon1" href="/account/myaccount">Information</a></li>
+                            <li><a class="Personal_l_meun_icon2" href="/account/myaccount/updatePassword">Password</a></li>
+
+                        </ul>
+                        <ul class="Personal_l_meun_list">
+                            <h3 class="Personal_l_meun_h3">My Orders</h3>
+                            <li><a class="Personal_l_meun_icon5" href="/account/myorders">Upcoming</a></li>
+                            <li><a class="Personal_l_meun_icon6_2" href="/account/myorders/history">History</a></li>
+
+                        </ul>
+                    </div></td>
+
+
+                <script type="text/javascript">
+                    $(function () {
+                        // var c = "Personal_l_meun_icon2";
+                        //$("."+c).addClass(c + "_2");
+                        $(".menuselected").html($(".selected").html());
+                    });
+                </script>
+                <td style="width:15px;">&nbsp;</td>
+                <td style="width:1015px;">
+                    <section id="packageOrdersPage">
+                        <div class="page-header">
+                            <h1>My Historical Vacation Packages：</h1>
+                        </div>
+                        <div>
+                            <table id="packageOrderResult"></table>
+                            <div id="noresults" style="display:none"><h1  style="text-align:center">You have no historical orders.</h1></div>
+                        </div>
+                        <br />
+                    </section>
+                </td>
+            </tr>
+            </tbody></table>
+    </div>
+</div>
+
+
+<script>
+    var orders={};
+    var orderDetails={};
+    var searchResults={};
+
+
+    var displayPackageOrders = function(data){
+        searchResults=data;
+        console.dir(searchResults);
+        jQuery("#packageOrderResult").GridUnload();
+        jQuery("#packageOrderResult").jqGrid({
+            data: searchResults,
+            datatype: "local",
+            colNames:['Product','StartDate','OrderDate','Description','Link','Amount','confirmCode','Quantity'],
+            colModel:[  {name:'product_name',index:'product_name',width:120} ,
+                {name:'start_date',index:'start_date', formatter:dateDisplayFormatter, width:120},
+                {name:'order_datetime',index:'order_datetime', formatter:dateDisplayFormatter, width:120},
+                {name:'description',index:'description', align:"right", width:160},
+                {name:'parent_product_id',index:'parent_product_id', align:"right",width:150,formatter:packageDetailsFormatter},
+                {name:'total_order_amount',index:'total_order_amount', align:"right",width:60},
+                {name:'confirmation_code',index:'confirmation_code', align:"right"},
+                {name:'quantity',index:'quantity', align:"right",width:60},
+            ],
+            //shrikToFit: true,
+            /*gridComplete: function(){ var ids = jQuery("#packageOrderResult").jqGrid('getRowData');
+             for(var i=0;i < ids.length;i++){
+             var data = ids[i];
+             console.dir(data);
+             if(data.order_status == '未付款') {
+             console.log("status is Booked");
+
+             var ce = "<input style='height:22px;width:80px;background-color:#ff0000' id=" + data.order_id+ " type='button' value='取消' />" ;
+             jQuery("#orderSearchResult").jqGrid('setRowData',(i+1)+"",{is_valid:ce});
+
+             $('#'+data.order_id).click(function(){
+             $.post('/services/orders/cancel',{orderId:data.order_id},function(results){
+             if(results=="done") {
+             reporter.successStatus("您已经成功取消了一个订单，订单号为:"+data.order_id);
+             reporter.render();
+
+             if($('#name').val() && $('#name').val().length>1 ) {
+             searchByCustomerName();
+             } else if($('#phone').val() && $('#phone').val().length>1) {
+             searchByPhone();
+             } else if($('#orderId').val() && $('#orderId').val().length>1) {
+             searchByOrderId();
+             } else if($('#confirmCode').val() && $('#confirmCode').val().length>1) {
+             searchByConfirmCode();
+             }
+
+             } else {
+             reporter.errorStatus("取消订单出现问题,请重试或者联系管理员.");
+             reporter.render();
+             //TODO deal with the edit failed case
+             }
+             });
+             });
+
+             } else {
+             var ce = "<input style='height:22px;width:80px; background-color: yellow' id=" + data.order_id+ "  value="+data.order_status+" />" ;
+             jQuery("#orderSearchResult").jqGrid('setRowData',(i+1)+"",{is_valid:ce});
+             }
+             }},
+
+
+             subGrid: true,  // (1)开启子表格支持
+             subGridRowExpanded: function(subgrid_id, row_id) {
+             var orderId = jQuery("#packageOrderResult").jqGrid('getRowData',row_id).order_id;
+
+             $.get('/services/search/orders', {"orderId" : orderId}, function(data){
+             console.log('getting data from orderId');
+             console.dir(data);
+             var subgrid_table_id;
+             subgrid_table_id = subgrid_id + "_t";   //
+             var subgrid_pager_id;
+             subgrid_pager_id = subgrid_id + "_pgr"  //
+             $("#" + subgrid_id).html("<table id='"+subgrid_table_id+"'class='scroll'></table><div id='"+subgrid_pager_id+"'class='scroll'></div>");
+             $("#" + subgrid_table_id).jqGrid({
+             data: data,
+             datatype: "local",
+             colNames:['出发地','景点','套餐名','日期','时间','人数','价格'],
+             colModel:[
+             {name:'depart_spot_name',index:'depart_spot_name',align:'right',sortable:false,width:120},
+             {name:'to_label',index:'to_label', align:"right",sortable:false,width:100},
+             {name:'offer_name', index:'offer_name', align:"right" ,sortable:false,width:300},
+             {name:'valid_date',index:'valid_date', align:"right", formatter:dateDisplayFormatter,width:130},
+             {name:'departure_time',index:'departure_time', align:"right",sortable:false,width:60},
+             {name:'quantity',index:'quantity', align:"right",sortable:false,width:40},
+             {name:'offer_subtotal_amount',index:'offer_subtotal_amount', align:"right",sortable:false,width:40},
+
+             ],
+             prmNames: {search: "search"},
+             pager: subgrid_pager_id,
+             viewrecords: true,
+             height: "100%",
+             rowNum: 5
+             });
+             });
+
+             },*/
+
+            caption: "Your Vacation Packages:",
+            //rowNum:10,
+            //pager:$('#pager2'),
+            loadonce:false,
+            width:900,
+            height: "100%"
+        });
+    };
+
+    function getHistoricalOrders() {
+        console.log("getHistoricalOrders");
+        $.get('/services/customer/orders/historical',function(data){
+            console.dir(data);
+            if(data && data.length>0) {
+                displayPackageOrders(data);
+            }
+            else{
+                $('#noresults').show();
+            }
+        });
+    }
+
+    $(function(){
+        getHistoricalOrders();
+    })
+</script>
+</body>
+</html>

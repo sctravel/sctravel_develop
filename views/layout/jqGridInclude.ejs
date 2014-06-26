@@ -1,0 +1,48 @@
+<link rel="stylesheet" type="text/css" href="/assets/css/ui.jqgrid.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/ui.multiselect.css">
+
+<script src="/assets/js/jquery.jqGrid-4.6.0/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/holder.js"></script>
+<script src="/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script src="/assets/js/docs.js"></script>
+<script src="/assets/js/grid.locale-en.js" type="text/javascript"></script>
+<script src="/assets/js/jquery.jqGrid-4.6.0/js/jquery.jqGrid.src.js" type="text/javascript"></script>
+<script src="/assets/js/jquery.jqGrid-4.6.0/src/grid.subgrid.js" type="text/javascript"></script>
+
+<script src="/assets/js/jqgridmain.js" type="text/javascript"></script>
+<script src="/assets/js/jqgridTablednd.js" type="text/javascript"></script>
+<script src="/assets/js/jqgridContextmenu.js" type="text/javascript"></script>
+
+<script>
+    function  packageDetailsFormatter(cellvalue, options, rowObject) {
+        return "<a href='/product/packages/"+cellvalue+"/html/productDetail.html'>Product Details</a>";
+    };
+
+    function orderStatusFormatter( cellvalue, options, rowObject ){
+        var formattedValue ="未付款";
+        switch(cellvalue) {
+            case 'booked' :
+                formattedValue = "未付款";
+                break;
+            case 'paid' :
+                formattedValue = "已付款";
+                break;
+            case 'cancelled':
+                formattedValue = "已取消";
+                break;
+            case 'unmatched':
+                formattedValue = "不匹配";
+                break;
+            default :
+
+        }
+// format the cellvalue to new format
+        return formattedValue;
+    }
+
+    function dateDisplayFormatter( cellvalue, options, rowObject ){
+        return cellvalue.substr(0,10);
+    }
+
+</script>
