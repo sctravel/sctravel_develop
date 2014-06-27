@@ -321,7 +321,7 @@ app.get('/package-search-results', function (req,res){
 
 app.get('/checkout',function (req,res){
 
-    console.dir(req);
+    //console.dir(req);
 
     res.render('checkoutPages/checkoutResults.ejs',{parentId : req.query.parentId } );
 
@@ -356,6 +356,26 @@ app.post('/package-search',function(req,res){
     })
 })
 
+
+
+
+
+app.post('/availableDates',function(req,res){
+
+    console.warn("invoking restful feed availableDates");
+    var product_parentId = req.body.parent_productId;
+
+    console.warn("product_parentId: "+ product_parentId);
+
+    clientQueryDB.availableDates(product_parentId,function(err,results){
+        if(err) {
+            res.send("error");
+            return;
+        }
+        res.send(results);
+
+    })
+})
 
 app.post('/children-products',function(req,res){
 

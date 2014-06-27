@@ -10549,48 +10549,58 @@ function initResultPage(data){
 
 <script>
 
-function getAvailableDates(){
+function getAvailableDates(parent_productId){
 
-    return  ["20140707", "20140708", "20140709"];
+
+    jQuery.post('/availableDates',{parent_productId:parent_productId},function(data){
+        if(!data || data=="error") {
+            alert("error returned from DB query");
+            displayNoResults(parent_productId);
+            return;
+        }
+        console.warn("callback data:"+ data);
+
+        var myCalendar = new JEC('myCalendarContainer');
+        myCalendar.showCalendar();
+
+        var myCal = new JEC('myCalendarContainer', {
+            tableClass: 'styledCalendar',
+            firstMonth: 201407,
+            lastMonth: 201407
+        });
+
+        for (var i = 0; i < data.length; i++) {
+
+            console.warn("dates in calendar:"+ data[i].DateStr);
+            myCal.defineEvents(
+                    [
+                        {
+                            eventDate: data[i].DateStr,
+                            eventDescription: 'Available',
+                            eventLink: 'http://calendar.ilsen.net',
+                            eventTitle: 'A JavaScript Event Calendar'
+                        }
+                    ]
+            );
+        }
+
+        myCal.showCalendar(20140707);
+    //return  ["20140707", "20140708", "20140709"];
+
+    })
+
+
 }
 
 
 </script>
 <script>
 
-
     loadChildrenResults();
 
-    var myCalendar = new JEC('myCalendarContainer');
-    myCalendar.showCalendar();
     var passedValue = "<%= parentId %>";
 
-    var myCal = new JEC('myCalendarContainer', {
-        tableClass: 'styledCalendar',
-        firstMonth: 201407,
-        lastMonth: 201407
-    });
-
-    var dates= getAvailableDates();
-
-
-    for (var i = 0; i < dates.length; i++) {
-        myCal.defineEvents(
-                [
-                    {
-                        eventDate: dates[i],
-                        eventDescription: 'Available',
-                        eventLink: 'http://calendar.ilsen.net',
-                        eventTitle: 'A JavaScript Event Calendar'
-                    }
-                ]
-        );
-    }
-
-
-
-
-    myCal.showCalendar(20140707);
+    getAvailableDates(passedValue);
 
  </script>
 
