@@ -12,7 +12,7 @@ var dateFormat = require('dateformat');
 var constants = require('./lib/common/constants');
 var userLogin = require('./lib/login/userLogin');
 var clientQueryDB = require('./lib/dbOperation/clientQueryDB');
-var confirmPicGenerator = require('./lib/utilities/confirmPicGenerator');
+//var confirmPicGenerator = require('./lib/utilities/confirmPicGenerator');
 var passport = require('passport');
 var fpass = require('passport-facebook').Strategy;
 var LocalStrategy = require('passport-local').Strategy;
@@ -79,18 +79,13 @@ if ('development' == app.get('env')) {
 //Home page
 app.get('/', function (req,res){
     if(req.user) {
-        res.render('index',{customerId:req.user.customerId, randomKey:req.user.randomKey,firstName: req.user.firstName, lastName: req.user.lastName});
+        console.log(req.user);
+        res.render('index',{provider:req.user.provider,customerId:req.user.customerId, randomKey:req.user.randomKey,firstName: req.user.firstName, lastName: req.user.lastName});
     } else {
         res.render('index');
     }
 });
 
-app.get('/services/getConfirmPic',function(req,res){
-    var conf = confirmPicGenerator.generateConfirmPic();
-    req.session.confirmText = conf[0];
-    console.log("text is "+conf[0]);
-    res.end(conf[1]);
-})
 
 ///////////////////////////////////////////////////////////////////////
 // * CustomerLogin methods
@@ -105,7 +100,7 @@ passport.use('local', new LocalStrategy(
             }
             if(results.isAuthenticated == true ) {
                 console.dir(results);
-                return done(null, {customerId : results.customerId, randomKey: results.randomKey,
+                return done(null, {provider:results.provider,customerId : results.customerId, randomKey: results.randomKey,
                                        firstName: results.firstName, lastName: results.lastName} );
             } else {
                 return done(null, false, { message: results.errorMessage });
@@ -120,7 +115,6 @@ passport.use(new fpass({
     },
     function(accessToken, refreshToken, fbUserData, done){
         console.dir(fbUserData);
-        console.log('got here');
         console.dir(accessToken);
         console.dir(refreshToken);
         userLogin.loginOrCreateAccountWithFacebook(fbUserData._json,function(err,results){
@@ -130,7 +124,7 @@ passport.use(new fpass({
             }
             if(results.isAuthenticated == true ) {
                 console.dir(results);
-                return done(null,{customerId :results.customerId, randomKey: results.randomKey,
+                return done(null,{provider:results.provider,customerId :results.customerId, randomKey: results.randomKey,
                     firstName: results.firstName, lastName: results.lastName});
             } else {
                 return done(null, false, { message: results.errorMessage });
@@ -141,18 +135,28 @@ passport.use(new fpass({
 ));
 
 passport.serializeUser(function (user, done) {//保存user对象
-    done(null, {customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});//可以通过数据库方式操作
+    done(null, {provider:user.provider,customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});//可以通过数据库方式操作
 });
 
 passport.deserializeUser(function (user, done) {//删除user对象
-    done(null, {customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName} );//可以通过数据库方式操作
+    done(null, {provider:user.provider,customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName} );//可以通过数据库方式操作
 });
 
+//redirect to last page remembered by session
 app.post('/login',
     passport.authenticate('local',
-        { successRedirect: '/',
+        {
             failureRedirect: '/login',
-            failureFlash: true })
+            failureFlash: true }),
+    function(req,res){
+        console.dir(req.session);
+        if(req.session.lastPage) {
+            res.redirect(req.session.lastPage);
+        } else {
+            res.redirect("/");
+        }
+
+    }
 );
 // GET /auth/facebook
 //   Use passport.authenticate() as route middleware to authenticate the
@@ -160,7 +164,7 @@ app.post('/login',
 //   redirecting the user to facebook.com.  After authorization, Facebook will
 //   redirect the user back to this application at /auth/facebook/callback
 app.get('/auth/facebook',
-    passport.authenticate('facebook'),
+    passport.authenticate('facebook',{ scope: ['user_about_me', 'email','public_profile'] }),
     function(req, res){
         // The request will be redirected to Facebook for authentication, so this
         // function will not be called.
@@ -172,8 +176,19 @@ app.get('/auth/facebook',
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
 app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { successRedirect: '/',
-        failureRedirect: '/login' }));
+    passport.authenticate('facebook', {
+        failureRedirect: '/login' })
+    ,
+    function(req,res){
+        console.dir(req.session);
+        if(req.session.lastPage) {
+            res.redirect(req.session.lastPage);
+        } else {
+            res.redirect("/");
+        }
+
+    }
+);
 
 ///////////////////////////////////////////////////////////////////////
 // Customer Login and Account Management
@@ -187,40 +202,39 @@ app.get('/signup', function (req,res){
 
 app.get('/account/myorders', isLoggedIn, function (req,res){
     var user = req.user;
-    req.session.lastPage = "/login/myOrdersPage";
-    res.render('login/myOrdersPage',{customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
+    req.session.lastPage = "/account/myorders";
+    res.render('login/myOrdersPage',{provider:user.provider,customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
 });
 app.get('/account/myaccount', isLoggedIn, function (req,res){
     var user = req.user;
-    req.session.lastPage = "/login/myAccountPage";
-    res.render('login/myAccountPage',{customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
+    req.session.lastPage = "/account/myaccount";
+    res.render('login/myAccountPage',{provider:user.provider,customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
 });
 app.get('/account/myaccount/updatePassword', isLoggedIn, function (req,res){
     var user = req.user;
-    req.session.lastPage = "/login/myAccountPageUpdatePassword";
-    res.render('login/myAccountPageUpdatePassword',{customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
+    req.session.lastPage = "/account/myaccount/updatePassword";
+    res.render('login/myAccountPageUpdatePassword',{provider:user.provider,customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
 });
 app.get('/account/myorders/history', isLoggedIn, function (req,res){
     var user = req.user;
     req.session.lastPage = "/account/myorders/history";
-    res.render('login/myHistoricalOrdersPage',{customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
+    res.render('login/myHistoricalOrdersPage',{provider:user.provider,customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
 });
 
 
 //Data Services for account
 app.post('/services/customer/accounts/new', function(req,res) {
     var newAccountInfo = req.body.newAccountInfo;
-
+    newAccountInfo.provider=constants.LOGIN_PROVIDER.SYSTEM;
     userLogin.addNewCustomerAccount(newAccountInfo, function(err,results){
         if(err) {
             console.error(err);
             res.send(err);
         } else {
             console.info(results);
-            res.send(results);
+            res.send("done");
         }
     });
-
 });
 
 app.post('/account/updatePassword',isLoggedIn, function(req,res){
@@ -278,6 +292,13 @@ app.get('/services/customer/accounts', isLoggedIn, function(req,res){
 })
 
 
+app.get('/services/getConfirmPic',function(req,res){
+    var conf = confirmPicGenerator.generateConfirmPic();
+    req.session.confirmText = conf[0];
+    console.log("text is "+conf[0]);
+    res.end(conf[1]);
+})
+
 app.post('/account/updateAccountInfo',isLoggedIn, function(req,res){
     var user = req.user ;
     var updateAccountInfo = req.body.updateAccountInfo;
@@ -300,17 +321,18 @@ app.post('/account/updateAccountInfo',isLoggedIn, function(req,res){
 
 app.get('/package-search-results', function (req,res){
     var keywords;
+    req.session.lastPage = "/package-search-results";
 
-    if(req.body.keywords) {
+    if(req.query.keywords) {
         keywords = req.query.keywords
     } else if(req.session.searchPackageKeywords) {
         keywords= req.session.searchPackageKeywords;
     } else {
-        keywords="chengdu";
+        keywords="";
     }
 
     if(req.user) {
-       res.render('searchPages/packageResults.ejs',{keywords: keywords+"",customerId:req.user.customerId, randomKey:req.user.randomKey,firstName: req.user.firstName, lastName: req.user.lastName});
+       res.render('searchPages/packageResults.ejs',{keywords: keywords+"",provider:req.user.provider,customerId:req.user.customerId, randomKey:req.user.randomKey,firstName: req.user.firstName, lastName: req.user.lastName});
     } else {
         res.render('searchPages/packageResults.ejs',{keywords: keywords+""});
 
@@ -322,6 +344,8 @@ app.get('/package-search-results', function (req,res){
 app.get('/checkout',function (req,res){
 
     //console.dir(req);
+
+    req.session.lastPage = "/checkout";
 
     res.render('checkoutPages/checkoutResults.ejs',{parentId : req.query.parentId } );
 
@@ -408,7 +432,7 @@ app.get('/logout', isLoggedIn, function (req, res) {
         }
 
     })
-    req.flash('success','登出成功!');
+    req.flash('success','You have successfully logged out!');
     req.logout();
     res.redirect("/");
 });

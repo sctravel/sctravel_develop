@@ -4,7 +4,7 @@
         <a id="header-logo" class="logo us-pos" href="/ " target="_top" data-tid="header-logo">成都旅游网</a>
         <div id="globalSiteNavigation" class="site-navigation cf">
             <% if (typeof customerId != 'undefined' && customerId !=null) { %>
-            <b>Welcome to ChengDu Travel! <%= firstName+" "+lastName %> </b>
+            <p><b>Welcome to ChengDu Travel! <%= firstName+" "+lastName %> </b>
                 <ul class="shop-nav nav-group cf">
                     <li id="utility-menu1">
                         <a id="myaccount" class="nav-tab" href="/account/myaccount">My Account</a>
@@ -12,6 +12,8 @@
                     <li>
                         <a id="logout" class="nav-tab" href="/logout">Logout</a>
                     </li>
+                </ul>
+            </p>
             <% }  else { %>
             <ul class="shop-nav nav-group cf">
                 <li id="utility-menu1">
@@ -37,7 +39,7 @@
         <ul class="utility-nav nav-group cf">
 
             <li id="all-in-home-header-link" class="selected-tab ">
-                <a id="primary-header-home" href="//127.0.0.1:3000/" target="_top"> Home </a>
+                <a id="primary-header-home" href="/" target="_top"> Home </a>
             </li>
 
             <li id="all-in-package-header-link">

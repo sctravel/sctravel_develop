@@ -109,11 +109,11 @@
       */
      function validateSignupForm() {
 
-         $('#firstName').css({border:"1px solid black"});
-         $('#lastName').css({border:"1px solid black"});
-         $('#email').css({border:"none"});
-         $('#password').css({border:"none"});
-         $('#passwordConf').css({border:"none"});
+         $('#firstName').css({border:"1px solid transparent",'border-color':"#858585 #c2c2c2 #c2c2c2"});
+         $('#lastName').css({border:"1px solid transparent",'border-color':"#858585 #c2c2c2 #c2c2c2"});
+         $('#email').css({border:"1px solid transparent",'border-color':"#858585 #c2c2c2 #c2c2c2"});
+         $('#password').css({border:"1px solid transparent",'border-color':"#858585 #c2c2c2 #c2c2c2"});
+         $('#passwordConf').css({border:"1px solid transparent",'border-color':"#858585 #c2c2c2 #c2c2c2"});
 
          var firstName = $('#firstName').val();
          if(isblank(firstName)) {
@@ -177,7 +177,7 @@
                    console.log("successfully created a new account");
                    reporter.successStatus("successfully created a new account");
                    reporter.render();
-                   window.location.href("/login");
+                   window.location.href="/login";
                } else {
                    reporter.errorStatus(data);
                    reporter.render();

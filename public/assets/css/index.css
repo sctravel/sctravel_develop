@@ -1,5 +1,3 @@
-<style type="text/css">
-
 
 
 * {
@@ -70,10 +68,7 @@ a {
 .cf:after {
     clear: both;
 }
-.cf:before, .cf:after {
-    content: "";
-    display: table;
-}
+
 .site-header-primary .site-navigation .shop-nav {
     float: right;
 }
@@ -87,14 +82,11 @@ a {
 .cf {
 }
 
-ul, ol {
-    margin: 1.41176em 0 0;
-}
 ul {
     list-style-type: disc;
 }
 ul, ol {
-    margin: 1.41176em 0;
+    margin: 1.41176em 0 0;
     padding: 0 0 0 1.41176em;
 }
 
@@ -108,15 +100,6 @@ ul li, ol li {
     padding: 0 0 0.705882em;
 }
 
-.site-header a {
-    display: block;
-    padding: 0.461538em 0.615385em;
-    text-decoration: none;
-}
-a:link, .link, a:visited {
-    color: #0065B8;
-    text-decoration: none;
-}
 .nav-tab {
     border-radius: 0.133333em;
 }
@@ -127,8 +110,6 @@ a {
 .site-header-secondary ul {
     white-space: nowrap;
     width: auto;
-}
-.site-header-secondary ul {
     font-size: 0.882353em;
     width: 68.2667em;
 }
@@ -145,10 +126,6 @@ a {
 .cols-row:after {
     clear: both;
 }
-.cols-row:before, .cols-row:after {
-    content: "";
-    display: table;
-}
 
 body .cols-row {
     margin: 0 auto;
@@ -161,11 +138,6 @@ body .cols-row {
     position: relative;
 }
 
-
-
-ul li, ol li {
-    padding: 0 0 0.705882em;
-}
 
 
 .hero-banner-wrap {
@@ -209,9 +181,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
 
 .hero-banner-wrap .hero-banner {
     padding-top: 6%;
-}
-
-.hero-banner-wrap .hero-banner {
     background-position: 50% 0;
     background-repeat: no-repeat;
     background-size: 100% auto;
@@ -230,10 +199,9 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
 .theme-inverse-pills .tabs a {
     padding-left: 0.941176em;
     padding-right: 0.941176em;
-}
-.theme-inverse-pills .tabs a {
     color: #FFFFFF;
 }
+
 .theme-inverse-pills .link, .theme-inverse-pills a {
     color: #57B3FF;
 }
@@ -244,18 +212,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
     font-weight: bold;
     padding: 0.4em;
 }
-a:link, .link, a:visited {
-    color: #0065B8;
-    text-decoration: none;
-}
 
 
-
-
-
-.hero-banner-wrap .hero-banner, .hero-banner-wrap .hero-banner:before {
-    transition: padding 0.25s cubic-bezier(0.23, 1, 0.32, 1) 0s, background 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s;
-}
 
 fieldset.pkg-tab-radio-btns label span {
     font-size: 13px;
@@ -276,14 +234,12 @@ fieldset.pkg-tab-radio-btns label:last-child {
 body {
     color: #6B6B6B;
 }
-html {
-    font-size: 106.25%;
-    line-height: 1.45;
-}
+
 html, button, input, select, textarea {
     color: #1F1F1F;
 }
 html {
+    line-height: 1.45;
     font-family: "Helvetica Neue",Arial,"Lucida Grande",sans-serif;
     font-size: 106.25%;
 }
@@ -294,4 +250,82 @@ html {
 
 }
 
-</style>
+.ui-tabs-vertical { width: 55em; }
+.ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
+.ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
+.ui-tabs-vertical .ui-tabs-nav li a { display:block; }
+.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
+.ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: right; width: 40em;}
+.forms .tab-pane .flight-type-select, .forms .tab-pane .radio-set {
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+fieldset {
+    margin-bottom: 1.41176em;
+    border: 0 none;
+    margin: 0;
+    padding: 0;
+}
+
+.forms .tab-pane .flight-type-select .check, .forms .tab-pane .radio-set .check {
+    margin-right: 1.41176em;
+}
+.col {
+    float: left;
+    padding-left: 1.41176em;
+    position: relative;
+}
+.check {
+    display: inline-block;
+    width: auto;
+}
+label {
+    color: #3D3D3D;
+    display: block;
+    margin-top: 0.705882em;
+    position: relative;
+    cursor: pointer;
+}
+
+.theme-inverse-pills .forms .tab-pane .label, .theme-inverse-pills .forms .tab-pane .inline-label, .theme-inverse-pills .forms .tab-pane .package-car-message {
+    color: #C7C7C7;
+}
+.forms .tab-pane .label, .forms .tab-pane .inline-label {
+    font-weight: bold;
+}
+legend, .label, .inline-label, .field-description {
+    color: #6B6B6B;
+    display: block;
+    font-size: 0.764706em;
+    font-weight: bold;
+    line-height: 1.4;
+    margin-bottom: 0.461538em;
+}
+label span {
+    display: block;
+}
+.forms .tab-pane .flight-type-select, .forms .tab-pane .radio-set {
+    margin-bottom: 0;
+    margin-left: 0;
+}
+.cols-row:before, .cols-row:after {
+    content: "";
+    display: table;
+}
+
+.cols-row.search {
+    padding-top: 1.41176em;
+    border-radius: 0.352941em;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.5);
+}
+
+.local-favourites-module .disclaimer {
+    float: right;
+    font-size: 0.764706em;
+    margin-top: -1.84615em;
+    padding: 0;
+    position: relative;
+    text-align: right;
+    width: 25%;
+}
