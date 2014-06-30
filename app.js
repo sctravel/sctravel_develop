@@ -412,6 +412,7 @@ app.post('/services/account/updateAccountInfo',isLoggedIn, function(req,res){
 
 
 app.post('/services/package-search',function(req,res){
+
     var keywords = req.body.keywords;
     req.session.searchPackageKeywords = keywords;
     clientQueryDB.searchVacationPackagesByKeyWords(keywords,function(err,results){
@@ -424,6 +425,26 @@ app.post('/services/package-search',function(req,res){
     })
 })
 
+
+
+
+
+app.post('/availableDates',function(req,res){
+
+    console.warn("invoking restful feed availableDates");
+    var product_parentId = req.body.parent_productId;
+
+    console.warn("product_parentId: "+ product_parentId);
+
+    clientQueryDB.availableDates(product_parentId,function(err,results){
+        if(err) {
+            res.send("error");
+            return;
+        }
+        res.send(results);
+
+    })
+})
 
 app.post('/children-products',function(req,res){
 
