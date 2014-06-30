@@ -12,6 +12,7 @@ var dateFormat = require('dateformat');
 var constants = require('./lib/common/constants');
 var userLogin = require('./lib/login/userLogin');
 var clientQueryDB = require('./lib/dbOperation/clientQueryDB');
+var payment = require('./lib/utilities/stripePayment');
 //var confirmPicGenerator = require('./lib/utilities/confirmPicGenerator');
 var passport = require('passport');
 var fpass = require('passport-facebook').Strategy;
@@ -87,8 +88,107 @@ app.get('/', function (req,res){
 });
 
 
+
+app.get('/package-search-results', function (req,res){
+    var keywords;
+    req.session.lastPage = "/package-search-results";
+
+    if(req.query.keywords) {
+        keywords = req.query.keywords
+    } else if(req.session.searchPackageKeywords) {
+        keywords= req.session.searchPackageKeywords;
+    } else {
+        keywords="";
+    }
+
+    if(req.user) {
+        res.render('searchPages/packageResults.ejs',{keywords: keywords+"",provider:req.user.provider,customerId:req.user.customerId, randomKey:req.user.randomKey,firstName: req.user.firstName, lastName: req.user.lastName});
+    } else {
+        res.render('searchPages/packageResults.ejs',{keywords: keywords+""});
+
+    }
+
+});
+
+
+app.get('/checkout',function (req,res){
+
+    console.dir(req);
+
+    req.session.lastPage = "/checkout";
+
+    res.render('checkoutPages/checkoutResults.ejs',{parentId : req.query.parentId } );
+
+
+});
+
+
+
+app.get('/checkout/:parentId',function (req,res){
+
+    req.session.lastPage = "/checkout";
+    res.render('checkoutPages/checkoutResults.ejs',{parentId : req.params.parentId } );
+});
+
+
+app.get('/payment', isLoggedIn,function (req,res){
+    res.render('payment/payment.ejs', {provider:req.user.provider,customerId:req.user.customerId, randomKey:req.user.randomKey,firstName: req.user.firstName, lastName: req.user.lastName});
+});
+
+app.get('/package-search', function (req,res){
+    res.render('searchPages/vacationPackagesSearchPage');
+});
+//app.all('/users', isLoggedIn);
+app.get('/logout', isLoggedIn, function (req, res) {
+    console.log(req.user.customerId + " logging out.");
+    userLogin.logoutCustomerLoginHistory(req.user.customerId,req.user.randomKey, function(err, results){
+        if(results==constants.CALLBACK_SUCCESS) {
+        } else {
+            console.error("Logout error, please retry");
+            return;
+        }
+
+    })
+    req.flash('success','You have successfully logged out!');
+    req.logout();
+    res.redirect("/");
+});
+
+
 ///////////////////////////////////////////////////////////////////////
-// * CustomerLogin methods
+// Customer Login and Account Management
+///////////////////////////////////////////////////////////////////////
+app.get('/login', function (req,res){
+    res.render('login/customerLogin',{error: req.flash('error'), success: req.flash('success'), message:req.flash('message') });
+});
+app.get('/signup', function (req,res){
+    res.render('login/createAccount');
+});
+
+app.get('/account/myorders', isLoggedIn, function (req,res){
+    var user = req.user;
+    req.session.lastPage = "/account/myorders";
+    res.render('login/myOrdersPage',{provider:user.provider,customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
+});
+app.get('/account/myaccount', isLoggedIn, function (req,res){
+    var user = req.user;
+    req.session.lastPage = "/account/myaccount";
+    res.render('login/myAccountPage',{provider:user.provider,customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
+});
+app.get('/account/myaccount/updatePassword', isLoggedIn, function (req,res){
+    var user = req.user;
+    req.session.lastPage = "/account/myaccount/updatePassword";
+    res.render('login/myAccountPageUpdatePassword',{provider:user.provider,customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
+});
+app.get('/account/myorders/history', isLoggedIn, function (req,res){
+    var user = req.user;
+    req.session.lastPage = "/account/myorders/history";
+    res.render('login/myHistoricalOrdersPage',{provider:user.provider,customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
+});
+
+
+///////////////////////////////////////////////////////////////////////
+// Passport - Login methods setup
 ///////////////////////////////////////////////////////////////////////
 passport.use('local', new LocalStrategy(
     function (username, password, done) {
@@ -142,7 +242,17 @@ passport.deserializeUser(function (user, done) {//删除user对象
     done(null, {provider:user.provider,customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName} );//可以通过数据库方式操作
 });
 
-//redirect to last page remembered by session
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        console.dir(req.user);
+        return next();
+    }
+
+    res.redirect("/login");
+}
+
+
 app.post('/login',
     passport.authenticate('local',
         {
@@ -190,37 +300,18 @@ app.get('/auth/facebook/callback',
     }
 );
 
-///////////////////////////////////////////////////////////////////////
-// Customer Login and Account Management
-///////////////////////////////////////////////////////////////////////
-app.get('/login', function (req,res){
-    res.render('login/customerLogin',{error: req.flash('error'), success: req.flash('success'), message:req.flash('message') });
-});
-app.get('/signup', function (req,res){
-    res.render('login/createAccount');
-});
+///////////////////////////////////////////////////////////////
+//REST data services
+// need to follow the convention, every REST service's url
+// should start with "/services/..."
+///////////////////////////////////////////////////////////////
 
-app.get('/account/myorders', isLoggedIn, function (req,res){
-    var user = req.user;
-    req.session.lastPage = "/account/myorders";
-    res.render('login/myOrdersPage',{provider:user.provider,customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
-});
-app.get('/account/myaccount', isLoggedIn, function (req,res){
-    var user = req.user;
-    req.session.lastPage = "/account/myaccount";
-    res.render('login/myAccountPage',{provider:user.provider,customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
-});
-app.get('/account/myaccount/updatePassword', isLoggedIn, function (req,res){
-    var user = req.user;
-    req.session.lastPage = "/account/myaccount/updatePassword";
-    res.render('login/myAccountPageUpdatePassword',{provider:user.provider,customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
-});
-app.get('/account/myorders/history', isLoggedIn, function (req,res){
-    var user = req.user;
-    req.session.lastPage = "/account/myorders/history";
-    res.render('login/myHistoricalOrdersPage',{provider:user.provider,customerId:user.customerId, randomKey:user.randomKey,firstName: user.firstName, lastName: user.lastName});
-});
-
+app.post('/services/stripePayment',isLoggedIn,function(req,res){
+    console.dir(req.body);
+    payment.pay(req.body,function(err,results){
+        console.dir(results);
+    });
+})
 
 //Data Services for account
 app.post('/services/customer/accounts/new', function(req,res) {
@@ -299,7 +390,7 @@ app.get('/services/getConfirmPic',function(req,res){
     res.end(conf[1]);
 })
 
-app.post('/account/updateAccountInfo',isLoggedIn, function(req,res){
+app.post('/services/account/updateAccountInfo',isLoggedIn, function(req,res){
     var user = req.user ;
     var updateAccountInfo = req.body.updateAccountInfo;
     console.log("updating account information!")
@@ -319,55 +410,8 @@ app.post('/account/updateAccountInfo',isLoggedIn, function(req,res){
 })
 
 
-app.get('/package-search-results', function (req,res){
-    var keywords;
-    req.session.lastPage = "/package-search-results";
 
-    if(req.query.keywords) {
-        keywords = req.query.keywords
-    } else if(req.session.searchPackageKeywords) {
-        keywords= req.session.searchPackageKeywords;
-    } else {
-        keywords="";
-    }
-
-    if(req.user) {
-       res.render('searchPages/packageResults.ejs',{keywords: keywords+"",provider:req.user.provider,customerId:req.user.customerId, randomKey:req.user.randomKey,firstName: req.user.firstName, lastName: req.user.lastName});
-    } else {
-        res.render('searchPages/packageResults.ejs',{keywords: keywords+""});
-
-    }
-
-});
-
-
-app.get('/checkout',function (req,res){
-
-    console.dir(req);
-
-    req.session.lastPage = "/checkout";
-
-    res.render('checkoutPages/checkoutResults.ejs',{parentId : req.query.parentId } );
-
-
-});
-
-
-
-app.get('/checkout/:parentId',function (req,res){
-
-
-    res.render('checkoutPages/checkoutResults.ejs',{parentId : req.params.parentId } );
-});
-
-
-
-
-app.get('/package-search', function (req,res){
-    res.render('searchPages/vacationPackagesSearchPage');
-});
-
-app.post('/package-search',function(req,res){
+app.post('/services/package-search',function(req,res){
     var keywords = req.body.keywords;
     req.session.searchPackageKeywords = keywords;
     clientQueryDB.searchVacationPackagesByKeyWords(keywords,function(err,results){
@@ -398,24 +442,6 @@ app.post('/children-products',function(req,res){
     })
 })
 
-//User Login Functionalities
-
-
-//app.all('/users', isLoggedIn);
-app.get('/logout', isLoggedIn, function (req, res) {
-    console.log(req.user.customerId + " logging out.");
-    userLogin.logoutCustomerLoginHistory(req.user.customerId,req.user.randomKey, function(err, results){
-        if(results==constants.CALLBACK_SUCCESS) {
-        } else {
-            console.error("Logout error, please retry");
-            return;
-        }
-
-    })
-    req.flash('success','You have successfully logged out!');
-    req.logout();
-    res.redirect("/");
-});
 
 
 
@@ -425,13 +451,5 @@ http.createServer(app).listen(app.get('port'), function(){
                               });
 
 
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        console.dir(req.user);
-        return next();
-    }
-
-    res.redirect("/login");
-}
 
 

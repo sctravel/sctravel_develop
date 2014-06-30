@@ -356,7 +356,7 @@
      function searchPackagesByKeywords(){
          var keywords=$('#search-package-keywords').val();
          console.log("search-package-button clicked:"+keywords);
-         $.post('/package-search',{keywords:keywords},function(data){
+         $.post('/services/package-search',{keywords:keywords},function(data){
              if(!data || data=="error") {
                  alert("error returned");
                  return;
