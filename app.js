@@ -5,6 +5,7 @@
 
 var express = require('express');
 var http = require('http');
+var https = require('https');
 var path = require('path');
 var dateFormat = require('dateformat');
 
@@ -76,6 +77,16 @@ if ('development' == app.get('env')) {
     app.use(express.errorHandler());
 };
 
+
+///////////////////////////////////////////////////////////////////////////
+// SSL Certification
+///////////////////////////////////////////////////////////////////////////
+var tls = require('tls');
+var fs = require('fs');
+var serverOptions = {
+    key: fs.readFileSync('./my_key.pem'),
+    cert: fs.readFileSync('./my_cert.pem')
+};
 
 //Home page
 app.get('/', function (req,res){
@@ -465,9 +476,7 @@ app.post('/children-products',function(req,res){
 
 
 
-
-
-http.createServer(app).listen(app.get('port'), function(){
+https.createServer(serverOptions,app).listen(app.get('port'), function(){
                               console.log('Express server listening on port ' + app.get('port'));
                               });
 

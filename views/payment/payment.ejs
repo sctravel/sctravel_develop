@@ -158,6 +158,8 @@
 <form action="/services/stripePayment" method="POST">
     <input type="hidden" autocomplete="off" name="amount" value="100"></input>
     <input type="hidden" autocomplete="off" name="currency" value="usd"></input>
+    <input type="hidden" autocomplete="off" name="orderId" value="aaaaaaaa"></input>
+
     <script
             src="https://checkout.stripe.com/checkout.js"
             class="stripe-button"
