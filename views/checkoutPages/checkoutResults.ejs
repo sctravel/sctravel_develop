@@ -18,6 +18,8 @@
 <link rel="stylesheet" href="/assets/css/hotelSearch-min.css">
 <link rel="stylesheet" href="/assets/css/packageSearch/advanced_search_result.css">
 <link rel="stylesheet" href="/assets/css/packageSearch/2.css">
+
+<link rel="stylesheet" href="/assets/css/jec-styled.css">
 <link rel="stylesheet" href="/assets/css/packageSearch/homepage-2012-1123-min.css">
 <link type="text/css" rel="stylesheet" href="/assets/css/simplePagination.css"/>
 
@@ -10014,12 +10016,12 @@ if ((top != self) && (typeof(top.commonspot)!== 'undefined') && (typeof(top.comm
         <div class="landing-intro intro clearfix">
             <div class="two-third-col">
                 <a name="ParkWelcomeTextTemplate" id="ParkWelcomeTextTemplate"></a><a name="CP_JUMP_481832" id="CP_JUMP_481832"></a><div id="cs_control_481832" class="cs_control CS_Element_Custom">
-                    <h1 class="page-title">Like No Place Else On Earth</h1>
+                    <h1 class="page-title">Like No Place Else On Earth Like No Place Else On Earth</h1>
                     <p>Jiuzhaigou Valley is part of the Min Mountains on the edge of the Tibetan Plateau and stretches over 72,000 hectares (180,000 acres). It is known for its many multi-level waterfalls, colorful lakes, and snow-capped peaks. Its elevation ranges from 2,000 to 4,500 metres (6,600 to 14,800 ft).
 
                         Jiuzhaigou Valley was inscribed by UNESCO as a World Heritage Site in 1992 and a World Biosphere Reserve in 1997. It belongs to the category V (Protected Landscape) in the IUCN system of protected area categorization.</p>
                 </div>
-                <div id='myCalendarContainer'></div>
+                <div id='myCalendarContainer' style=width:800px;float:left;></div>
                 <div id='childrenResult'>
 
                     <section id="resultsContainer" class="segmented-list AB5180 SS6240 SS5839">
@@ -10424,7 +10426,7 @@ if ((top != self) && (typeof(top.commonspot)!== 'undefined') && (typeof(top.comm
             '</li>'+
             '<li class="superlative">Very good!</li>'+
             '<li class="urgencyWrapper"></li>'+
-            '<li class="price"><span class="dynamic strikePrice" data-control="tooltip" data-trigger="hover" data-content-id="dynamicTooltip" data-arrow="true" data-fade="out" data-width="240">$174</span>   <span class="actualPrice fakeLink">$64</span> </li>'+
+            '<li class="price"><span class="actualPrice fakeLink">${list_price}</span></li>'+
             '<li class="avgPerNight priceType">night</li>'+
             '<li class="astrix"></li>'+
             '</ul>'+
@@ -10433,20 +10435,16 @@ if ((top != self) && (typeof(top.commonspot)!== 'undefined') && (typeof(top.comm
             '<li class="hotelName fakeLink"><span class="hotelName"><strong>{parent_product_name}</strong></span></li>'+
             '<li class="wpHotelType taapUsergroup"> {parent_product_id}<span class="wpText">ESR</span> </li>'+
             '<li  class="phoneEsr"> <span>{description}</span></li>'+
-            '<li class="starRating"><strong><strong class="star-rating rating-secondary rating"><span class="visuallyhidden">2.0 out of 5 stars</span><span class="icon icon-stars2-0 stars-yellow value-title" title="2.0" aria-hidden="true"></span></strong> </strong></li>'+
-            '<li class="starRatingText"><strong>2.0 stars</strong></li> '+
-            '<li class="neighborhood"> <span class="city">Monterey</span> <span class="area">(Monterey)</span>'+
             '<div data-content-id="view-map_1103256" class="toggle-trigger togglemap" data-track="HOT:SR:MapInListing" data-control="toggle" data-expand-text="<span class=&quot;icon icon-location iconmapblue&quot;></span> Map" data-collapse-text="<span class=&quot;icon icon-location iconmapblue&quot;></span> Map">'+
             '<span class="icon icon-location iconmapblue"></span></div></li>'+
             '<li class="guestRatingText"> <strong>4.0 out of 5</strong>'+
-            '<span class="reviewCount fakeLink">(1298 reviews)</span> </li>'+
             '<li class="phoneEsr"> <span class="phone">1-866-272-4856</span>'+
             '<span class="esr">CD5757 Rate</span>'+
             '</li> <li class="bookingVelocity_1103256 bookingVelocity"></li>'+
-            '<li class="lastBooked hotelContent">    Bought in the last 18 hours    </li></ul> </div>'+
+            '<li class="bookingVelocity_1103256 bookingVelocity"> <button type="button" onclick=\'location.href="http://localhost:3000/checkout?parentId=2"\' >check out</button></li>'+
             '<div id="spid" class="hidden automationTag">24</div></a>'+
 
-            '</article>'+
+    '</article>'+
             '</div>';
 
 
@@ -10481,11 +10479,8 @@ if ((top != self) && (typeof(top.commonspot)!== 'undefined') && (typeof(top.comm
                 return;
             }
             console.dir("callback data:"+ data);
-            //searchResults = data;
-            //if(data.length>0)
-                initResultPage(data);
-           // else
-             //   displayNoResults();
+            initResultPage(data);
+
         })
     }
 
@@ -10511,11 +10506,6 @@ function initResultPage(data){
     var resultConainer = jQuery('#resultsContainer');
     var result=[];
     var searchResults=[];
-
-
-
-
-
     var childResults=[];
     var package1 = {};
     package1.parent_product_id=1;
@@ -10577,15 +10567,13 @@ function getAvailableDates(parent_productId){
                         {
                             eventDate: data[i].DateStr,
                             eventDescription: 'Available',
-                            eventLink: 'http://calendar.ilsen.net',
+                            eventLink: 'http://localhost:3000/checkout?parentId=2?date=20140708',
                             eventTitle: 'A JavaScript Event Calendar'
                         }
                     ]
             );
         }
-
         myCal.showCalendar(20140707);
-    //return  ["20140707", "20140708", "20140709"];
 
     })
 
