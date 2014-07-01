@@ -149,7 +149,7 @@
 
        console.dir(updateAccountInfo);
 
-       $.post("/account/updateAccountInfo",{updateAccountInfo: updateAccountInfo}, function(data){
+       $.post("/services/account/updateAccountInfo",{updateAccountInfo: updateAccountInfo}, function(data){
             if(data=="done") {
                 reporter.successStatus("You have successfully updated your account information.");
                 reporter.render();
