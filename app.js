@@ -12,6 +12,8 @@ var dateFormat = require('dateformat');
 
 var constants = require('./lib/common/constants');
 var userLogin = require('./lib/login/userLogin');
+var forgotPassword = require('./lib/login/forgotPassword');
+
 var clientQueryDB = require('./lib/dbOperation/clientQueryDB');
 var payment = require('./lib/utilities/stripePayment');
 //var confirmPicGenerator = require('./lib/utilities/confirmPicGenerator');
@@ -98,6 +100,10 @@ app.get('/', function (req,res){
     }
 });
 
+app.get('/forgotPassword',function(req,res){
+    res.render('login/forgotPassword');
+})
+
 
 
 app.get('/package-search-results', function (req,res){
@@ -165,6 +171,13 @@ app.get('/logout', isLoggedIn, function (req, res) {
     res.redirect("/");
 });
 
+app.get('/findPassword',function(req,res){
+    var email = req.query.email;
+    var randomString = req.query.randomString;
+
+    console.warn("email:"+email+"; randomString:"+randomString);
+    res.render('login/changePasswordByEmail',{email:email,randomString:randomString});
+})
 
 ///////////////////////////////////////////////////////////////////////
 // Customer Login and Account Management
@@ -270,6 +283,12 @@ app.post('/login',
             failureRedirect: '/login',
             failureFlash: true }),
     function(req,res){
+        console.dir(req.body);
+        if(req.body.rememberMe=='on')
+        {
+            req.session.cookie.maxAge = 7*24*60*60*1000;
+            console.log("set cookie maxAge to 1 week");
+        }
         console.dir(req.session);
         if(req.session.lastPage) {
             res.redirect(req.session.lastPage);
@@ -310,6 +329,8 @@ app.get('/auth/facebook/callback',
 
     }
 );
+
+
 
 ///////////////////////////////////////////////////////////////
 //REST data services
@@ -475,6 +496,55 @@ app.post('/children-products',function(req,res){
 })
 
 
+////////////
+//find back password
+//
+app.post('/services/findPassword/updatePassword',function(req,res){
+    var email = req.body.email;
+    var randomString = req.body.randomString;
+    var password = req.body.password;
+
+    console.log("password we got is "+password);
+    forgotPassword.findPasswordByEmail(email,randomString,password,function(err,results){
+        if(err) {
+            console.error(err);
+            res.send("error");
+            return;
+        }
+        res.send(results);
+
+    })
+
+})
+
+app.post('/services/account/validateEmailLink',function(req,res){
+    var email = req.body.email;
+    var randomString = req.body.randomString;
+
+    forgotPassword.validateEmailLink(email,randomString,function(err,results){
+        if(err){
+            console.error(err);
+            return;
+        }
+        res.send(results);
+    })
+
+})
+
+app.post('/forgotPassword',function(req,res){
+    console.log("post to forgot password");
+    var email = req.body.email;
+
+    forgotPassword.forgotPassword(email,function(err,results){
+        if(err) {
+            console.error(err);
+            res.send("error");
+            return;
+        }
+        console.info("Email exists? "+results);
+        res.send(results);
+    })
+})
 
 https.createServer(serverOptions,app).listen(app.get('port'), function(){
                               console.log('Express server listening on port ' + app.get('port'));
