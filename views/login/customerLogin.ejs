@@ -45,34 +45,41 @@
                 <div class=""col>
                     <div id="signUpReporter"></div>
                         <center>
-                          <h1>Or, Sign in with your email:</h1>
+                          <h2>Or, Sign in with your email:</h2>
                           <form action="/login" method="post">
-                              </fieldset>
 
                               <fieldset>
                                   <label class=" text input-box" id="create-email-id">
                                       <span class="label">Email Address</span>
-                                      <input type="text" placeholder="" value='' name="username" id="username" />
+                                      <span class="input-text">
+                                      <input type="text" placeholder="Email Address" value='' name="username" id="username" />
+                                      </span>
                                   </label>
 
                                   <label class="text input-box" id="login-form-password-label2">
                                       <span class="label">Password</span>
-                                      <input type="password" placeholder="" value="" name="password" id="password" />
+                                      <span class="input-text">
+                                      <input type="password" placeholder="Password" value="" name="password" id="password" />
+                                      </span>
+                                  </label>
+                                  <label class="check">
+                                      <input type="checkbox" name="rememberMe" id="rememberMe"  />
+                                      <span class="inline-label">Keep me signed in</span>
                                   </label>
 
-                              <ul class="nobullet secondary">
+                                  <ul class="nobullet secondary">
                                   <p class="secondary">
-                                      <a class="link" href="/">
+                                      <a class="link" href="/forgotPassword">
                                           Forgot your password?
                                       </a>
                                   </p>
-                              </ul>
-                              <label class="check"><input type="checkbox" name="signin-loggedin" id="signin-loggedin"  /><span class="inline-label">Keep me signed in</span></label>
+                                  </ul>
 
                               <fieldset class="remove-margin">
-                                  <button type="submit" class="btn-action btn-primary" id="submitButton"><span class="btn-label">Sign In</span></button>
+                                  <button type="submit" class="btn-action btn-large btn-primary" id="submitButton"><span class="btn-label">Sign In</span></button>
                               </fieldset>
 
+                              </fieldset>
 
                           </form>
                         </center>
