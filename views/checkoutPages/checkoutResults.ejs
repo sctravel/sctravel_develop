@@ -65,16 +65,6 @@
 
 <link rel="shortcut icon" href="http://www.nps.gov/common/commonspot/templates/images/icons/favicon.ico">
 
-<script type="text/javascript">
-    if(typeof scriptsLoaded === 'undefined'){
-        var scriptsLoaded= new Array();
-    }
-    //Load jQuery only once.
-    if(!("jQuery" in scriptsLoaded)){
-        document.write('<script type="text\/javascript" src="\/ADF\/thirdParty\/jquery\/jquery-1.9.js"><\/script><script type="text\/javascript">jQuery.noConflict();<\/script>'+'<script type="text/javascript"><\/script>');
-        scriptsLoaded["jQuery"] = true;
-
-    }
 </script><script type="text/javascript" src="staticBooking_files/jquery-1.js"></script><script type="text/javascript">jQuery.noConflict();</script><script type="text/javascript"></script>
 
 <script src="staticBooking_files/jquery-migrate-1.js"></script><script type="text/javascript"></script>
@@ -89,11 +79,6 @@
 
 <script type="text/javascript" src="staticBooking_files/intercept-include.js"></script>
 <link rel="stylesheet" href="staticBooking_files/commonspot.css" type="text/css" id="cs_maincss"> <link rel="image_src" href="http://beammeupbiscotti.files.wordpress.com/2011/12/jiuzhaigou-25zc.jpg"><link rel="stylesheet" href="staticBooking_files/print.css" type="text/css"><script src="staticBooking_files/stats.js" type="text/javascript"></script><script src="staticBooking_files/foresee-surveydef.js" type="text/javascript"></script>
-
-
-
-
-
 
 
 <script src="staticBooking_files/always-include-ns.js" type="text/javascript"></script>
@@ -261,7 +246,7 @@
                 <div id='myCalendarContainer' style=width:800px;float:left;></div>
 
 
-
+                <div id='calendar'></div>
 
                 <div id='childrenResult'>
 
@@ -276,6 +261,54 @@
             </div>
         </div>
 
+        <!--
+        <script>
+
+            var eventResults =[];
+            var event1={};
+            event1.title='available';
+            event1.start='2014-06-12';
+
+            var event2={};
+            event2.title='available';
+            event2.start='2014-06-12';
+
+            eventResults.push(event1);
+            eventResults.push(event2);
+
+            $(document).ready(function() {
+
+                $('#calendar').fullCalendar({
+                    defaultDate: '2014-06-12',
+                    editable: true,
+                    events:eventResults,
+                    eventClick: function(event) {
+                        if (event.url) {
+                            window.open(event.url);
+                            return false;
+                        }
+                    }
+                });
+            });
+
+        </script>
+        <style>
+
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+                font-size: 14px;
+            }
+
+            #calendar {
+                width: 500px;
+                margin: 20px auto;
+            }
+
+        </style>
+
+-->
 
 
         <div id="social update" class=""><div class="CS_Element_Schedule" title="" id="CS_Element_FeatureContainer">
@@ -336,8 +369,6 @@
 <div id="main-bottom" class="chrome-center"></div>
 </div>
 </div>
-
-
 
 <script src="/assets/js/PopupWindow.js"></script>
 <script src="/assets/js/AnchorPosition.js"></script>
@@ -450,6 +481,8 @@ function initResultPage(data){
     var result=[];
     var searchResults=[];
     var childResults=[];
+
+    <!-- mockup data
     var package1 = {};
     package1.parent_product_id=1;
     package1.parent_product_name="九寨黄金三日游";
@@ -464,6 +497,8 @@ function initResultPage(data){
     package2.description="黄金级别四川九寨三日游，单人间全程5星级食宿，无商业促销互动，请放心游玩";
     package2.list_price=400;
     searchResults.push(package2);
+    -->
+
 
     searchResults= data;
 
@@ -480,6 +515,21 @@ function initResultPage(data){
 
 </script>
 
+<style>
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+        font-size: 14px;
+    }
+
+    #calendar {
+        width: 500px;
+        margin: 20px auto;
+    }
+
+</style>
 
 
 
@@ -505,7 +555,14 @@ function getAvailableDates(parent_productId){
             lastMonth: 201407
         });
 
+        var eventResults =[];
+
         for (var i = 0; i < data.length; i++) {
+
+            var event={};
+            event.title='available';
+            event.start=data[i].DateStr;
+            eventResults.push(event);
 
             console.warn("dates in calendar:"+ data[i].DateStr);
             myCal.defineEvents(
@@ -520,6 +577,36 @@ function getAvailableDates(parent_productId){
             );
         }
         myCal.showCalendar(20140707);
+
+        $(document).ready(function() {
+
+            var d = new Date();
+
+            var curr_date = d.getDate();
+
+            console.dir("curr_date:"+curr_date);
+            var curr_month = d.getMonth()+1; //Months are zero based
+            console.dir("curr_month:"+curr_month);
+            var curr_year = d.getFullYear();
+
+            console.dir("curr_year:"+curr_year);
+
+            var formattedDate= curr_year + "-" + curr_month + "-" + curr_date;
+
+            console.dir("formattedDate:"+formattedDate);
+
+            $('#calendar').fullCalendar({
+                defaultDate: formattedDate,
+                editable: true,
+                events:eventResults,
+                eventClick: function(event) {
+                    if (event.url) {
+                        window.open(event.url);
+                        return false;
+                    }
+                }
+            });
+        });
 
     })
 
@@ -538,62 +625,7 @@ function getAvailableDates(parent_productId){
 
  </script>
 
+-->
 
 
-
-
-<script>
-
-    jQuery(document).ready(function() {
-
-        jQuery('#calendar').fullCalendar({
-            defaultDate: '2014-06-12',
-            editable: true,
-            events: [
-                {
-                    title: 'All Day Event',
-                    start: '2014-06-01'
-                },
-                {
-                    title: 'Long Event',
-                    start: '2014-06-07',
-                    end: '2014-06-10'
-                },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: '2014-06-09T16:00:00'
-                },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: '2014-06-16T16:00:00'
-                },
-                {
-                    title: 'Meeting',
-                    start: '2014-06-12T10:30:00',
-                    end: '2014-06-12T12:30:00'
-                }
-            ]
-        });
-
-    });
-
-</script>
-<style>
-
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-        font-size: 14px;
-    }
-
-    #calendar {
-        width: 900px;
-        margin: 40px auto;
-    }
-
-</style>
-<div id='calendar'></div>
-</body></html>
+</html>
