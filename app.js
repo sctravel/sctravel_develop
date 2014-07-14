@@ -496,6 +496,26 @@ app.post('/children-products',function(req,res){
 })
 
 
+app.get('/children-products/:parentProductId/:dates', function(req,res) {
+
+    console.warn("invoking restful feed children-products");
+    var product_parentId = req.body.parent_productId;
+
+    console.warn("product_parentId: "+ product_parentId);
+
+    clientQueryDB.searchChildrenProductsWithDates(product_parentId,dates,function(err,results){
+        if(err) {
+            res.send("error");
+            return;
+        }
+        res.send(results);
+
+    })
+
+
+});
+
+
 ////////////
 //find back password
 //

@@ -599,11 +599,12 @@ function getAvailableDates(parent_productId){
                 defaultDate: formattedDate,
                 editable: true,
                 events:eventResults,
-                eventClick: function(event) {
-                    if (event.url) {
-                        window.open(event.url);
-                        return false;
-                    }
+                eventClick: function(event, jsEvent, view)  {
+                    alert('Event: ' + event.title);
+                    alert('start: ' + event.start.format());
+
+                    loadChildrenForSelectedDatesResults(event.start.format());
+
                 }
             });
         });
@@ -613,8 +614,38 @@ function getAvailableDates(parent_productId){
 
 }
 
+</script>
+
+
+<script>
+
+function loadChildrenForSelectedDatesResults(date){
+    var parent_productId="<%= parentId %>";
+    console.warn("parent_productId:"+ parent_productId);
+    console.log("generating children product page");
+    jQuery.post('/children-products',{parent_productId:parent_productId},function(data){
+    if(!data || data=="error") {
+    alert("error returned from DB query");
+    displayNoResults(parent_productId);
+    return;
+}
+    console.dir("callback data:"+ data);
+    initResultPage(data);
+})
+
 
 </script>
+
+
+
+
+
+
+
+
+
+
+
 <script>
 
     loadChildrenResults();
